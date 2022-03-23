@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from distutils.fancy_getopt import FancyGetopt
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'accounts',
     'events',
 ]
@@ -127,16 +130,34 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'stmp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'courseworkpolina@gmail.com'
+EMAIL_HOST_PASSWORD = 'pshenokek16'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
 # Configure Djoser
 DJOSER = {
-    "USER_ID_FIELD": "username",
-    "LOGIN_FIELD": "email",
-    "SEND_ACTIVATION_EMAIL": True,  # enabled send activation email
-    "ACTIVATION_URL": "activate/{uid}/{token}",  # setup the activation email link
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    # "USER_ID_FIELD": "username",
+    # "LOGIN_FIELD": "email",
+    'ACTIVATION_URL': 'activate/{uid}/{token}',  # setup the activation email link
+    'SEND_ACTIVATION_EMAIL': True,  # enabled send activation email
+
     "SERIALIZERS": { # defined the custom token create serializer token_create - it will be needed to allow the user to login even with unverified email.
-        'token_create': 'apps.accounts.serializers.CustomTokenCreateSerializer',
+        # 'token_create': 'apps.accounts.serializers.CustomTokenCreateSerializer',
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # this backend is simply displaying all emails in the console.
-SITE_NAME = "SportEvent"  # the site name variable will be used in the activation email.
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # this backend is simply displaying all emails in the console.
+# SITE_NAME = "SportEvent"  # the site name variable will be used in the activation email.
