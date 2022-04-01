@@ -1,19 +1,31 @@
+# from tty import setraw
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    # event = serializers.PrimaryKeyRelatedField(many=True, queryset=Event.objects.all())
+class RegisterSerializer(serializers.ModelSerializer):
+    """
+    Register Serializer.
+
+    """
+    password = serializers.CharField(max_length=68, min_length=6, write_only=True)
+
+    default_error_messages = {
+        'username': 'The username should only contain alphanumeric characters'}
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'email']
-    #     extra_kwargs = {'password': {'write_only': True}}
-    
-    
-    # def create(self, validated_data):
-    #     user = User(
-    #         email=validated_data['email'],
-    #         username=validated_data['username']
-    #     )
-    #     user.set_password(validated_data['password'])
-    #     user.save()
-    #     return user
+        fields = ['email', 'username', 'password']
+
+        def validate(self, attrs):
+            email = attrs.get('email', '')
+            username = attrs.get('username', '')
+
+            if not username.isalnum():
+                raise serializers.ValidationError(self.default_error_messages)
+            
+            return attrs
+
+        
+        def create(self, validated_data):
+            return User.objects.create_user(**validated_data)

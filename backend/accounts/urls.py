@@ -1,10 +1,10 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from accounts import views
+from .views import VerifyEmail, RegisterView
 
 urlpatterns = [
-    path('users/', views.UserList.as_view()),
-    path('users/<int:pk>', views.UserDetail.as_view()),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('email-verify/', VerifyEmail.as_view(), name='email_verify'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

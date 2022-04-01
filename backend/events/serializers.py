@@ -9,7 +9,7 @@ class EventSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'level', 'latitude', 'longitude']
+        fields = ['id', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'level', 'latitude', 'longitude']
 
     def validate(self, data):
         """

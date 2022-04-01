@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from distutils.fancy_getopt import FancyGetopt
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,9 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Override the default user model
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -131,33 +133,20 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    'NON_FIELD_ERRORS_KEY': 'error',
+
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    )
 }
 
+# Email sending settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'stmp.gmail.com'
-EMAIL_PORT = 465
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER = 'courseworkpolina@gmail.com'
 EMAIL_HOST_PASSWORD = 'pshenokek16'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-
-# Configure Djoser
-DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
-    # "USER_ID_FIELD": "username",
-    # "LOGIN_FIELD": "email",
-    'ACTIVATION_URL': 'activate/{uid}/{token}',  # setup the activation email link
-    'SEND_ACTIVATION_EMAIL': True,  # enabled send activation email
-
-    "SERIALIZERS": { # defined the custom token create serializer token_create - it will be needed to allow the user to login even with unverified email.
-        # 'token_create': 'apps.accounts.serializers.CustomTokenCreateSerializer',
-    },
-}
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # this backend is simply displaying all emails in the console.
-# SITE_NAME = "SportEvent"  # the site name variable will be used in the activation email.
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
