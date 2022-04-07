@@ -15,7 +15,7 @@ LEVEL = ((1, 'None'),
          (4, 'Hard'))
 
 class Event(models.Model):
-    # owner = models.ForeignKey('auth.User', related_name='events', on_delete=models.CASCADE)
+    # owner = models.ForeignKey('accounts.User', related_name='created_events', on_delete=models.CASCADE)
     sport = models.CharField(choices=SPORT, default='running', max_length=100)
 
     #TODO: think about replace date validation to events/serializers.py
