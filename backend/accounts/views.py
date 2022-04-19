@@ -5,13 +5,13 @@ from django.shortcuts import render
 from django.utils.encoding import DjangoUnicodeDecodeError, force_str, smart_str, smart_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode 
 from django.urls import reverse
-from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
+from events.permissions import IsOwnerOrReadOnly
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import (
-    EmailVerificationSerializer, LoginSerializer, RegisterSerializer, 
-    ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer
+    ChangeAccountSerializer, EmailVerificationSerializer, LoginSerializer, RegisterSerializer, 
+    ResetPasswordEmailRequestSerializer, UploadPhotoSerializer, UserSerializer, SetNewPasswordSerializer
 )
 from .models import User
 from .utils import Util
@@ -119,3 +119,67 @@ class SetNewPasswordAPIView(generics.GenericAPIView):
         return Response({'success': True,
                          'message': 'Password reset success'},
                           status=status.HTTP_200_OK)
+
+
+class ChangeAccountInformation(generics.UpdateAPIView):
+    serializer_class = ChangeAccountSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+    lookup_field = 'pk'
+    
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+        
+            return Response({'success': True,
+                            'message': 'User data updeting success'},
+                            status=status.HTTP_200_OK)
+
+        return Response({'success': False,
+                         'message': 'User data updating FAILED'},
+                         status=status.HTTP_400_BAD_REQUEST)
+
+
+class GetUsersView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsOwnerOrReadOnly]
+
+
+class GetUserByIdView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class UploadPhoto(generics.UpdateAPIView):
+    serializer_class = UploadPhotoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+    lookup_field = 'pk'
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.photo = request.FILES['photo']
+        instance.save()
+        # serializer = self.get_serializer(instance, data=request.data, partial=True)
+        
+        # if serializer.is_valid(raise_exception=True):
+        #     serializer.save()
+        
+        return Response({'success': True,
+                        'message': 'User photo uploading is success'},
+                        status=status.HTTP_200_OK)
+
+        # return Response({'success': False,
+        #                  'message': 'User photo uploading FAILED'},
+        #                  status=status.HTTP_400_BAD_REQUEST)
+
+
+        
+
+
+

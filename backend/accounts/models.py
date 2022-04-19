@@ -25,7 +25,7 @@ class UserManager(BaseUserManager):
                           email=self.normalize_email(email),
                           name=name,
                           surname=surname,
-                        #   birthday=birthday,
+                          birthday=birthday,
                           country=country,
                           locality=locality)
         user.set_password(password)
@@ -63,6 +63,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     birthday = models.DateField(null=True, unique=False)
     country = models.CharField(max_length=255, default='', unique=False)
     locality = models.CharField(max_length=255, default='', unique=False)
+    photo = models.ImageField(upload_to='avatars', blank=True)
 
     USERNAME_FIELD = 'email'  # field that using as unique id
     REQUIRED_FIELDS = ['username',]  # fields that will be requested when creating a user

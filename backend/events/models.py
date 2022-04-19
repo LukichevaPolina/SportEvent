@@ -26,6 +26,7 @@ class Event(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     person_number = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(15)], default=5)
+    free_seats = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(15)], default=5)
     level = models.CharField(choices=LEVEL, default='None', max_length=100)
     latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)])
     longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])

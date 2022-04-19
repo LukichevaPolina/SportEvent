@@ -8,10 +8,11 @@ from events.models import Event
 
 class EventSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    # free_seats = serializers.ReadOnlyField(source='person_number')
 
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'level', 'latitude', 'longitude', 'members']
+        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
 
     def validate(self, data):
         """
@@ -38,12 +39,15 @@ class EventJoinSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'level', 'latitude', 'longitude', 'members']
+        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
 
    
     def update(self, instance, data):
-        instance.members.add(data['members'][0])
-        instance.save()
+        new_member = data['members'][0]
+        if not new_member in instance.members.all():
+            instance.members.add(new_member)
+            instance.free_seats = instance.free_seats - 1
+            instance.save()
         return instance
 
 
@@ -54,10 +58,13 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'level', 'latitude', 'longitude', 'members']
+        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
 
     def update(self, instance, data):
-        instance.members.remove(data['members'][0])
-        instance.save()
+        member = data['members'][0]
+        if member in instance.members.all():
+            instance.members.remove(data['members'][0])
+            instance.free_seats = instance.free_seats + 1
+            instance.save()
         return instance
         

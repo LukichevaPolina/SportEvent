@@ -1,29 +1,43 @@
 from django.contrib.auth.models import User
+from django.db.models import Count
+from django.db.models import Q
+from requests import request
 from events.models import Event
-from events.permissions import IsOwnerOrReadOnly
+from events.permissions import IsEventMember, IsOwnerOrReadOnly
 from events.serializers import EventSerializer, EventJoinSerializer, EventUnjoinSerializer
-from rest_framework import generics, status
-from rest_framework import permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from datetime import datetime
 
 
 class EventList(generics.ListCreateAPIView):
+    """
+    List of all events.
+
+    """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
 class EventDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Return certain event by id.
+    
+    """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class EventSchedule(generics.ListAPIView):
+    """
+    Return schedule for current user.
+
+    """
     serializer_class = EventSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -32,12 +46,16 @@ class EventSchedule(generics.ListAPIView):
         This view should return a list of all the events
         for the currently authenticated user.
         """
-        return Event.objects.filter(members=self.request.user, date__gt=datetime.now().date())
+        return Event.objects.filter(members=self.request.user, date__gte=datetime.now().date())
 
 
 class EventJoinAPIView(generics.UpdateAPIView):
+    """
+    If there are available seats, user join to event.
+    
+    """
     serializer_class = EventJoinSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsEventMember]
     queryset = Event.objects.all()
     lookup_field = 'id'
 
@@ -65,8 +83,12 @@ class EventJoinAPIView(generics.UpdateAPIView):
 
 
 class EventUnjoinAPIView(generics.UpdateAPIView):
+    """
+    User unjoin to event.
+    
+    """
     serializer_class = EventUnjoinSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsEventMember]
     queryset = Event.objects.all()
     lookup_field = 'id'
 
@@ -80,9 +102,107 @@ class EventUnjoinAPIView(generics.UpdateAPIView):
             serializer.save()
         
             return Response({'success': True,
-                            'message': 'User joining success'},
+                            'message': 'User unjoining success'},
                             status=status.HTTP_200_OK)
 
         return Response({'success': False,
-                         'message': 'User joining FAILED'},
+                         'message': 'User unjoining FAILED'},
                          status=status.HTTP_400_BAD_REQUEST)
+
+
+class EventDate(generics.ListCreateAPIView):
+    """
+    Return list of events for certain date.
+    
+    """
+    serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        date = self.request.query_params.get('date')
+        if date:
+            self.queryset = Event.objects.filter(date=date)
+            return self.queryset
+        else:
+            return self.queryset
+
+
+class EventAfterDate(generics.ListCreateAPIView):
+    """
+    Return list of events for certain date and future.
+    
+    """
+    serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        date = self.request.query_params.get('date')
+        if date:
+            self.queryset = Event.objects.filter(date__gte=datetime.now().date())
+            return self.queryset
+        else:
+            return self.queryset
+
+
+class EventVisited(generics.ListCreateAPIView):
+    """
+    Return list of visited events for certain user.
+    
+    """
+    serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        self.queryset = Event.objects.filter(members=self.request.user, date__lte=datetime.now().date())
+        return self.queryset
+
+
+class EventCreated(generics.ListCreateAPIView):
+    """
+    Return list of created by user events.
+    
+    """
+    serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        self.queryset = Event.objects.filter(owner=self.request.user)
+        return self.queryset
+
+
+class EventFilters(generics.ListAPIView):
+    """
+    Return events for filter.
+    There is filter by:
+    * date
+    * time
+    * sports
+    * free seats
+    
+    """
+    serializer_class = EventSerializer
+    # permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        query = {}
+
+        if self.request.data['date']:
+            query['date'] = self.request.data['date']
+        else:
+            query['date__gte'] = datetime.now().date()
+
+        if self.request.data['start_time']:
+            query['start_time__gte'] = self.request.data['start_time']
+
+        if self.request.data['sport']:
+            query['sport__in'] = self.request.data['sport']
+                
+        if self.request.data['free_seats_gte']:
+            query['free_seats__gte'] = self.request.data['free_seats_gte']
+        
+        if self.request.data['free_seats_lte']:
+            query['free_seats__lte'] = self.request.data['free_seats_lte']
+
+        self.queryset = Event.objects.filter(**query)
+        
+        return self.queryset
