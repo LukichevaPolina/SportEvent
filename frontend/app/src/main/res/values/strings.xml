@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">SportEvent</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="splash">SportEvent</string>
+    <string name="address">Enter address</string>
+
+    <string name="btn">Find</string>
+    <string name="onb1_contentDescription">A training girl on green background</string>
+    <string name="next">Далее</string>
+    <string name="start">Начать</string>
+    <string name="titleOnb1">Актуальные спортивные площадки</string>
+    <string name="textOnb1">Найдите идеальное место для ваших тренировок: Вы можете настроить фильтры и выбрать подходящую площадку.</string>
+    <string name="skip">Пропустить</string>
+    <string name="titleOnb2">Создание и поиск спортивных мероприятий</string>
+    <string name="textOnb2">Присоединяйтесь к спортивным мероприятиям или создавайте свои собственные.</string>
+    <string name="titleOnb3">Поиск единомышленников</string>
+    <string name="textOnb3">Найдите компаньонов для занятий спортом. Заниматься в компаниии единомышленников приятнее и эффективнее. </string>
+
+</resources>
