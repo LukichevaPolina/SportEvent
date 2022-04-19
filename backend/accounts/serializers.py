@@ -1,4 +1,5 @@
 
+from multiprocessing import Event
 from django.contrib import auth
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
@@ -6,7 +7,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
 from .models import User
-
+from sports.models import Sport
 
 class RegisterSerializer(serializers.ModelSerializer):
     """
@@ -20,7 +21,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password']
+        fields = ['email', 'username', 'password', 'name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -38,6 +39,10 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class EmailVerificationSerializer(serializers.ModelSerializer):
+    """
+    Email verification serializer.
+
+    """
     token = serializers.CharField(max_length=555)
 
     class Meta:
@@ -90,6 +95,10 @@ class LoginSerializer(serializers.ModelSerializer):
 
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
+    """
+    Reset password by email serializer.
+
+    """
     email = serializers.EmailField(min_length=2)
 
     class Meta:
@@ -102,9 +111,13 @@ class ResetPasswordEmailRequestSerializer(serializers.Serializer):
 
 
 class SetNewPasswordSerializer(serializers.Serializer):
-    password =  serializers.CharField(min_length=6, max_length=68, write_only=True)
-    token =  serializers.CharField(min_length=1, write_only=True)
-    uidb64 =  serializers.CharField(min_length=1, write_only=True)
+    """
+    Set new pasword serializer.
+    
+    """
+    password = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    token = serializers.CharField(min_length=1, write_only=True)
+    uidb64 = serializers.CharField(min_length=1, write_only=True)
 
     class Meta:
         fields=['password', 'token', 'uidb64']
@@ -126,3 +139,55 @@ class SetNewPasswordSerializer(serializers.Serializer):
         except Exception as e:
             raise AuthenticationFailed('The reset link is invalid', 401)
         
+
+class ChangeAccountSerializer(serializers.Serializer):
+    name = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    surname = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    birthday = serializers.DateField()
+    country = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    locality = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True)
+
+    class Meta:
+        model = Event
+        fields = ['name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.surname = validated_data.get('surname', instance.surname)
+        instance.birthday = validated_data.get('birthday', instance.birthday)
+        instance.country = validated_data.get('country', instance.country)
+        instance.locality = validated_data.get('locality', instance.locality)
+
+        instance.favorite_sports.clear()
+        favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
+        for sport in favorite_sports:
+            instance.favorite_sports.add(sport)
+
+        instance.save()
+        return instance
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'username', 'name', 'surname', 'birthday', 'favorite_sports', 'country', 'locality']
+
+
+class UploadPhotoSerializer(serializers.HyperlinkedModelSerializer):
+    photo = serializers.ImageField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'photo']
+
+
+    def update(self, instance, data, files):
+        print(data.get('photo'))
+        instance.photo = data.get('photo', instance.photo)
+        instance.save()
+
+        return instance
+
+
