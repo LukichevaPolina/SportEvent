@@ -1,4 +1,4 @@
-package com.sport.event
+package com.sport.event.activities
 
 import android.location.Address
 import android.location.Geocoder
@@ -15,8 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.Marker
-import com.sport.event.retrofit.APIApp
-import com.sport.event.retrofit.models.Tokens
+import com.sport.event.R
 import java.io.IOException
 import java.util.*
 

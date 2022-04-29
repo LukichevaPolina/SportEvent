@@ -15,5 +15,7 @@
     <string name="textOnb2">Присоединяйтесь к спортивным мероприятиям или создавайте свои собственные.</string>
     <string name="titleOnb3">Поиск единомышленников</string>
     <string name="textOnb3">Найдите компаньонов для занятий спортом. Заниматься в компаниии единомышленников приятнее и эффективнее. </string>
+    <string name="login">Войти</string>
+    <string name="registry">Зарегистироваться</string>
 
 </resources>

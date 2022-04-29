@@ -1,13 +1,10 @@
-package com.sport.event
+package com.sport.event.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import android.accounts.Account
-
-
+import com.sport.event.R
 
 
 class Onbording1 : AppCompatActivity() {
@@ -23,7 +20,7 @@ class Onbording1 : AppCompatActivity() {
         button.setOnClickListener() {
             val intent = Intent(this, Onbording2::class.java)
             startActivity(intent)
-            //finish()
+            finish()
         }
     }
 }

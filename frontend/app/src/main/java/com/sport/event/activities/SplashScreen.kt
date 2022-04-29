@@ -1,15 +1,16 @@
-package com.sport.event
+package com.sport.event.activities
 
-import android.R.id
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.accounts.AccountManager
 import android.accounts.Account
 import AccountUtils
-import android.widget.Toast
+import android.annotation.SuppressLint
+import com.sport.event.R
 
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
     var mAccountManager: AccountManager? = null
 

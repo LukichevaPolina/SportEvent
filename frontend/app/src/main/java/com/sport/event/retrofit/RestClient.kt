@@ -1,8 +1,8 @@
 package com.sport.event.retrofit
 
 import com.google.gson.GsonBuilder
-import com.sport.event.retrofit.models.LoginOut
-import com.sport.event.retrofit.models.LoginPut
+import com.sport.event.retrofit.models.LoginResponse
+import com.sport.event.retrofit.models.LoginRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,19 +38,19 @@ class RestClient {
     }
 
     fun login(email: String, password: String, callbacks: LoginCallbacks) {
-        val userLogin = LoginPut(email, password)
+        val userLogin = LoginRequest(email, password)
 //--------------------------------------Async executing--------------------------------------
-        service.loginUser(userLogin)?.enqueue(object : Callback<LoginOut?> {
-            override fun onResponse(call: Call<LoginOut?>, response: Response<LoginOut?>) {
-                val tokensJson: LoginOut? = response.body()
+        service.loginUser(userLogin)?.enqueue(object : Callback<LoginResponse?> {
+            override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
+                val tokensJson: LoginResponse? = response.body()
                 if (response.isSuccessful && tokensJson != null) {
-                    val authToken: String? = tokensJson?.getTokens()?.getAccessToken()
+                    val authToken: String? = tokensJson.getTokens()?.getAccessToken()
                     callbacks.onSuccess(authToken);
                 } else {
-                    println("Response is %s" + response.code())
+                    callbacks.onFailure(response.code())
                 }
             }
-            override fun onFailure(call: Call<LoginOut?>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
                 callbacks.onError(t)
             }
         })
