@@ -29,7 +29,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SportEvent">
+        android:theme="@style/Theme.SportEvent"
+        android:usesCleartextTraffic="true">
         <!--service for authentication-->
         <service android:name=".accountManager.AuthenticatorService"
             android:exported="true"
