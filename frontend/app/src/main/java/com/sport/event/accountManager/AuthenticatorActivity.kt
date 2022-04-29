@@ -9,7 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import com.sport.event.retrofit.LoginCallbacks
+import com.sport.event.retrofit.RestClientCallbacks
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
 import com.sport.event.R
@@ -62,7 +62,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         val data = Bundle()
         try {
             //-----------------------------------Retrofit request-----------------------------------
-            APIApp.restClient?.login(userEmail, userPass, object : LoginCallbacks {
+            APIApp.restClient?.login(userEmail, userPass, object : RestClientCallbacks {
                 override fun onSuccess(authToken: String?) {
                     println(authToken)
                     data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)

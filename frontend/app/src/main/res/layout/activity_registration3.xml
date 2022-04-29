@@ -6,13 +6,13 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/nickname"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Text_Body_16pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:autofillHints=""
         android:inputType="text"
         tools:ignore="LabelFor" />
@@ -24,7 +24,7 @@
         android:textAppearance="@style/Text_Body_16pt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/country"
+        app:layout_constraintTop_toBottomOf="@id/username"
         android:autofillHints=""
         android:inputType="text"
         tools:ignore="LabelFor" />

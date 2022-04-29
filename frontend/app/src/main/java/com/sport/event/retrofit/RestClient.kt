@@ -3,6 +3,7 @@ package com.sport.event.retrofit
 import com.google.gson.GsonBuilder
 import com.sport.event.retrofit.models.LoginResponse
 import com.sport.event.retrofit.models.LoginRequest
+import com.sport.event.retrofit.models.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,15 +38,14 @@ class RestClient {
             }
     }
 
-    fun login(email: String, password: String, callbacks: LoginCallbacks) {
+    fun login(email: String, password: String, callbacks: RestClientCallbacks) {
         val userLogin = LoginRequest(email, password)
-//--------------------------------------Async executing--------------------------------------
         service.loginUser(userLogin)?.enqueue(object : Callback<LoginResponse?> {
             override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
                 val tokensJson: LoginResponse? = response.body()
                 if (response.isSuccessful && tokensJson != null) {
                     val authToken: String? = tokensJson.getTokens()?.getAccessToken()
-                    callbacks.onSuccess(authToken);
+                    callbacks.onSuccess(authToken)
                 } else {
                     callbacks.onFailure(response.code())
                 }
@@ -54,7 +54,32 @@ class RestClient {
                 callbacks.onError(t)
             }
         })
-//-------------------------------------------------------------------------------------------
+    }
+
+    fun register(name: String?,
+                 surname: String?,
+                 birthday: String?,
+                 email: String?,
+                 country: String?,
+                 locality: String?,
+                 username: String?,
+                 favoriteSports: ArrayList<Int>?,
+                 password: String?,
+                 callbacks: RestClientCallbacks) {
+        val user = User(email, username, password, name, surname, birthday, country, locality) //favoriteSports)
+        service.registerUser(user)?.enqueue(object : Callback<User?> {
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
+                val tokensJson: User? = response.body()
+                if (response.isSuccessful && tokensJson != null) {
+                    callbacks.onSuccess(null)
+                } else {
+                    callbacks.onFailure(response.code())
+                }
+            }
+            override fun onFailure(call: Call<User?>, t: Throwable) {
+                callbacks.onError(t)
+            }
+        })
     }
 }
 
