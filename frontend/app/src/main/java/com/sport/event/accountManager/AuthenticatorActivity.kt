@@ -1,21 +1,19 @@
 package com.sport.event.accountManager
 
-import AccountUtils
+import Constants
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.sport.event.retrofit.RestClientCallbacks
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
 import com.sport.event.R
-
-
-
 
 //The Authenticator activity.
 //Called by the Authenticator and in charge of identifing the user.
@@ -30,9 +28,10 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
         setContentView(R.layout.activity_login)
+        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
         mAccountManager = AccountManager.get(baseContext)
-        val accountName = intent.getStringExtra(AccountUtils.ACCOUNT_NAME)
-        mAuthTokenType = intent.getStringExtra(AccountUtils.ARG_AUTH_TOKEN_TYPE)
+        val accountName = intent.getStringExtra(Constants.ACCOUNT_NAME)
+        mAuthTokenType = intent.getStringExtra(Constants.AUTH_TOKEN_TYPE)
         if (accountName != null) {
             (findViewById<View>(R.id.email) as TextView).text = accountName
         }
@@ -52,10 +51,14 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
 
     // TODO: different cases with invalid data
     fun submit() {
+        findViewById<View>(R.id.loadingPanel).visibility = View.VISIBLE
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         val userEmail = (findViewById<View>(R.id.email) as TextView).text.toString()
         val userPass =
             (findViewById<View>(R.id.password) as TextView).text.toString()
-        val accountType = intent.getStringExtra(AccountUtils.ACCOUNT_TYPE)
+        val accountType = intent.getStringExtra(Constants.ACCOUNT_TYPE)
 
         Log.d("SportEvent", "$TAG> Started authenticating")
         var authToken: String? = null
@@ -105,6 +108,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         mAccountManager!!.setAuthToken(account, authtokenType, authtoken)
         setAccountAuthenticatorResult(intent.extras)
         setResult(RESULT_OK, intent)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         finish()
     }
 

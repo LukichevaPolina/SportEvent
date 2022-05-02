@@ -33,7 +33,7 @@ class StartScreen : AppCompatActivity() {
         val accountManager: AccountManager = AccountManager.get(this@StartScreen)
         //accountManager.addAccount opens AuthenticationActivity which creates account on device
         //future needs for debug
-        val future : AccountManagerFuture<Bundle> = accountManager.addAccount(AccountUtils.ACCOUNT_TYPE, AccountUtils.ARG_AUTH_TOKEN_TYPE,null,  null, this,
+        val future : AccountManagerFuture<Bundle> = accountManager.addAccount(Constants.ACCOUNT_TYPE, Constants.AUTH_TOKEN_TYPE,null,  null, this,
             { future ->
                 try {
                     val bnd: Bundle  = future.getResult()

@@ -10,7 +10,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class RestClient {
 
     init {
@@ -19,7 +18,7 @@ class RestClient {
             .create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.13:8000/")
+            .baseUrl("http:///172.20.10.2:8000/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
@@ -66,7 +65,7 @@ class RestClient {
                  favoriteSports: ArrayList<Int>?,
                  password: String?,
                  callbacks: RestClientCallbacks) {
-        val user = User(email, username, password, name, surname, birthday, country, locality) //favoriteSports)
+        val user = User(email, username, password, name, surname, birthday, country, locality, favoriteSports)
         service.registerUser(user)?.enqueue(object : Callback<User?> {
             override fun onResponse(call: Call<User?>, response: Response<User?>) {
                 val tokensJson: User? = response.body()

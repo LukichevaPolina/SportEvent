@@ -17,5 +17,6 @@
     <string name="textOnb3">Найдите компаньонов для занятий спортом. Заниматься в компаниии единомышленников приятнее и эффективнее. </string>
     <string name="login">Войти</string>
     <string name="registry">Зарегистироваться</string>
+    <string name="succsessful_registry">О, ура! Вы зарегистрировались!</string>
 
 </resources>
