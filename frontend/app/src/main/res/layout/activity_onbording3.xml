@@ -7,14 +7,17 @@
     tools:context=".activities.Onbording3">
 
     <ImageView
-        android:id="@+id/imageViewOnb1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/onb1_contentDescription"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/imageViewOnb3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/onb3_contentDescription"
+        app:layout_constraintBottom_toTopOf="@id/titleOnb3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_onb3backgr" />
 
@@ -41,26 +44,26 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/titleOnb1"
+        android:id="@+id/titleOnb3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         style="@style/Text_H1_24pt"
-        android:text="@string/titleOnb2"
+        android:text="@string/titleOnb3"
         android:gravity="center_horizontal"
         android:textColor="@color/Base_900"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewOnb1" />
+        app:layout_constraintBottom_toTopOf="@id/textView3" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="56dp"
         android:gravity="center_horizontal"
         android:layout_marginEnd="16dp"
         android:text="@string/textOnb2"
@@ -68,6 +71,6 @@
         style="@style/Text_Body_16pt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleOnb1" />
+        app:layout_constraintBottom_toTopOf="@id/btnNext" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

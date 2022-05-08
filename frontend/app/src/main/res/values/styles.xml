@@ -10,6 +10,9 @@
         <item name="android:textColor">
             @color/Orange_900
         </item>
+        <item name="fontFamily">
+            @font/ubuntu_bold
+        </item>
     </style>
 
     <style name="Text_H1_24pt" parent="TextAppearance.AppCompat">
