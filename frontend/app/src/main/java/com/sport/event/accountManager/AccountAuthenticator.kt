@@ -10,6 +10,8 @@ import android.accounts.AccountManager
 import android.content.Intent
 import android.accounts.AbstractAccountAuthenticator
 import android.content.Context
+import com.sport.event.retrofit.APIApp
+import com.sport.event.retrofit.RestClientCallbacks
 
 class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthenticator(mContext) {
 
@@ -50,7 +52,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
     }
 
     //  Gets an authtoken for an account.
-    // TODO: getAuthToken
+    // It will call after calling invalidateAuthToken upon receiving a 401 or 403
     @Throws(NetworkErrorException::class)
     override fun getAuthToken(
         response: AccountAuthenticatorResponse,
@@ -58,45 +60,35 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         authTokenType: String,
         options: Bundle
     ): Bundle {
+
         // Extract the username and password from the Account Manager, and ask
         // the server for an appropriate AuthToken.
         val am = AccountManager.get(mContext)
-//        var authToken = am.peekAuthToken(account, authTokenType)
+        var authToken = am.peekAuthToken(account, authTokenType)
+        println("Ajndbcfjvbhskdhfv!!!!!!!!!!!!!!!!!")
+//        checkValidToken(authToken, am, account)
+
+        return Bundle()
+    }
+
+//    private fun checkValidToken(token: String, am: AccountManager, account: Account) {
+//        APIApp.restClient?.verifyToken(token,  object : RestClientCallbacks {
+//            override fun onSuccess(value: Bundle?) {
+//                val authToken = value?.getString(Constants.VERIFY_TOKEN)
+//                print("AUTHHH TOKEEEEEEEEEEEEEN" + authToken)
+//            }
 //
-//        // Lets give another try to authenticate the user
-//        if (TextUtils.isEmpty(authToken)) {
-//            val password = am.getPassword(account)
-//            if (password != null) {
-//                try {
-//                    authToken =
-//                        sServerAuthenticate.userSignIn(account.name, password, authTokenType)
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
+//            override fun onFailure(code: Int?) {
+//                when (code) {
+//                    400, 401 -> println("Incorrect data")
+//                    else -> println("Something went wrong")
 //                }
 //            }
-//        }
-//
-//        // If we get an authToken - we return it
-//        if (!TextUtils.isEmpty(authToken)) {
-//            val result = Bundle()
-//            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
-//            result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type)
-//            result.putString(AccountManager.KEY_AUTHTOKEN, authToken)
-//            return result
-//        }
-
-        // If we get here, then we couldn't access the user's password - so we
-        // need to re-prompt them for their credentials. We do that by creating
-        // an intent to display our AuthenticatorActivity.
-        val intent = Intent(mContext, AuthenticatorActivity::class.java)
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
-        intent.putExtra(Constants.ACCOUNT_TYPE, account.type)
-        intent.putExtra(Constants.ACCOUNT_TYPE, authTokenType)
-        intent.putExtra(Constants.ACCOUNT_NAME, account.name)
-        val bundle = Bundle()
-        bundle.putParcelable(AccountManager.KEY_INTENT, intent)
-        return bundle
-    }
+//            override fun onError(throwable: Throwable?) {
+//                println("Connection to server failed, try again later")
+//            }
+//        })
+//    }
 
     //  Ask the authenticator for a localized label for the given authTokenType.
     override fun getAuthTokenLabel(authTokenType: String): String {
@@ -111,6 +103,28 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         authTokenType: String,
         options: Bundle
     ): Bundle? {
+//        val accountManager: AccountManager = get(mContext)
+//        val refreshToken = accountManager.getUserData(account,Constants.REFRESH_TOKEN)
+//        try {
+//            APIApp.restClient?.refreshToken(refreshToken, object : RestClientCallbacks {
+//                override fun onSuccess(value: Bundle?) {
+//                    val authToken = value?.getString(Constants.AUTH_TOKEN)
+//                    accountManager.setAuthToken(account, Constants.AUTH_TOKEN_TYPE, authToken)
+//                }
+//
+//                override fun onFailure(code: Int?) {
+//                    when (code) {
+//                        400, 401 -> println("Incorrect data")
+//                        else -> println("Something went wrong")
+//                    }
+//                }
+//                override fun onError(throwable: Throwable?) {
+//                    println("Connection to server failed, try again later")
+//                }
+//            })
+//        } catch (e: Exception) {
+//            println(e.message)
+//        }
         return null
     }
 

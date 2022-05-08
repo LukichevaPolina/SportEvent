@@ -18,5 +18,11 @@
     <string name="login">Войти</string>
     <string name="registry">Зарегистироваться</string>
     <string name="succsessful_registry">О, ура! Вы зарегистрировались!</string>
+    <string name="events">События</string>
+    <string name="map">Карта</string>
+    <string name="schedule">Расписание</string>
+    <string name="profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

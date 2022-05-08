@@ -48,7 +48,7 @@ class StartScreen : AppCompatActivity() {
 
 
     private fun startMapActivity() {
-        val intent = Intent(this, MapsActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

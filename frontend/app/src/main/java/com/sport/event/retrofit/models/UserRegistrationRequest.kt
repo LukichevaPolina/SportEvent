@@ -1,7 +1,6 @@
 package com.sport.event.retrofit.models
 
-class User(
-    private val id: Int,
+class UserRegistrationRequest(
     private val email: String?,
     private val username: String?,
     private val password: String?,
