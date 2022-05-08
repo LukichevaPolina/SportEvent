@@ -21,7 +21,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
+        fields = ['email', 'username', 'password', 'name', 'surname', 'birthday', 'country', 'locality',]# 'favorite_sports']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -58,14 +58,14 @@ class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255, min_length=3)
     password = serializers.CharField(max_length=68, min_length=3, write_only=True)
     username = serializers.CharField(max_length=255, min_length=6, read_only=True)
-    tokens = serializers.CharField(max_length=68, min_length=6, read_only=True)
+    tokens = serializers.JSONField(read_only=True)
     
     def get_tokens(self, obj):
         user = User.objects.get(email=obj['email'])
 
         return {
-            'refresh': user.tokens()['refresh'],
-            'access': user.tokens()['access']
+            "refresh": user.tokens()['refresh'],
+            "access": user.tokens()['access']
         }
 
     class Meta:
@@ -73,6 +73,7 @@ class LoginSerializer(serializers.ModelSerializer):
         fields=['email', 'password', 'username', 'tokens']
 
     def validate(self, attrs):
+        print(attrs.get('email', ''))
         email = attrs.get('email', '')
         password = attrs.get('password', '')
 
@@ -88,7 +89,7 @@ class LoginSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed('Email is not verified')
                         
         return {
-            'email': user.email,
+            "email": user.email,
             'username': user.username,
             'tokens': user.tokens,
         }
@@ -143,15 +144,15 @@ class SetNewPasswordSerializer(serializers.Serializer):
 class ChangeAccountSerializer(serializers.Serializer):
     name = serializers.CharField(min_length=6, max_length=68, write_only=True)
     surname = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    # favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True)
     birthday = serializers.DateField()
     country = serializers.CharField(min_length=6, max_length=68, write_only=True)
     locality = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True)
+    # favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True)
 
     class Meta:
         model = Event
-        fields = ['name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
+        fields = ['name', 'surname', 'birthday', 'country', 'locality',]# 'favorite_sports']
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
@@ -160,10 +161,10 @@ class ChangeAccountSerializer(serializers.Serializer):
         instance.country = validated_data.get('country', instance.country)
         instance.locality = validated_data.get('locality', instance.locality)
 
-        instance.favorite_sports.clear()
-        favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
-        for sport in favorite_sports:
-            instance.favorite_sports.add(sport)
+        # instance.favorite_sports.clear()
+        # favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
+        # for sport in favorite_sports:
+        #     instance.favorite_sports.add(sport)
 
         instance.save()
         return instance
@@ -172,7 +173,7 @@ class ChangeAccountSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'name', 'surname', 'birthday', 'favorite_sports', 'country', 'locality']
+        fields = ['id', 'email', 'username', 'name', 'surname', 'birthday', 'country', 'locality', ]#'favorite_sports']
 
 
 class UploadPhotoSerializer(serializers.HyperlinkedModelSerializer):

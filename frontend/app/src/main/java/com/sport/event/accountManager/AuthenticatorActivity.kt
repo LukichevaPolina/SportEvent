@@ -1,17 +1,19 @@
 package com.sport.event.accountManager
 
-import AccountUtils
+import Constants
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
-import com.sport.event.retrofit.LoginCallbacks
+import android.widget.Toast
+import com.sport.event.retrofit.RestClientCallbacks
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
-
+import com.sport.event.R
 
 //The Authenticator activity.
 //Called by the Authenticator and in charge of identifing the user.
@@ -25,20 +27,20 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
     //Called when the activity is first created.
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
-        setContentView(com.sport.event.R.layout.activity_login)
+        setContentView(R.layout.activity_login)
+        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
         mAccountManager = AccountManager.get(baseContext)
-        val accountName = intent.getStringExtra(AccountUtils.ACCOUNT_NAME)
-        mAuthTokenType = intent.getStringExtra(AccountUtils.ARG_AUTH_TOKEN_TYPE)
+        val accountName = intent.getStringExtra(Constants.ACCOUNT_NAME)
+        mAuthTokenType = intent.getStringExtra(Constants.AUTH_TOKEN_TYPE)
         if (accountName != null) {
-            (findViewById<View>(com.sport.event.R.id.email) as TextView).text = accountName
+            (findViewById<View>(R.id.email) as TextView).text = accountName
         }
-        findViewById<View>(com.sport.event.R.id.btnLogin).setOnClickListener {
+        findViewById<View>(R.id.btnLogin).setOnClickListener {
             submit()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         // The sign up activity returned that the user has successfully created an account
         if (requestCode == REQ_SIGNUP && resultCode == RESULT_OK) {
             if (data != null) {
@@ -49,20 +51,24 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
 
     // TODO: different cases with invalid data
     fun submit() {
-        val userName = (findViewById<View>(com.sport.event.R.id.email) as TextView).text.toString()
+        findViewById<View>(R.id.loadingPanel).visibility = View.VISIBLE
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        val userEmail = (findViewById<View>(R.id.email) as TextView).text.toString()
         val userPass =
-            (findViewById<View>(com.sport.event.R.id.password) as TextView).text.toString()
-        val accountType = intent.getStringExtra(AccountUtils.ACCOUNT_TYPE)
+            (findViewById<View>(R.id.password) as TextView).text.toString()
+        val accountType = intent.getStringExtra(Constants.ACCOUNT_TYPE)
 
         Log.d("SportEvent", "$TAG> Started authenticating")
         var authToken: String? = null
         val data = Bundle()
         try {
             //-----------------------------------Retrofit request-----------------------------------
-            APIApp.restClient?.login(userName, userPass, object : LoginCallbacks {
+            APIApp.restClient?.login(userEmail, userPass, object : RestClientCallbacks {
                 override fun onSuccess(authToken: String?) {
                     println(authToken)
-                    data.putString(AccountManager.KEY_ACCOUNT_NAME, userName)
+                    data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
                     data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
                     data.putString(AccountManager.KEY_AUTHTOKEN, authToken)
                     data.putString(PARAM_USER_PASS, userPass);
@@ -70,8 +76,17 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
                     res.putExtras(data)
                     finishLogin(res)
                 }
+
+                override fun onFailure(code: Int?) {
+                    when (code) {
+                        400, 401 -> Toast.makeText(applicationContext, "Incorrect login or password, try again", Toast.LENGTH_LONG).show()
+                        else -> {
+                            Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
                 override fun onError(throwable: Throwable?) {
-                    println("не получилосьб ><")
+                    Toast.makeText(applicationContext, "Connection to server failed, try again later", Toast.LENGTH_LONG).show()
                 }
             })
         } catch (e: Exception) {
@@ -84,7 +99,6 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         val accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
         val accountPassword = intent.getStringExtra(PARAM_USER_PASS)
         val account = Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE))
-//        if (getIntent().getBooleanExtra(ARG_IS_ADDING_NEW_ACCOUNT, false)) {
         val authtoken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN)
         val authtokenType = mAuthTokenType
 
@@ -92,16 +106,13 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         // (Not setting the auth token will cause another call to the server to authenticate the user)
         mAccountManager!!.addAccountExplicitly(account, accountPassword, null)
         mAccountManager!!.setAuthToken(account, authtokenType, authtoken)
-//        } else {
-//            Log.d("udinic", "$TAG> finishLogin > setPassword")
-//            mAccountManager!!.setPassword(account, accountPassword)
-//        }
         setAccountAuthenticatorResult(intent.extras)
         setResult(RESULT_OK, intent)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         finish()
     }
 
-    companion object {
+        companion object {
         const val KEY_ERROR_MESSAGE = "ERR_MSG"
         const val PARAM_USER_PASS = "USER_PASS"
     }

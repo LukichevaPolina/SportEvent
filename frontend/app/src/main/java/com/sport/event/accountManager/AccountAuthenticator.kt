@@ -1,6 +1,6 @@
 package com.sport.event.accountManager
 
-import AccountUtils
+import Constants
 import android.accounts.NetworkErrorException
 import android.os.Bundle
 import android.accounts.Account
@@ -31,9 +31,8 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         options: Bundle
     ): Bundle {
         val intent = Intent(mContext, AuthenticatorActivity::class.java)
-        intent.putExtra(AccountUtils.ACCOUNT_TYPE, accountType)
-        intent.putExtra(AccountUtils.ARG_AUTH_TOKEN_TYPE, authTokenType)
-        intent.putExtra(AccountUtils.ARG_IS_ADDING_NEW_ACCOUNT, true)
+        intent.putExtra(Constants.ACCOUNT_TYPE, accountType)
+        intent.putExtra(Constants.AUTH_TOKEN_TYPE, authTokenType)
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
         val bundle = Bundle()
         bundle.putParcelable(AccountManager.KEY_INTENT, intent)
@@ -91,9 +90,9 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         // an intent to display our AuthenticatorActivity.
         val intent = Intent(mContext, AuthenticatorActivity::class.java)
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
-        intent.putExtra(AccountUtils.ACCOUNT_TYPE, account.type)
-        intent.putExtra(AccountUtils.ACCOUNT_TYPE, authTokenType)
-        intent.putExtra(AccountUtils.ACCOUNT_NAME, account.name)
+        intent.putExtra(Constants.ACCOUNT_TYPE, account.type)
+        intent.putExtra(Constants.ACCOUNT_TYPE, authTokenType)
+        intent.putExtra(Constants.ACCOUNT_NAME, account.name)
         val bundle = Bundle()
         bundle.putParcelable(AccountManager.KEY_INTENT, intent)
         return bundle

@@ -3,7 +3,6 @@ package com.sport.event.accountManager
 import android.accounts.AccountManager
 import android.app.Service
 import android.content.Intent
-
 import android.os.IBinder
 import android.annotation.SuppressLint
 
