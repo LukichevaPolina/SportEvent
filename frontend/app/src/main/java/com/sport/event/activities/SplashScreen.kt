@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.accounts.AccountManager
 import android.accounts.Account
-import AccountUtils
+import Constants
 import android.annotation.SuppressLint
 import com.sport.event.R
-
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
@@ -31,12 +30,12 @@ class SplashScreen : AppCompatActivity() {
             //if there is no account on the device -> Onboardings
             val intent = Intent(this, Onbording1::class.java)
             startActivity(intent)
-//            finish()
+//              finish()
         } else {
             //if there is account on the device -> MapsActivity
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
-//            finish()
+//              finish()
         }
     }
 
@@ -44,10 +43,10 @@ class SplashScreen : AppCompatActivity() {
         //get accountManager
         val accountManager: AccountManager = AccountManager.get(this@SplashScreen)
         //get array of Accounts from Account manager
-        val accounts: Array<Account> = accountManager.getAccountsByType(AccountUtils.ACCOUNT_TYPE)
+        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
         for (acc in accounts) {
             //looking for the right type of account
-            if (acc.type.equals(AccountUtils.ACCOUNT_TYPE, ignoreCase = true)) {
+            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
                 return acc
             }
         }

@@ -28,10 +28,10 @@ class RegistrationScreen1 : AppCompatActivity() {
         val email = (findViewById<View>(R.id.email) as TextView).text.toString()
 
         val data = Bundle()
-        data.putString("name", name)
-        data.putString("surname", surname)
-        data.putString("dateOfBirth", birthday)
-        data.putString("email", email)
+        data.putString(Constants.NAME, name)
+        data.putString(Constants.SURNAME, surname)
+        data.putString(Constants.BIRTHDAY, birthday)
+        data.putString(Constants.EMAIL, email)
 
         val intent = Intent(this, RegistrationScreen2::class.java)
         intent.putExtras(data)
