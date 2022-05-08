@@ -1,6 +1,5 @@
 package com.sport.event.retrofit
 
-import android.content.Intent
 import androidx.annotation.NonNull
 
 interface RestClientCallbacks {

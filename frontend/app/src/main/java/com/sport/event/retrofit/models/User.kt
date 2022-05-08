@@ -9,5 +9,5 @@ class User(
     private val birthday: String?,
     private val country: String?,
     private val locality: String?,
-//    private val favorite_sports: ArrayList<Int>?
+    private val favorite_sports: ArrayList<Int>?
 )

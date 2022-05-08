@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -33,16 +32,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         button = findViewById(R.id.button)
         address = findViewById(R.id.address)
-
-//--------------------------- try to get answer from server ------------------------------
-
-//        val email = "lukichevapolina42@gmail.com"
-//        val password = "pshenokek16"
-//
-//        val tokens: Tokens? = APIApp.restClient?.login(email, password)
-//        println("Access:" + tokens?.getAccessToken())
-//        println("Refresh:" + tokens?.getRefreshToken())
-//---------------------------------------------------------------------------------------
 
         var latitude : Double
         var longitude : Double

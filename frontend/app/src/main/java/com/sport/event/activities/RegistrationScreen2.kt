@@ -28,8 +28,8 @@ class RegistrationScreen2 : AppCompatActivity() {
         val newIntent = Intent(this, RegistrationScreen3 ::class.java)
         val bundle = intent.extras
         if (bundle != null) {
-            bundle.putString("country", country)
-            bundle.putString("locality", locality)
+            bundle.putString(Constants.COUNTRY, country)
+            bundle.putString(Constants.LOCALITY, locality)
             newIntent.putExtras(bundle)
         }
         startActivity(newIntent)

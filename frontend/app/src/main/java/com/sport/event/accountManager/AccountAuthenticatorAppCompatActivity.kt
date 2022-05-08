@@ -1,6 +1,5 @@
 package com.sport.event.accountManager
 import android.accounts.AccountManager
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.accounts.AccountAuthenticatorResponse
 import androidx.appcompat.app.AppCompatActivity
