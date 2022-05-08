@@ -3,9 +3,12 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="splash">SportEvent</string>
     <string name="address">Enter address</string>
+    <string name="welcome">Welcome</string>
 
     <string name="btn">Find</string>
     <string name="onb1_contentDescription">A training girl on green background</string>
+    <string name="onb2_contentDescription">Football</string>
+    <string name="onb3_contentDescription">Running girl and boy</string>
     <string name="next">Далее</string>
     <string name="start">Начать</string>
     <string name="titleOnb1">Актуальные спортивные площадки</string>
@@ -17,5 +20,6 @@
     <string name="textOnb3">Найдите компаньонов для занятий спортом. Заниматься в компаниии единомышленников приятнее и эффективнее. </string>
     <string name="login">Войти</string>
     <string name="registry">Зарегистироваться</string>
+    <string name="forgotPsswrd">Забыли пароль?</string>
 
 </resources>
