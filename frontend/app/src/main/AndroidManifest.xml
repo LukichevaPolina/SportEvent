@@ -110,7 +110,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".activities.MapsActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
     </application>
 

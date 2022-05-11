@@ -21,12 +21,15 @@
     <string name="login">Войти</string>
     <string name="registry">Зарегистироваться</string>
     <string name="forgotPsswrd">Забыли пароль?</string>
-<<<<<<< HEAD
     <string name="password">Пароль</string>
     <string name="login_text">Логин</string>
     <string name="email">Email</string>
-=======
     <string name="succsessful_registry">О, ура! Вы зарегистрировались!</string>
->>>>>>> 43885689117fc46bb23d0a8a37313ac5704878ad
+    <string name="events">События</string>
+    <string name="map">Карта</string>
+    <string name="schedule">Расписание</string>
+    <string name="profile">Профиль</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

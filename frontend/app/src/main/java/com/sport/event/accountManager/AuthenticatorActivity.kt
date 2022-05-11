@@ -5,15 +5,18 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import com.sport.event.retrofit.RestClientCallbacks
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
 import com.sport.event.R
+import com.sport.event.retrofit.models.LoginRequest
+import com.sport.event.retrofit.models.LoginResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 //The Authenticator activity.
 //Called by the Authenticator and in charge of identifing the user.
@@ -49,7 +52,6 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         } else super.onActivityResult(requestCode, resultCode, data)
     }
 
-    // TODO: different cases with invalid data
     fun submit() {
         findViewById<View>(R.id.loadingPanel).visibility = View.VISIBLE
         window.setFlags(
@@ -60,35 +62,44 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
             (findViewById<View>(R.id.password) as TextView).text.toString()
         val accountType = intent.getStringExtra(Constants.ACCOUNT_TYPE)
 
-        Log.d("SportEvent", "$TAG> Started authenticating")
-        var authToken: String? = null
         val data = Bundle()
+        val userdata = Bundle()
         try {
+            val userLogin = LoginRequest(userEmail, userPass)
             //-----------------------------------Retrofit request-----------------------------------
-            APIApp.restClient?.login(userEmail, userPass, object : RestClientCallbacks {
-                override fun onSuccess(authToken: String?) {
-                    println(authToken)
-                    data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
-                    data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
-                    data.putString(AccountManager.KEY_AUTHTOKEN, authToken)
-                    data.putString(PARAM_USER_PASS, userPass);
-                    val res = Intent()
-                    res.putExtras(data)
-                    finishLogin(res)
-                }
+            APIApp.restClient?.service?.loginUser(userLogin)?.enqueue(object :
+                Callback<LoginResponse?> {
+                override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
+                    val tokensResponse: LoginResponse? = response.body()
+                    if (response.isSuccessful && tokensResponse != null) {
+                        userdata.putString(Constants.REFRESH_TOKEN, tokensResponse.getTokens()?.getRefreshToken())
+                        data.putString(AccountManager.KEY_AUTHTOKEN, tokensResponse.getTokens()?.getAccessToken())
+                        data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
+                        data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
+                        data.putString(PARAM_USER_PASS, userPass)
+                        data.putBundle(Constants.REFRESH_TOKEN, userdata)
 
-                override fun onFailure(code: Int?) {
-                    when (code) {
-                        400, 401 -> Toast.makeText(applicationContext, "Incorrect login or password, try again", Toast.LENGTH_LONG).show()
-                        else -> {
-                            Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_LONG).show()
+                        val res = Intent()
+                        res.putExtras(data)
+                        finishLogin(res)
+                    } else {
+                        when (response.code()) {
+                            400, 401 -> Toast.makeText(applicationContext, "Incorrect login or password, try again", Toast.LENGTH_LONG).show()
+                            else -> {
+                                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                         }
                     }
-                }
-                override fun onError(throwable: Throwable?) {
+                override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
                     Toast.makeText(applicationContext, "Connection to server failed, try again later", Toast.LENGTH_LONG).show()
+                        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 }
             })
+        //--------------------------------------------------------------------------------------
         } catch (e: Exception) {
             data.putString(KEY_ERROR_MESSAGE, e.message)
         }.toString()
@@ -104,7 +115,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
 
         // Creating the account on the device and setting the auth token we got
         // (Not setting the auth token will cause another call to the server to authenticate the user)
-        mAccountManager!!.addAccountExplicitly(account, accountPassword, null)
+        mAccountManager!!.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(Constants.REFRESH_TOKEN))
         mAccountManager!!.setAuthToken(account, authtokenType, authtoken)
         setAccountAuthenticatorResult(intent.extras)
         setResult(RESULT_OK, intent)

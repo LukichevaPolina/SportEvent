@@ -21,7 +21,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'name', 'surname', 'birthday', 'country', 'locality',]# 'favorite_sports']
+        fields = ['email', 'username', 'password', 'name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
 
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -44,10 +44,10 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
 
     """
     token = serializers.CharField(max_length=555)
-
+    redirect_url = serializers.CharField(max_length=555)
     class Meta:
         model = User
-        fields = ['token']
+        fields = ['token', 'redirect_url']
 
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -144,15 +144,15 @@ class SetNewPasswordSerializer(serializers.Serializer):
 class ChangeAccountSerializer(serializers.Serializer):
     name = serializers.CharField(min_length=6, max_length=68, write_only=True)
     surname = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    # favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True)
+    favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True)
     birthday = serializers.DateField()
     country = serializers.CharField(min_length=6, max_length=68, write_only=True)
     locality = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    # favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True)
+    favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True)
 
     class Meta:
         model = Event
-        fields = ['name', 'surname', 'birthday', 'country', 'locality',]# 'favorite_sports']
+        fields = ['name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
@@ -161,10 +161,10 @@ class ChangeAccountSerializer(serializers.Serializer):
         instance.country = validated_data.get('country', instance.country)
         instance.locality = validated_data.get('locality', instance.locality)
 
-        # instance.favorite_sports.clear()
-        # favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
-        # for sport in favorite_sports:
-        #     instance.favorite_sports.add(sport)
+        instance.favorite_sports.clear()
+        favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
+        for sport in favorite_sports:
+            instance.favorite_sports.add(sport)
 
         instance.save()
         return instance
@@ -173,7 +173,7 @@ class ChangeAccountSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'name', 'surname', 'birthday', 'country', 'locality', ]#'favorite_sports']
+        fields = ['id', 'email', 'username', 'name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
 
 
 class UploadPhotoSerializer(serializers.HyperlinkedModelSerializer):

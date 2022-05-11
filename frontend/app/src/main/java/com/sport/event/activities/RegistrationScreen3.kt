@@ -3,13 +3,18 @@ package com.sport.event.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.sport.event.R
 import com.sport.event.retrofit.APIApp
-import com.sport.event.retrofit.RestClientCallbacks
+import com.sport.event.retrofit.models.User
+import com.sport.event.retrofit.models.UserRegistrationRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RegistrationScreen3 : AppCompatActivity() {
     lateinit var button: Button
@@ -18,7 +23,7 @@ class RegistrationScreen3 : AppCompatActivity() {
         setContentView(R.layout.activity_registration3)
         findViewById<View>(R.id.loadingPanel).visibility = View.GONE
         button = findViewById(R.id.btnRegistry)
-        button.setOnClickListener() {
+        button.setOnClickListener {
             registration()
         }
     }
@@ -38,31 +43,37 @@ class RegistrationScreen3 : AppCompatActivity() {
         val password = (findViewById<View>(R.id.password) as TextView).text.toString()
         val repeatPassword = (findViewById<View>(R.id.repeat_password) as TextView).text.toString()
 
-        val arrayFavoriteSports = arrayListOf<Int>(favoriteSports.toInt())
+        val arrayFavoriteSports = arrayListOf(favoriteSports.toInt())
 
         //check passwords matching
         if (password != repeatPassword) {
             Toast.makeText(applicationContext, "Passwords don't match!", Toast.LENGTH_LONG).show()
             return
         }
+        val userRegistration = UserRegistrationRequest(email, username, password, name, surname, birthday, country, locality, arrayFavoriteSports)
 
         //send request to server for register user
-        APIApp.restClient?.register(name, surname, birthday, email, country, locality, username, arrayFavoriteSports, password, object : RestClientCallbacks {
-            override fun onSuccess(value: String?) {
-                startCheckEmailActivity()
-            }
-
-            override fun onFailure(code: Int?) {
-                when (code) {
+        APIApp.restClient?.service?.registerUser(userRegistration)?.enqueue(object :
+            Callback<User?> {
+            override fun onResponse(call: Call<User?>, response: Response<User?>) {
+                val user: User? = response.body()
+                if (response.isSuccessful && user != null) {
+                    startCheckEmailActivity()
+                } else {
+                    when (response.code()) {
                     400, 401 -> Toast.makeText(applicationContext, "Incorrect data", Toast.LENGTH_LONG).show()
                     else -> {
                         Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_LONG).show()
                     }
                 }
+                findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                }
             }
-
-            override fun onError(throwable: Throwable?) {
+            override fun onFailure(call: Call<User?>, t: Throwable) {
                 Toast.makeText(applicationContext, "Connection to server failed, try again later", Toast.LENGTH_LONG).show()
+                findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
             }
         })
     }
@@ -70,7 +81,8 @@ class RegistrationScreen3 : AppCompatActivity() {
     fun startCheckEmailActivity() {
         val intent = Intent(this, CheckEmailScreen::class.java)
         startActivity(intent)
+        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         finish()
     }
-
 }

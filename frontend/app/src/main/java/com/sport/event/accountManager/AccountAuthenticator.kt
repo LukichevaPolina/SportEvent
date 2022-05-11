@@ -5,11 +5,16 @@ import android.accounts.NetworkErrorException
 import android.os.Bundle
 import android.accounts.Account
 import android.accounts.AccountAuthenticatorResponse
-import android.accounts.AccountManager.KEY_BOOLEAN_RESULT
 import android.accounts.AccountManager
 import android.content.Intent
 import android.accounts.AbstractAccountAuthenticator
 import android.content.Context
+import android.text.TextUtils
+import com.sport.event.retrofit.APIApp
+import com.sport.event.retrofit.models.RefreshTokenRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthenticator(mContext) {
 
@@ -50,7 +55,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
     }
 
     //  Gets an authtoken for an account.
-    // TODO: getAuthToken
+    // It will call after calling invalidateAuthToken upon receiving a 401 or 403
     @Throws(NetworkErrorException::class)
     override fun getAuthToken(
         response: AccountAuthenticatorResponse,
@@ -61,43 +66,26 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         // Extract the username and password from the Account Manager, and ask
         // the server for an appropriate AuthToken.
         val am = AccountManager.get(mContext)
-//        var authToken = am.peekAuthToken(account, authTokenType)
-//
-//        // Lets give another try to authenticate the user
-//        if (TextUtils.isEmpty(authToken)) {
-//            val password = am.getPassword(account)
-//            if (password != null) {
-//                try {
-//                    authToken =
-//                        sServerAuthenticate.userSignIn(account.name, password, authTokenType)
-//                } catch (e: Exception) {
-//                    e.printStackTrace()
-//                }
-//            }
-//        }
-//
-//        // If we get an authToken - we return it
-//        if (!TextUtils.isEmpty(authToken)) {
-//            val result = Bundle()
-//            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
-//            result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type)
-//            result.putString(AccountManager.KEY_AUTHTOKEN, authToken)
-//            return result
-//        }
-
-        // If we get here, then we couldn't access the user's password - so we
-        // need to re-prompt them for their credentials. We do that by creating
-        // an intent to display our AuthenticatorActivity.
-        val intent = Intent(mContext, AuthenticatorActivity::class.java)
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
-        intent.putExtra(Constants.ACCOUNT_TYPE, account.type)
-        intent.putExtra(Constants.ACCOUNT_TYPE, authTokenType)
-        intent.putExtra(Constants.ACCOUNT_NAME, account.name)
-        val bundle = Bundle()
-        bundle.putParcelable(AccountManager.KEY_INTENT, intent)
-        return bundle
+        var authToken = am.peekAuthToken(account, authTokenType)
+        if (TextUtils.isEmpty(authToken)) {
+            val refreshToken: String = am.getUserData(account, Constants.REFRESH_TOKEN)
+            val refreshTokenRequest: RefreshTokenRequest = RefreshTokenRequest(refreshToken)
+            //get authtokin with using coroutine
+            authToken = runBlocking {
+                val refreshTokenResponse = refresh(refreshTokenRequest)
+                refreshTokenResponse?.getAccessToken()
+            }
+        }
+        val result = Bundle()
+        result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
+        result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type)
+        result.putString(AccountManager.KEY_AUTHTOKEN, authToken)
+        return result
     }
 
+    suspend fun refresh(refreshTokenRequest: RefreshTokenRequest) = withContext(Dispatchers.IO) {
+        APIApp.restClient?.service?.refresh(refreshTokenRequest)
+    }
     //  Ask the authenticator for a localized label for the given authTokenType.
     override fun getAuthTokenLabel(authTokenType: String): String {
         return "$authTokenType (Label)"
@@ -122,7 +110,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         features: Array<String>
     ): Bundle {
         val result = Bundle()
-        result.putBoolean(KEY_BOOLEAN_RESULT, false)
+        result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, false)
         return result
     }
 

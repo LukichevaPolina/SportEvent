@@ -33,7 +33,7 @@ class SplashScreen : AppCompatActivity() {
 //              finish()
         } else {
             //if there is account on the device -> MapsActivity
-            val intent = Intent(this, MapsActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
 //              finish()
         }
