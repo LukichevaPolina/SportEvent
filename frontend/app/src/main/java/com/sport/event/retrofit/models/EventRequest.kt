@@ -1,7 +1,7 @@
 package com.sport.event.retrofit.models
 
 class EventRequest(
-    private val sport: Int,
+    private val sport: String,
     private val date: String?,
     private val strat_time: String?,
     private val end_time: String?,

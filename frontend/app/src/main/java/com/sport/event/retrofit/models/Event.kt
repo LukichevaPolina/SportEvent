@@ -3,7 +3,7 @@ package com.sport.event.retrofit.models
 class Event (
     private val id: Int,
     private val owner: String,
-    private val sport: Int,
+    val sport: String,
     private val date: String,
     private val strat_time: String,
     private val end_time: String,

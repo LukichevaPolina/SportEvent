@@ -70,10 +70,10 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
             APIApp.restClient?.service?.loginUser(userLogin)?.enqueue(object :
                 Callback<LoginResponse?> {
                 override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
-                    val tokensJson: LoginResponse? = response.body()
-                    if (response.isSuccessful && tokensJson != null) {
-                        userdata.putString(Constants.REFRESH_TOKEN, tokensJson.getTokens()?.getRefreshToken())
-                        data.putString(AccountManager.KEY_AUTHTOKEN, tokensJson.getTokens()?.getAccessToken())
+                    val tokensResponse: LoginResponse? = response.body()
+                    if (response.isSuccessful && tokensResponse != null) {
+                        userdata.putString(Constants.REFRESH_TOKEN, tokensResponse.getTokens()?.getRefreshToken())
+                        data.putString(AccountManager.KEY_AUTHTOKEN, tokensResponse.getTokens()?.getAccessToken())
                         data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
                         data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
                         data.putString(PARAM_USER_PASS, userPass)

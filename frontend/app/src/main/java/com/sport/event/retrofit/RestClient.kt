@@ -14,7 +14,7 @@ class RestClient {
             .create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://172.20.10.2:8000/")
+            .baseUrl("http://192.168.0.12:8000/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
@@ -31,28 +31,5 @@ class RestClient {
                 return restClient
             }
     }
-
-//    fun refreshToken(refreshToken: String?, callbacks: RestClientCallbacks) {
-//        val refreshTokenRequest = RefreshTokenRequest(refreshToken)
-//        service.refresh(refreshTokenRequest)?.enqueue(object: Callback<RefreshTokenResponse?> {
-//            override fun onResponse(
-//                call: Call<RefreshTokenResponse?>,
-//                response: Response<RefreshTokenResponse?>
-//            ) {
-//                val tokenJson: RefreshTokenResponse? = response.body()
-//                if (response.isSuccessful && tokenJson != null) {
-//                    val data = Bundle()
-//                    data.putString(Constants.AUTH_TOKEN, tokenJson.getAccessToken())
-//                    callbacks.onSuccess(data)
-//                } else {
-//                    callbacks.onFailure(response.code())
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<RefreshTokenResponse?>, t: Throwable) {
-//                callbacks.onError(t)
-//            }
-//        })
-//    }
 }
 

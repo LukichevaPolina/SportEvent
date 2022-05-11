@@ -13,7 +13,7 @@ interface IUserApi {
     fun loginUser(@Body loginRequest: LoginRequest?): Call<LoginResponse?>?
 
     @POST("auth/token/refresh/")
-    fun refresh(@Body refreshTokenRequest: RefreshTokenRequest): Call<RefreshTokenResponse>?
+    suspend fun refresh(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
 
     @POST("events/")
     fun addEvent(
@@ -22,7 +22,7 @@ interface IUserApi {
     ): Call<Event>?
 
     @GET("events/")
-    fun getEvents(@Header("Authorization") token: String): Call<ArrayList<Event>>?
+    fun getEvents(@Header("Authorization") token: String?): Call<ArrayList<Event>>?
 
     @GET("events/{id}")
     fun getEvent(
