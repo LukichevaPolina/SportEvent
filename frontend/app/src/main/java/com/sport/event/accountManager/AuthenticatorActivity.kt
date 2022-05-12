@@ -1,17 +1,22 @@
 package com.sport.event.accountManager
 
-import AccountUtils
+import Constants
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
-import com.sport.event.retrofit.LoginCallbacks
+import android.widget.Toast
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
-
+import com.sport.event.R
+import com.sport.event.retrofit.models.LoginRequest
+import com.sport.event.retrofit.models.LoginResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 //The Authenticator activity.
 //Called by the Authenticator and in charge of identifing the user.
@@ -25,20 +30,20 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
     //Called when the activity is first created.
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)
-        setContentView(com.sport.event.R.layout.activity_login)
+        setContentView(R.layout.activity_login)
+        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
         mAccountManager = AccountManager.get(baseContext)
-        val accountName = intent.getStringExtra(AccountUtils.ACCOUNT_NAME)
-        mAuthTokenType = intent.getStringExtra(AccountUtils.ARG_AUTH_TOKEN_TYPE)
+        val accountName = intent.getStringExtra(Constants.ACCOUNT_NAME)
+        mAuthTokenType = intent.getStringExtra(Constants.AUTH_TOKEN_TYPE)
         if (accountName != null) {
-            (findViewById<View>(com.sport.event.R.id.email) as TextView).text = accountName
+            (findViewById<View>(R.id.email) as TextView).text = accountName
         }
-        findViewById<View>(com.sport.event.R.id.btnLogin).setOnClickListener {
+        findViewById<View>(R.id.btnLogin).setOnClickListener {
             submit()
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         // The sign up activity returned that the user has successfully created an account
         if (requestCode == REQ_SIGNUP && resultCode == RESULT_OK) {
             if (data != null) {
@@ -47,33 +52,54 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         } else super.onActivityResult(requestCode, resultCode, data)
     }
 
-    // TODO: different cases with invalid data
     fun submit() {
-        val userName = (findViewById<View>(com.sport.event.R.id.email) as TextView).text.toString()
+        findViewById<View>(R.id.loadingPanel).visibility = View.VISIBLE
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        val userEmail = (findViewById<View>(R.id.email) as TextView).text.toString()
         val userPass =
-            (findViewById<View>(com.sport.event.R.id.password) as TextView).text.toString()
-        val accountType = intent.getStringExtra(AccountUtils.ACCOUNT_TYPE)
+            (findViewById<View>(R.id.password) as TextView).text.toString()
+        val accountType = intent.getStringExtra(Constants.ACCOUNT_TYPE)
 
-        Log.d("SportEvent", "$TAG> Started authenticating")
-        var authToken: String? = null
         val data = Bundle()
+        val userdata = Bundle()
         try {
+            val userLogin = LoginRequest(userEmail, userPass)
             //-----------------------------------Retrofit request-----------------------------------
-            APIApp.restClient?.login(userName, userPass, object : LoginCallbacks {
-                override fun onSuccess(authToken: String?) {
-                    println(authToken)
-                    data.putString(AccountManager.KEY_ACCOUNT_NAME, userName)
-                    data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
-                    data.putString(AccountManager.KEY_AUTHTOKEN, authToken)
-                    data.putString(PARAM_USER_PASS, userPass);
-                    val res = Intent()
-                    res.putExtras(data)
-                    finishLogin(res)
-                }
-                override fun onError(throwable: Throwable?) {
-                    println("не получилосьб ><")
+            APIApp.restClient?.service?.loginUser(userLogin)?.enqueue(object :
+                Callback<LoginResponse?> {
+                override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
+                    val tokensResponse: LoginResponse? = response.body()
+                    if (response.isSuccessful && tokensResponse != null) {
+                        userdata.putString(Constants.REFRESH_TOKEN, tokensResponse.getTokens()?.getRefreshToken())
+                        data.putString(AccountManager.KEY_AUTHTOKEN, tokensResponse.getTokens()?.getAccessToken())
+                        data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
+                        data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
+                        data.putString(PARAM_USER_PASS, userPass)
+                        data.putBundle(Constants.REFRESH_TOKEN, userdata)
+
+                        val res = Intent()
+                        res.putExtras(data)
+                        finishLogin(res)
+                    } else {
+                        when (response.code()) {
+                            400, 401 -> Toast.makeText(applicationContext, "Incorrect login or password, try again", Toast.LENGTH_LONG).show()
+                            else -> {
+                                Toast.makeText(applicationContext, "Something went wrong", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+                        }
+                    }
+                override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
+                    Toast.makeText(applicationContext, "Connection to server failed, try again later", Toast.LENGTH_LONG).show()
+                        findViewById<View>(R.id.loadingPanel).visibility = View.GONE
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
                 }
             })
+        //--------------------------------------------------------------------------------------
         } catch (e: Exception) {
             data.putString(KEY_ERROR_MESSAGE, e.message)
         }.toString()
@@ -84,24 +110,20 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         val accountName = intent.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
         val accountPassword = intent.getStringExtra(PARAM_USER_PASS)
         val account = Account(accountName, intent.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE))
-//        if (getIntent().getBooleanExtra(ARG_IS_ADDING_NEW_ACCOUNT, false)) {
         val authtoken = intent.getStringExtra(AccountManager.KEY_AUTHTOKEN)
         val authtokenType = mAuthTokenType
 
         // Creating the account on the device and setting the auth token we got
         // (Not setting the auth token will cause another call to the server to authenticate the user)
-        mAccountManager!!.addAccountExplicitly(account, accountPassword, null)
+        mAccountManager!!.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(Constants.REFRESH_TOKEN))
         mAccountManager!!.setAuthToken(account, authtokenType, authtoken)
-//        } else {
-//            Log.d("udinic", "$TAG> finishLogin > setPassword")
-//            mAccountManager!!.setPassword(account, accountPassword)
-//        }
         setAccountAuthenticatorResult(intent.extras)
         setResult(RESULT_OK, intent)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         finish()
     }
 
-    companion object {
+        companion object {
         const val KEY_ERROR_MESSAGE = "ERR_MSG"
         const val PARAM_USER_PASS = "USER_PASS"
     }

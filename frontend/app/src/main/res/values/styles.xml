@@ -10,6 +10,9 @@
         <item name="android:textColor">
             @color/Orange_900
         </item>
+        <item name="fontFamily">
+            @font/ubuntu_bold
+        </item>
     </style>
 
     <style name="Text_H1_24pt" parent="TextAppearance.AppCompat">
@@ -83,6 +86,19 @@
         <item name="fontFamily">
             @font/noto_sans_regular
         </item>
+    </style>
+
+    <style name="GenericProgressBackground" parent="android:Theme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@color/Base_200</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="GenericProgressIndicator" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/AppleGreen_500</item>
     </style>
 
 </resources>

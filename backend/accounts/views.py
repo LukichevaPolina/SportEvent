@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponsePermanentRedirect
 from django.shortcuts import render
 from django.utils.encoding import DjangoUnicodeDecodeError, force_str, smart_str, smart_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode 
@@ -18,6 +19,11 @@ from .utils import Util
 import jwt
 
 
+class CustomRedirect(HttpResponsePermanentRedirect):
+
+    allowed_schemes = ['sportevent']
+
+
 class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 
@@ -32,7 +38,7 @@ class RegisterView(generics.GenericAPIView):
         current_site = get_current_site(request).domain
         relative_link = reverse('email-verify')
         
-        absurl='http://' + current_site + relative_link + "?token=" + str(token)
+        absurl='http://' + current_site + relative_link + "?token=" + str(token) + "&redirect_url=" + "sportevent://successful_registry" 
         email_body= 'Hi, ' + user.username + '. Use link below to verify your email \n' + absurl
         data={'email_body': email_body, 'to_email': user.email, 'email_subject': 'Verify your email'}
         Util.send_email(data)
@@ -44,13 +50,14 @@ class VerifyEmail(generics.GenericAPIView):
 
     def get(self, request):
         token = request.GET.get('token')
+        redirect_url = request.GET.get('redirect_url')
         try:
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
             user = User.objects.get(id=payload['user_id'])
             if not user.is_verified:
                 user.is_verified = True
                 user.save()
-            return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
+            return CustomRedirect(redirect_url)
         except jwt.ExpiredSignatureError as identifier:
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
         except jwt.exceptions.DecodeError as identifier:
@@ -165,18 +172,11 @@ class UploadPhoto(generics.UpdateAPIView):
         instance = self.get_object()
         instance.photo = request.FILES['photo']
         instance.save()
-        # serializer = self.get_serializer(instance, data=request.data, partial=True)
-        
-        # if serializer.is_valid(raise_exception=True):
-        #     serializer.save()
         
         return Response({'success': True,
                         'message': 'User photo uploading is success'},
                         status=status.HTTP_200_OK)
 
-        # return Response({'success': False,
-        #                  'message': 'User photo uploading FAILED'},
-        #                  status=status.HTTP_400_BAD_REQUEST)
 
 
         
