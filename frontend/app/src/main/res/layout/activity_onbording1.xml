@@ -7,13 +7,16 @@
 
     <ImageView
         android:id="@+id/imageViewOnb1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
         android:contentDescription="@string/onb1_contentDescription"
-        android:scaleType="fitXY"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@id/titleOnb1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="spread"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_onb1backgr" />
 
@@ -21,11 +24,11 @@
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/button_primary"
         android:text="@string/next"
         android:textAppearance="@style/Text_Button_14pt"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -33,41 +36,41 @@
         android:id="@+id/imageViewOnb1Slider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_onb1_slider"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/ic_onb1_slider" />
 
     <TextView
         android:id="@+id/titleOnb1"
+        style="@style/Text_H1_24pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        style="@style/Text_H1_24pt"
-        android:text="@string/titleOnb1"
+        android:layout_marginBottom="16dp"
         android:gravity="center_horizontal"
+        android:text="@string/titleOnb1"
         android:textColor="@color/Base_900"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textView1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewOnb1" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView1"
+        style="@style/Text_Body_16pt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="56dp"
+        android:gravity="center_horizontal"
         android:text="@string/textOnb1"
         android:textColor="@color/Base_700"
-        style="@style/Text_Body_16pt"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleOnb1" />
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/btnSkip"
@@ -76,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/noto_sans"
+        android:textAppearance="@style/Text_Button_14pt"
         android:text="@string/skip"
         android:textColor="@color/AppleGreen_600"
         app:layout_constraintStart_toStartOf="parent"
