@@ -55,7 +55,7 @@
     <EditText
         android:id="@+id/email"
         android:background="@drawable/text_field"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:hint="@string/email"
         android:padding="10dp"
         android:layout_height="40dp"

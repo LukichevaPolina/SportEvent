@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RegistrationScreen3 : AppCompatActivity() {
+
     lateinit var button: Button
+    private lateinit var buttonBack: ImageButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration3)
@@ -25,6 +29,12 @@ class RegistrationScreen3 : AppCompatActivity() {
         button = findViewById(R.id.btnRegistry)
         button.setOnClickListener {
             registration()
+        }
+        buttonBack = findViewById(R.id.icon_back)
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, RegistrationScreen2::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
