@@ -39,126 +39,142 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_steps_3" />
 
-    <TextView
-        android:id="@+id/nickname_text"
-        android:layout_width="wrap_content"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/nick"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps3"
-        />
-
-
-    <EditText
-        android:id="@+id/username"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/nickname_text"
-        android:autofillHints="username"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
-
-    <TextView
-        android:id="@+id/favourite_sports_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/country"
-        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegistry"
+        app:layout_constraintVertical_bias="0.2"
+        android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        />
+        >
 
-    <EditText
-        android:id="@+id/favorite_sports"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/favourite_sports_text"
-        android:autofillHints="favourite sports"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:id="@+id/nickname_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/nick"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-    <TextView
-        android:id="@+id/password_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/password"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_sports"
-        />
 
-    <EditText
-        android:id="@+id/password"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/password_text"
-        android:autofillHints="password"
-        android:inputType="textPassword"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/username"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/nickname_text"
+            android:autofillHints="username"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
 
-    <TextView
-        android:id="@+id/repeat_password_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/repeatPsswrd"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        />
+        <TextView
+            android:id="@+id/favourite_sports_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/favourite_sports"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            />
 
-    <EditText
-        android:id="@+id/repeat_password"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/repeat_password_text"
-        android:autofillHints="repeat password"
-        android:inputType="textPassword"
-        tools:ignore="LabelFor" />
+        <EditText
+            android:id="@+id/favorite_sports"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/favourite_sports_text"
+            android:autofillHints="favourite sports"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/password_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/password"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favorite_sports"
+            />
+
+        <EditText
+            android:id="@+id/password"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/password_text"
+            android:autofillHints="password"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/repeat_password_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/repeatPsswrd"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            />
+
+        <EditText
+            android:id="@+id/repeat_password"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/repeat_password_text"
+            android:autofillHints="repeat password"
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <Button
