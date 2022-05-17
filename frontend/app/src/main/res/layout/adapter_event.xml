@@ -7,16 +7,74 @@
     android:elevation="8dp"
     app:cardCornerRadius="8dp">
 
-    <TextView
-        android:id="@+id/name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@tools:sample/full_names"
-        android:background="#E1303F9F"
-        android:paddingStart="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        tools:ignore="RtlSymmetry" />
-</androidx.cardview.widget.CardView>
+        android:layout_height="match_parent"
+        android:background="@color/AppleGreen_50">
+
+        <TextView
+            android:id="@+id/sport"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:textAppearance="@style/Text_H2_20pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry"
+            tools:text="@tools:sample/full_names" />
+
+        <!--        <ImageView-->
+<!--            android:id="@+id/map_marker"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:background="@drawable/ic_place"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/sport"-->
+<!--            app:tint="@color/Orange_800" />-->
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="186dp"
+            android:layout_height="40dp"
+            android:text="@string/Join"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body_16pt"
+            android:textColor="@color/Orange_800"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sport"
+            app:drawableLeftCompat="@drawable/ic_place"
+            app:tint="@color/Orange_800"/>
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/clock"-->
+<!--                    android:layout_width="20dp"-->
+<!--                    android:layout_height="20dp"-->
+<!--                    android:background="@drawable/ic_time"-->
+<!--                    android:textColor="@color/Base_800"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/map_marker"-->
+<!--                    app:tint="@color/Base_800"/>-->
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body_16pt"
+                android:textColor="@color/Base_800"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/place"
+                app:drawableLeftCompat="@drawable/ic_time"
+                app:tint="@color/Base_800"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>

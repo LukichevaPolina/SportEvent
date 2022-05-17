@@ -31,6 +31,11 @@ class EventSerializer(serializers.ModelSerializer):
 
         return data
 
+    def to_representation(self, instance):
+        rep = super(EventSerializer, self).to_representation(instance)
+        rep['sport'] = instance.sport.sport
+        return rep
+
 
 class EventJoinSerializer(serializers.ModelSerializer):
     """
@@ -40,8 +45,8 @@ class EventJoinSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
+    
 
-   
     def update(self, instance, data):
         new_member = data['members'][0]
         if not new_member in instance.members.all():
@@ -49,6 +54,13 @@ class EventJoinSerializer(serializers.ModelSerializer):
             instance.free_seats = instance.free_seats - 1
             instance.save()
         return instance
+
+    
+    def to_representation(self, instance):
+        rep = super(EventJoinSerializer, self).to_representation(instance)
+        rep['sport'] = instance.sport.sport
+        rep['owner'] = instance.owner.username
+        return rep
 
 
 class EventUnjoinSerializer(serializers.ModelSerializer):
@@ -62,9 +74,17 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
 
     def update(self, instance, data):
         member = data['members'][0]
+        print(member)
+        print(instance.members.all())
         if member in instance.members.all():
             instance.members.remove(data['members'][0])
             instance.free_seats = instance.free_seats + 1
             instance.save()
         return instance
+    
+    def to_representation(self, instance):
+        rep = super(EventUnjoinSerializer, self).to_representation(instance)
+        rep['sport'] = instance.sport.sport
+        rep['owner'] = instance.owner.username
+        return rep
         

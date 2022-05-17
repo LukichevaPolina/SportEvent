@@ -70,14 +70,17 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
             APIApp.restClient?.service?.loginUser(userLogin)?.enqueue(object :
                 Callback<LoginResponse?> {
                 override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
-                    val tokensResponse: LoginResponse? = response.body()
-                    if (response.isSuccessful && tokensResponse != null) {
-                        userdata.putString(Constants.REFRESH_TOKEN, tokensResponse.getTokens()?.getRefreshToken())
-                        data.putString(AccountManager.KEY_AUTHTOKEN, tokensResponse.getTokens()?.getAccessToken())
+                    val loginResponse: LoginResponse? = response.body()
+                    if (response.isSuccessful && loginResponse != null) {
+                        userdata.putString(Constants.REFRESH_TOKEN, loginResponse.getTokens()?.getRefreshToken())
+                        userdata.putString(Constants.USER_ID, loginResponse.getId().toString())
+                        userdata.putString(Constants.USERNAME, loginResponse.getUsername())
+
+                        data.putString(AccountManager.KEY_AUTHTOKEN, loginResponse.getTokens()?.getAccessToken())
                         data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
                         data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
                         data.putString(PARAM_USER_PASS, userPass)
-                        data.putBundle(Constants.REFRESH_TOKEN, userdata)
+                        data.putBundle(Constants.USER_DATA, userdata)
 
                         val res = Intent()
                         res.putExtras(data)
@@ -115,7 +118,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
 
         // Creating the account on the device and setting the auth token we got
         // (Not setting the auth token will cause another call to the server to authenticate the user)
-        mAccountManager!!.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(Constants.REFRESH_TOKEN))
+        mAccountManager!!.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(Constants.USER_DATA))
         mAccountManager!!.setAuthToken(account, authtokenType, authtoken)
         setAccountAuthenticatorResult(intent.extras)
         setResult(RESULT_OK, intent)
@@ -123,7 +126,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         finish()
     }
 
-        companion object {
+    companion object {
         const val KEY_ERROR_MESSAGE = "ERR_MSG"
         const val PARAM_USER_PASS = "USER_PASS"
     }

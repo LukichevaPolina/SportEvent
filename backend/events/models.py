@@ -4,6 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from django.db import models
+import sportevent.settings as settings
 
 SPORT = ((1, 'football'),
          (2, 'bike'),
@@ -34,5 +35,5 @@ class Event(models.Model):
     members = models.ManyToManyField('accounts.User', related_name='members', blank=True)
 
     class Meta:
-        ordering = ['date']
+        ordering = ['date', 'start_time']
        
