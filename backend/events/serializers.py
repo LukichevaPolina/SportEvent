@@ -74,8 +74,6 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
 
     def update(self, instance, data):
         member = data['members'][0]
-        print(member)
-        print(instance.members.all())
         if member in instance.members.all():
             instance.members.remove(data['members'][0])
             instance.free_seats = instance.free_seats + 1
@@ -87,4 +85,3 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
         rep['sport'] = instance.sport.sport
         rep['owner'] = instance.owner.username
         return rep
-        

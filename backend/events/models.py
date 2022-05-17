@@ -1,10 +1,8 @@
-from django.contrib.postgres.fields import ArrayField
-from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from django.db import models
-import sportevent.settings as settings
+
 
 SPORT = ((1, 'football'),
          (2, 'bike'),
