@@ -33,14 +33,14 @@ interface IUserApi {
     @GET("events/schedule/")
     fun getSchedule(@Header("Authorization") token: String): Call<ArrayList<Event>>?
 
-    @PATCH("events/{id}/join")
-    fun join(@Header("Authorization") token: String, @Path("id") id: Int) : Call<ResponseBody>?
+    @PATCH("events/{id}/join/")
+    fun join(@Header("Authorization") token: String, @Path("id") id: Int?) : Call<Event>?
 
-    @PATCH("events/{id}/unjoin")
-    fun unjoin(@Header("Authorization") token: String, @Path("id") id: Int) : Call<ResponseBody>?
+    @PATCH("events/{id}/unjoin/")
+    fun unjoin(@Header("Authorization") token: String, @Path("id") id: Int?) : Call<Event>?
 
     @GET("events/date/")
-    fun eventsDate(@Header("Authorization") token: String, @Query("date") date: String?): Call<ArrayList<Event>>
+    fun getEventsDate(@Header("Authorization") token: String, @Query("date") date: String?): Call<ArrayList<Event>>
 
     @GET("events/after_date/")
     fun eventsAfterDate(@Header("Authorization") token: String, @Query("date") date: String?): Call<ArrayList<Event>>

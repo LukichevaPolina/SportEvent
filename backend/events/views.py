@@ -17,7 +17,7 @@ class EventList(generics.ListCreateAPIView):
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -73,9 +73,7 @@ class EventJoinAPIView(generics.UpdateAPIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         
-            return Response({'success': True,
-                            'message': 'User joining success'},
-                            status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response({'success': False,
                          'message': 'User joining FAILED'},
@@ -101,9 +99,7 @@ class EventUnjoinAPIView(generics.UpdateAPIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
         
-            return Response({'success': True,
-                            'message': 'User unjoining success'},
-                            status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response({'success': False,
                          'message': 'User unjoining FAILED'},

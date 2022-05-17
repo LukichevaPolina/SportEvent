@@ -7,14 +7,22 @@
     tools:context=".activities.eventsFragment.EventsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/calendar_recycler_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:listitem="@layout/adapter_calendar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/events_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/adapter_event"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_below="@+id/calendar_recycler_view"
+        android:layout_marginTop="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"/>
-
+        app:layout_constraintTop_toBottomOf="@+id/calendar_recycler_view"
+        tools:listitem="@layout/adapter_event" />
 
 </RelativeLayout>
