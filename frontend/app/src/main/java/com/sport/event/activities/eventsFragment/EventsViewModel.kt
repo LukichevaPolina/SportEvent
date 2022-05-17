@@ -10,55 +10,27 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.os.Bundle
-
 import android.accounts.AccountManagerFuture
-import java.lang.Exception
+import com.sport.event.accountManager.AccountManagerHelper
 
 
 class EventsViewModel : ViewModel() {
     val eventList = MutableLiveData<ArrayList<Event>>()
-    val errorMessage = MutableLiveData<String>()
 
-    fun getEvents(accountManager: AccountManager) {
-
-        //get account
-        lateinit var account: Account
-        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
-        for (acc in accounts) {
-            //looking for the right type of account
-            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
-                account = acc
-                break
-            }
-        }
-
-        //update authtoken
-        var authtoken: String? = accountManager.peekAuthToken(account, Constants.AUTH_TOKEN_TYPE)
-        accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authtoken)
-        val future: AccountManagerFuture<Bundle> =
-            accountManager.getAuthToken(account, Constants.AUTH_TOKEN_TYPE, null, false, null, null)
-
-        //get events
+    fun getEventsDate(date: String?, accountManager: AccountManager) {
+        val future: AccountManagerFuture<Bundle> = AccountManagerHelper().getFutureUpdateToken(accountManager)
         Thread {
-            try {
-                val bnd = future.result
-                authtoken = bnd.getString(AccountManager.KEY_AUTHTOKEN)
-                println(authtoken)
-                APIApp.restClient?.service?.getEvents("Bearer " + authtoken)?.enqueue(object: Callback<ArrayList<Event>> {
-                    override fun onResponse(
-                        call: Call<ArrayList<Event>>,
-                        response: Response<ArrayList<Event>>
-                    ) {
-                        eventList.postValue(response.body())
-                    }
+            val authToken = future.result.getString(AccountManager.KEY_AUTHTOKEN)
+            APIApp.restClient?.service?.getEventsDate("Bearer " + authToken, date)?.enqueue(object: Callback<ArrayList<Event>> {
+                override fun onResponse(call: Call<ArrayList<Event>>, response: Response<ArrayList<Event>>) {
+                    eventList.postValue(response.body())
+                }
 
-                    override fun onFailure(call: Call<ArrayList<Event>>, t: Throwable) {
-                        errorMessage.postValue(t.message)
-                    }
-                })
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+                override fun onFailure(call: Call<ArrayList<Event>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+
         }.start()
     }
 }

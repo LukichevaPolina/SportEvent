@@ -6,3 +6,6 @@ class Sport(models.Model):
 
     class Meta:
         ordering = ['sport']
+
+    def __str__(self) -> str:
+        return self.sport
