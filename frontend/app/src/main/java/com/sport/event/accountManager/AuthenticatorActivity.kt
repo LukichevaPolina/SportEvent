@@ -7,11 +7,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
 import com.sport.event.R
+import com.sport.event.activities.Onbording2
+import com.sport.event.activities.StartScreen
 import com.sport.event.retrofit.models.LoginRequest
 import com.sport.event.retrofit.models.LoginResponse
 import retrofit2.Call
@@ -26,6 +30,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
     private val TAG = this.javaClass.simpleName
     private var mAccountManager: AccountManager? = null
     private var mAuthTokenType: String? = null
+    private lateinit var buttonBack: ImageButton
 
     //Called when the activity is first created.
     public override fun onCreate(icicle: Bundle?) {
@@ -40,6 +45,12 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
         }
         findViewById<View>(R.id.btnLogin).setOnClickListener {
             submit()
+        }
+        buttonBack = findViewById(R.id.icon_back)
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, StartScreen::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
