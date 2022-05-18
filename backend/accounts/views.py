@@ -74,7 +74,7 @@ class LoginAPIView(generics.GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class LogoutAPIView(generics.APIView):
+class LogoutAPIView(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated)
 
     def post(self, request):
@@ -190,15 +190,6 @@ class UploadPhoto(generics.UpdateAPIView):
                         'message': 'User photo uploading is success'},
                         status=status.HTTP_200_OK)
 
-<<<<<<< HEAD
-
-
-        
-
-
-
-=======
         # return Response({'success': False,
         #                  'message': 'User photo uploading FAILED'},
         #                  status=status.HTTP_400_BAD_REQUEST)
->>>>>>> f35c61f1716abdd1d04045be2c245184f4403759
