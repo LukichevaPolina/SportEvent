@@ -81,11 +81,13 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
                 override fun onResponse(call: Call<LoginResponse?>, response: Response<LoginResponse?>) {
                     val loginResponse: LoginResponse? = response.body()
                     if (response.isSuccessful && loginResponse != null) {
-                        userdata.putString(Constants.REFRESH_TOKEN, loginResponse.getTokens()?.getRefreshToken())
-                        userdata.putString(Constants.USER_ID, loginResponse.getId().toString())
-                        userdata.putString(Constants.USERNAME, loginResponse.getUsername())
+                        userdata.putString(Constants.REFRESH_TOKEN, loginResponse.tokens.getRefreshToken())
+                        userdata.putString(Constants.USER_ID, loginResponse.id.toString())
+                        userdata.putString(Constants.USERNAME, loginResponse.username)
+                        userdata.putString(Constants.NAME, loginResponse.name)
+                        userdata.putString(Constants.SURNAME, loginResponse.surname)
 
-                        data.putString(AccountManager.KEY_AUTHTOKEN, loginResponse.getTokens()?.getAccessToken())
+                        data.putString(AccountManager.KEY_AUTHTOKEN, loginResponse.tokens.getAccessToken())
                         data.putString(AccountManager.KEY_ACCOUNT_NAME, userEmail)
                         data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType)
                         data.putString(PARAM_USER_PASS, userPass)

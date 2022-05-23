@@ -52,16 +52,7 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
 
         //work with accountManager
         val accountManager = AccountManager.get(holder.itemView.context)
-
-        lateinit var account: Account
-        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
-        for (acc in accounts) {
-            //looking for the right type of account
-            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
-                account = acc
-                break
-            }
-        }
+        val account = AccountManagerHelper().getAccount(accountManager)
 
         //handle button click
         val username: String = accountManager.getUserData(account, Constants.USERNAME)

@@ -74,7 +74,6 @@ class EventsFragment : Fragment() {
         val plusButton: Button = view.findViewById(R.id.button_plus)
         plusButton.setOnClickListener {
             getChildFragmentManager().beginTransaction().replace(R.id.container, CreateEventFragment()).commit()
-
         }
         return view
     }

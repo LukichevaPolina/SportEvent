@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.sport.event.R
 import com.sport.event.Constants
 import com.sport.event.accountManager.AccountManagerHelper
@@ -27,20 +29,20 @@ class CreateEventFragment : Fragment() {
     var cal = Calendar.getInstance(Locale.ENGLISH)
     private val maxDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-    val day = cal[Calendar.DAY_OF_MONTH]
-    val month = cal[Calendar.MONTH]
-    var minute = cal[Calendar.MINUTE]
+    val day: Int = cal[Calendar.DAY_OF_MONTH]
+    val month: Int = cal[Calendar.MONTH]
+    var minute = (cal[Calendar.MINUTE] / 15 + 1) * 15
     var hour = cal[Calendar.HOUR_OF_DAY]
 
     var days = ArrayList((day..maxDaysInMonth).toList())
     var months = if (day == 1) Constants.month.slice(month..month) else Constants.month.slice(month..month+1)
-    var minutes = ArrayList((minute..59).toList())
-    var hours = ArrayList((hour..23).toList())
+    var minutes = ArrayList((minute..59 step 15).toList().map{String.format("%02d", it)})
+    var hours = ArrayList((hour..23).toList().map{String.format("%02d", it)})
 
     lateinit var dayAdapter: ArrayAdapter<Int>
     lateinit var monthAdapter: ArrayAdapter<String>
-    lateinit var hourAdapter: ArrayAdapter<Int>
-    lateinit var minuteAdapter: ArrayAdapter<Int>
+    lateinit var hourAdapter: ArrayAdapter<String>
+    lateinit var minuteAdapter: ArrayAdapter<String>
     lateinit var sportAdapter: ArrayAdapter<String>
 
     var selectedDay: Int = day
@@ -101,6 +103,11 @@ class CreateEventFragment : Fragment() {
             CreateEvent()
         }
 
+        val cancelButton: Button = view.findViewById(R.id.btnCancel)
+        cancelButton.setOnClickListener {
+            CloseFragment()
+        }
+
         return view
     }
 
@@ -147,13 +154,12 @@ class CreateEventFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    selectedMonth = Constants.month.indexOf(parent.getItemAtPosition(position)) + 1
+                    selectedMonth = Constants.month.indexOf(parent.getItemAtPosition(position))
                     if (selectedMonth == month) {
-                        setStartMonth(days, dayAdapter)
+                        setMiddleMonth(days, dayAdapter)
                     }
                     else {
-
-                        setMiddleMonth(days, dayAdapter)
+                        setStartMonth(days, dayAdapter)
                     }
                     if (selectedDay == day && selectedMonth == month)
                     {
@@ -183,7 +189,7 @@ class CreateEventFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    selectedMinute = parent.getItemAtPosition(position) as Int
+                    selectedMinute = (parent.getItemAtPosition(position) as String).toInt()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -204,7 +210,13 @@ class CreateEventFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    selectedHour = parent.getItemAtPosition(position) as Int
+                    selectedHour = (parent.getItemAtPosition(position) as String).toInt()
+
+                    if (selectedHour == hour) {
+                        setTodayMinutes(minutes, minuteAdapter)
+                    } else {
+                        setStartMinutes(minutes, minuteAdapter)
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -225,7 +237,7 @@ class CreateEventFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                        selectedSport = position
+                        selectedSport = position + 1
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -245,31 +257,31 @@ class CreateEventFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun setStartMinutes(data: ArrayList<Int>, adapter: ArrayAdapter<Int>) {
+    private fun setStartMinutes(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
         data.clear()
-        data.addAll(ArrayList((0..59).toList()))
+        data.addAll(ArrayList((0..59 step 15).toList().map{String.format("%02d", it)}))
         adapter.notifyDataSetChanged()
     }
 
-    private fun setTodayMinutes(data: ArrayList<Int>, adapter: ArrayAdapter<Int>) {
+    private fun setTodayMinutes(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
         cal = Calendar.getInstance(Locale.ENGLISH)
-        minute = cal[Calendar.MINUTE]
+        minute = (cal[Calendar.MINUTE] / 15 + 1) * 15
         data.clear()
-        data.addAll(ArrayList((minute..59).toList()))
+        data.addAll(ArrayList((minute..59 step 15).toList().map{String.format("%02d", it)}))
         adapter.notifyDataSetChanged()
     }
 
-    private fun setStartHours(data: ArrayList<Int>, adapter: ArrayAdapter<Int>) {
+    private fun setStartHours(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
         data.clear()
-        data.addAll(ArrayList((0..23).toList()))
+        data.addAll(ArrayList((0..23).toList().map{String.format("%02d", it)}))
         adapter.notifyDataSetChanged()
     }
 
-    private fun setTodayHours(data: ArrayList<Int>, adapter: ArrayAdapter<Int>) {
+    private fun setTodayHours(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
         cal = Calendar.getInstance(Locale.ENGLISH)
         hour = cal[Calendar.HOUR_OF_DAY]
         data.clear()
-        data.addAll(ArrayList((hour..23).toList()))
+        data.addAll(ArrayList((hour..23).toList().map{String.format("%02d", it)}))
         adapter.notifyDataSetChanged()
     }
 
@@ -291,15 +303,12 @@ class CreateEventFragment : Fragment() {
         textView.text = personNumber.toString()
     }
 
+
     private fun CreateEvent() {
-        val date = "2022-0"+selectedMonth+"-"+selectedDay
-        println(date)
+        val date = "2022-" + String.format("%02d", selectedMonth + 1) + "-" + String.format("%02d",selectedDay)
         val startTime = selectedHour.toString() + ":" + selectedMinute
-        println(startTime)
         val endTime = (selectedHour + 1).toString() + ":" + selectedMinute
-        println(endTime)
         val freeSeats = personNumber
-        println(freeSeats)
         val level = 1
         val latitude = 22
         val longitude = 22
@@ -316,7 +325,8 @@ class CreateEventFragment : Fragment() {
                     call: Call<Event>,
                     response: Response<Event>
                 ) {
-                    println(response.message())
+                    Toast.makeText(context, "Событие успешно добавлено!", Toast.LENGTH_LONG).show()
+                    CloseFragment()
                 }
 
                 override fun onFailure(call: Call<Event>, t: Throwable) {
@@ -325,6 +335,14 @@ class CreateEventFragment : Fragment() {
                 }
             })
         }.start()
+    }
+
+    fun CloseFragment() {
+        val fm: FragmentManager = parentFragmentManager
+        val ft: FragmentTransaction = fm.beginTransaction()
+        ft.remove(this)
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+        ft.commit()
     }
 
     companion object {
