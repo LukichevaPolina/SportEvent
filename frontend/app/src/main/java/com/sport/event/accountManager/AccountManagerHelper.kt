@@ -4,6 +4,7 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AccountManagerFuture
 import android.os.Bundle
+import com.sport.event.Constants
 
 class AccountManagerHelper {
     fun getFutureUpdateToken(accountManager: AccountManager) : AccountManagerFuture<Bundle> {

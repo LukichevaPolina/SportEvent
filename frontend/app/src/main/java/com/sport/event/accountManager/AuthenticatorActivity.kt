@@ -1,20 +1,18 @@
 package com.sport.event.accountManager
 
-import Constants
+import com.sport.event.Constants
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
 import com.sport.event.R
-import com.sport.event.activities.Onbording2
 import com.sport.event.activities.StartScreen
 import com.sport.event.retrofit.models.LoginRequest
 import com.sport.event.retrofit.models.LoginResponse
@@ -129,7 +127,8 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
 
         // Creating the account on the device and setting the auth token we got
         // (Not setting the auth token will cause another call to the server to authenticate the user)
-        mAccountManager!!.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(Constants.USER_DATA))
+        mAccountManager!!.addAccountExplicitly(account, accountPassword, intent.getBundleExtra(
+            Constants.USER_DATA))
         mAccountManager!!.setAuthToken(account, authtokenType, authtoken)
         setAccountAuthenticatorResult(intent.extras)
         setResult(RESULT_OK, intent)

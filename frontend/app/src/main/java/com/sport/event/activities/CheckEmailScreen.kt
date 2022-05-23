@@ -15,7 +15,7 @@ class CheckEmailScreen : AppCompatActivity() {
         setContentView(R.layout.activity_check_email)
         buttonNext = findViewById(R.id.btnNext)
         buttonNext.setOnClickListener {
-            val intent = Intent(this, RegistrationScreenReady::class.java)
+            val intent = Intent(this, StartScreen::class.java)
             startActivity(intent)
             finish()
         }

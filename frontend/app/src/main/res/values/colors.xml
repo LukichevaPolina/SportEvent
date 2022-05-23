@@ -42,5 +42,7 @@
     <color name="Orange_100">#FFFFE2BB</color>
     <color name="Orange_50">#FFFFF4E4</color>
 
+    <color name="BackgroundColor">#E5E5E5</color>
+
 
 </resources>

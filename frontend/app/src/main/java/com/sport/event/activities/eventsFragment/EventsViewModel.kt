@@ -1,6 +1,5 @@
 package com.sport.event.activities.eventsFragment
 
-import android.accounts.Account
 import android.accounts.AccountManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

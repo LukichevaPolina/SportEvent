@@ -12,11 +12,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.sport.event.Constants
 import com.sport.event.R
 import com.sport.event.accountManager.AccountManagerHelper
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.Event
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -73,6 +73,9 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
             if (username == events[position]?.owner) {
                 holder.button.isEnabled = true
                 makeItemDisabled(holder)
+            } else if (events[position]?.free_seats == 0 && events[position]?.members?.contains(userId) == false) {
+                holder.button.isEnabled = true
+                makeItemFull(holder)
             } else {
                 //update token
                 val future: AccountManagerFuture<Bundle> = AccountManagerHelper().getFutureUpdateToken(accountManager)
@@ -132,17 +135,17 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
     }
 
     private fun buttonSettings(username: String, id: Int, position: Int, holder: EventsViewHolder) {
-        println("BUTTON SETTINGS")
         if (username == events[position]?.owner) {
             holder.button.isEnabled = true
             makeItemDisabled(holder)
+        } else if (events[position]?.free_seats == 0 && events[position]?.members?.contains(id) == false) {
+            holder.button.isEnabled = true
+            makeItemFull(holder)
         } else {
             if (events[position]?.members?.contains(id) == true) {
                 makeItemJoined(holder)
-                //joining = true
             } else {
                 makeItemUnjoined(holder)
-                //joining = false
             }
         }
     }
@@ -175,5 +178,15 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
             )
         )
         holder.button.text = "Вы организатор"
+    }
+
+    private fun makeItemFull(holder: EventsViewHolder) {
+        holder.button.setBackgroundColor(
+            ContextCompat.getColor(
+                holder.itemView.context,
+                R.color.Base_300
+            )
+        )
+        holder.button.text = "Нет мест"
     }
 }

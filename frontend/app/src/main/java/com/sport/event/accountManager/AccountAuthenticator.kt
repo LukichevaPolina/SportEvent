@@ -1,6 +1,6 @@
 package com.sport.event.accountManager
 
-import Constants
+import com.sport.event.Constants
 import android.accounts.NetworkErrorException
 import android.os.Bundle
 import android.accounts.Account

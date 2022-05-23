@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.accounts.AccountManager
 import android.accounts.Account
-import Constants
+import com.sport.event.Constants
 import android.annotation.SuppressLint
 import com.sport.event.R
 
