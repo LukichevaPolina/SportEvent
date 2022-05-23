@@ -28,7 +28,7 @@
         android:layout_marginTop="12dp"/>
 
     <ImageView
-        android:id="@+id/steps1"
+        android:id="@+id/steps2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,65 +39,78 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_steps_2" />
 
-    <TextView
-        android:id="@+id/country_text_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/country"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/steps1"
-        />
-
-    <EditText
-        android:id="@+id/country"
-        android:background="@drawable/text_field"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@id/country_text_field"
-        android:autofillHints="country"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
-
-    <TextView
-        android:id="@+id/locality_text_field"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/locality"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country"
-        />
-
-    <EditText
-        android:id="@+id/locality"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/steps2"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/locality_text_field"
-        android:autofillHints="location"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintVertical_bias="0.2"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp" >
+
+        <TextView
+            android:id="@+id/country_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/country"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/country"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/country_text_field"
+            android:autofillHints="country"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/locality_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/locality"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/country"
+            />
+
+        <EditText
+            android:id="@+id/locality"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/locality_text_field"
+            android:autofillHints="location"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <Button
         android:id="@+id/btnNext"

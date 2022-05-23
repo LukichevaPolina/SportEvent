@@ -39,125 +39,139 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_steps_1" />
 
-    <TextView
-        android:id="@+id/name_text_field"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/name"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="46dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/steps1"
-        />
-
-    <EditText
-        android:id="@+id/name"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name_text_field"
-        android:inputType="textPersonName"
-        tools:ignore="LabelFor"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:autofillHints="Name" />
-
-    <TextView
-        android:id="@+id/surname_text_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/surname"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        />
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintVertical_bias="0.2"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp">
 
-    <EditText
-        android:id="@+id/surname"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/surname_text_field"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:autofillHints="surname"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:id="@+id/name_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/name"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-    <TextView
-        android:id="@+id/birthday_text_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/birthday"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/surname"
-        />
+        <EditText
+            android:id="@+id/name"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_text_field"
+            android:inputType="textPersonName"
+            tools:ignore="LabelFor"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:autofillHints="Name" />
 
-    <EditText
-        android:id="@+id/birthday"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/birthday_text_field"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:autofillHints="date"
-        android:inputType="date"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:id="@+id/surname_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/surname"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            />
 
-    <TextView
-        android:id="@+id/email_text_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Text_Body2_14pt"
-        android:textColor="@color/Base_800"
-        android:text="@string/email"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthday"
-        />
+        <EditText
+            android:id="@+id/surname"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/surname_text_field"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:autofillHints="surname"
+            android:inputType="text"
+            tools:ignore="LabelFor" />
 
-    <EditText
-        android:id="@+id/email"
-        android:background="@drawable/text_field"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="40dp"
-        android:textAppearance="@style/Text_Body_16pt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_text_field"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:autofillHints="emailAddress"
-        android:inputType="textEmailAddress"
-        tools:ignore="LabelFor" />
+        <TextView
+            android:id="@+id/birthday_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/birthday"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/surname"
+            />
+
+        <EditText
+            android:id="@+id/birthday"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/birthday_text_field"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:autofillHints="date"
+            android:inputType="date"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/email_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_800"
+            android:text="@string/email"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birthday"
+            />
+
+        <EditText
+            android:id="@+id/email"
+            android:background="@drawable/text_field"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="40dp"
+            android:textAppearance="@style/Text_Body_16pt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_text_field"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:autofillHints="emailAddress"
+            android:inputType="textEmailAddress"
+            tools:ignore="LabelFor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <Button
         android:id="@+id/btnNext"

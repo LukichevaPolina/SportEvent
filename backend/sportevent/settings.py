@@ -29,7 +29,7 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['10.32.108.92', '127.0.0.1', '172.20.10.2', '192.168.0.13', '192.168.1.6', '192.168.26.57', '192.168.0.102']
- 
+
 # Override the default user model
 AUTH_USER_MODEL = 'accounts.User'
 
