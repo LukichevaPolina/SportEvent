@@ -11,6 +11,7 @@
     <string name="onb3_contentDescription">Running girl and boy</string>
     <string name="next">Далее</string>
     <string name="start">Начать</string>
+    <string name="ready">Готово</string>
     <string name="titleOnb1">Актуальные спортивные площадки</string>
     <string name="textOnb1">Найдите идеальное место для ваших тренировок: Вы можете настроить фильтры и выбрать подходящую площадку.</string>
     <string name="skip">Пропустить</string>
@@ -24,13 +25,25 @@
     <string name="password">Пароль</string>
     <string name="login_text">Логин</string>
     <string name="email">Email</string>
+    <string name="nick">Ник</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="country">Страна</string>
+    <string name="locality">Населенный пункт</string>
+    <string name="repeatPsswrd">Повторите пароль</string>
     <string name="succsessful_registry">О, ура! Вы зарегистрировались!</string>
     <string name="events">События</string>
     <string name="map">Карта</string>
+    <string name="enter">Войти в аккаунт</string>
+    <string name="you_are_registrated">Вы зарегистрированы!</string>
+    <string name="regWith">Зарегистрироваться с помощью</string>
+    <string name="privacyPolicy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь с Политикой конфиденциальности</string>
     <string name="schedule">Расписание</string>
     <string name="profile">Профиль</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Join">Присоединиться</string>
+    <string name="registration">Регистрация</string>
 
 </resources>
