@@ -23,4 +23,15 @@ class AccountManagerHelper {
         accountManager.invalidateAuthToken(Constants.ACCOUNT_TYPE, authtoken)
         return accountManager.getAuthToken(account, Constants.AUTH_TOKEN_TYPE, null, false, null, null)
     }
+
+    fun getAccount(accountManager: AccountManager): Account? {
+        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
+        for (acc in accounts) {
+            //looking for the right type of account
+            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
+                return acc
+            }
+        }
+        return null
+    }
 }
