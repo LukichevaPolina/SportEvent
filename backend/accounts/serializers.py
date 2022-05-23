@@ -70,10 +70,9 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields=['email', 'password', 'username', 'tokens']
+        fields=['id', 'email', 'password', 'username', 'tokens']
 
     def validate(self, attrs):
-        print(attrs.get('email', ''))
         email = attrs.get('email', '')
         password = attrs.get('password', '')
 
@@ -89,7 +88,8 @@ class LoginSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed('Email is not verified')
                         
         return {
-            "email": user.email,
+            'id': user.id,
+            'email': user.email,
             'username': user.username,
             'tokens': user.tokens,
         }
