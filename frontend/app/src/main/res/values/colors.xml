@@ -42,5 +42,38 @@
     <color name="Orange_100">#FFFFE2BB</color>
     <color name="Orange_50">#FFFFF4E4</color>
 
+    <color name="Red_900">#FFB60000</color>
+    <color name="Red_800">#FFC60000</color>
+    <color name="Red_700">#FFD40000</color>
+    <color name="Red_600">#FFE50B00</color>
+    <color name="Red_500">#FFF22300</color>
+    <color name="Red_400">#FFF43523</color>
+    <color name="Red_300">#FFF35B50</color>
+    <color name="Red_200">#FFFF8A7F</color>
+    <color name="Red_100">#FFFFC4C4</color>
+    <color name="Red_50">#FFFFE7E9</color>
+
+    <color name="Blue_900">#FF3D5653</color>
+    <color name="Blue_800">#FF497A79</color>
+    <color name="Blue_700">#FF4F8E8F</color>
+    <color name="Blue_600">#FF56A3A6</color>
+    <color name="Blue_500">#FF5CB3B7</color>
+    <color name="Blue_400">#FF62BEBF</color>
+    <color name="Blue_300">#FF70C9C9</color>
+    <color name="Blue_200">#FF91D9D7</color>
+    <color name="Blue_100">#FFB9E8E6</color>
+    <color name="Blue_50">#FFE2F6F5</color>
+
+    <color name="FernGreen_900">#FF3B5538</color>
+    <color name="FernGreen_800">#FF4B7447</color>
+    <color name="FernGreen_700">#FF548550</color>
+    <color name="FernGreen_600">#FF5F975B</color>
+    <color name="FernGreen_500">#FF68A564</color>
+    <color name="FernGreen_400">#FF7BB27A</color>
+    <color name="FernGreen_300">#FF90BF90</color>
+    <color name="FernGreen_200">#FFAED0AE</color>
+    <color name="FernGreen_100">#FFCDE3CD</color>
+    <color name="FernGreen_50">#FFEAF3EB</color>
+
 
 </resources>
