@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.sport.event.Constants
 import com.sport.event.R
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.User
@@ -92,7 +93,6 @@ class RegistrationScreen3 : AppCompatActivity() {
         val intent = Intent(this, CheckEmailScreen::class.java)
         startActivity(intent)
         findViewById<View>(R.id.loadingPanel).visibility = View.GONE
-        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
         finish()
     }
 }

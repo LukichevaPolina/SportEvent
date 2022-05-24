@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sport.event.R
+import com.sport.event.activities.CreateEventFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,12 +47,16 @@ class EventsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val date: String? = sdf.format(cal.time)
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_events, container, false)
 
         calendarRecyclerView = view.findViewById(R.id.calendar_recycler_view)
         //This is the maximum month that the calendar will display.
+
+        val dayTextView: TextView = view.findViewById(R.id.date)
+        dayTextView.text = date
 
         setUpCalendar()
 
@@ -61,9 +68,13 @@ class EventsFragment : Fragment() {
 
         //get accountManager
         accountManager = AccountManager.get(context)
-        val date: String? = sdf.format(cal.time)
         viewModel.getEventsDate(date, accountManager)
 
+        //plus button -> create new event fragment
+        val plusButton: Button = view.findViewById(R.id.button_plus)
+        plusButton.setOnClickListener {
+            getChildFragmentManager().beginTransaction().replace(R.id.container, CreateEventFragment()).commit()
+        }
         return view
     }
 

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.sport.event.Constants
 import com.sport.event.R
 
 class RegistrationScreen1 : AppCompatActivity() {

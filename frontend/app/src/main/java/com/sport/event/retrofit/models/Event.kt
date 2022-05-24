@@ -8,7 +8,7 @@ class Event (
     val start_time: String,
     val end_time: String,
     private val person_number: Int,
-    private val free_seats: Int,
+    val free_seats: Int,
     private val level: Int,
     val latitude: Int,
     val longitude: Int,

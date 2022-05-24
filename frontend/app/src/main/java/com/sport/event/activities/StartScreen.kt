@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.sport.event.Constants
 import com.sport.event.R
 
 class StartScreen : AppCompatActivity() {
@@ -33,7 +34,8 @@ class StartScreen : AppCompatActivity() {
         val accountManager: AccountManager = AccountManager.get(this@StartScreen)
         //accountManager.addAccount opens AuthenticationActivity which creates account on device
         //future needs for debug
-        val future : AccountManagerFuture<Bundle> = accountManager.addAccount(Constants.ACCOUNT_TYPE, Constants.AUTH_TOKEN_TYPE,null,  null, this,
+        val future : AccountManagerFuture<Bundle> = accountManager.addAccount(
+            Constants.ACCOUNT_TYPE, Constants.AUTH_TOKEN_TYPE,null,  null, this,
             { future ->
                 try {
                     val bnd: Bundle  = future.getResult()

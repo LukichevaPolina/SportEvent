@@ -46,6 +46,16 @@
     <string name="Join">Присоединиться</string>
     <string name="registration">Регистрация</string>
     <string name="favourite_sports">Любимые виды спорта</string>
+    <string name="today">Cегодня</string>
+    <string name="create_event">Создать событие</string>
+    <string name="_1_choose_sport">1. Выберите вид спорта</string>
+    <string name="_2_person_number">2. Укажите количество человек</string>
+    <string name="required_quantity">Необходимое количество</string>
+    <string name="max_quantity">Указать максимальное количество</string>
+    <string name="_3_place">3. Укажите место</string>
+    <string name="_4_date">4. Укажите дату</string>
+    <string name="create">Создать</string>
+    <string name="Cancel">Отмена</string>
     <string name="exit">Выйти</string>
     <string name="my_grounds">Мои площадки</string>
     <string name="grounds">Посещённые площадки</string>
