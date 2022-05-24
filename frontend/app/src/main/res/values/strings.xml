@@ -57,5 +57,7 @@
     <string name="create">Создать</string>
     <string name="Cancel">Отмена</string>
     <string name="exit">Выйти</string>
+    <string name="_5_start_time">5. Укажите время начала</string>
+    <string name="_6_end_time">6. Укажите время окончания</string>
 
 </resources>

@@ -217,23 +217,23 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/choose_time_text"
+            android:id="@+id/choose_start_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/date_layout"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="4dp"
-            android:text="5. Укажите время"
+            android:text="@string/_5_start_time"
             android:textAppearance="@style/Text_Subtitle_18pt"
             android:textColor="@color/Base_800"
             app:layout_constraintStart_toStartOf="parent" />
 
         <RelativeLayout
-            android:id="@+id/time_layout"
+            android:id="@+id/starts_time_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/choose_time_text"
+            android:layout_below="@+id/choose_start_time_text"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="67dp"
@@ -243,16 +243,16 @@
             android:radius="16dp">
 
             <Spinner
-                android:id="@+id/spinner_hours"
+                android:id="@+id/spinner_start_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toStartOf="@+id/colon" />
+                android:layout_toStartOf="@+id/start_colon" />
 
             <TextView
-                android:id="@+id/colon"
+                android:id="@+id/start_colon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -264,20 +264,77 @@
 
 
             <Spinner
-                android:id="@+id/spinner_minutes"
+                android:id="@+id/spinner_start_minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@+id/colon" />
+                android:layout_toEndOf="@+id/start_colon" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/choose_end_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/starts_time_layout"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="4dp"
+            android:text="@string/_6_end_time"
+            android:textAppearance="@style/Text_Subtitle_18pt"
+            android:textColor="@color/Base_800"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/end_time_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/choose_end_time_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="67dp"
+            android:layout_marginEnd="67dp"
+            android:background="@color/Base_0"
+            android:orientation="vertical"
+            android:radius="16dp">
+
+            <Spinner
+                android:id="@+id/spinner_end_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toStartOf="@+id/end_colon" />
+
+            <TextView
+                android:id="@+id/end_colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text=":"
+                android:textAppearance="@style/Text_H1_24pt"
+                android:textColor="@color/Base_800" />
+
+
+            <Spinner
+                android:id="@+id/spinner_end_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@+id/end_colon" />
         </RelativeLayout>
 
         <Button
             android:id="@+id/btnCreate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/time_layout"
+            android:layout_below="@+id/end_time_layout"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"

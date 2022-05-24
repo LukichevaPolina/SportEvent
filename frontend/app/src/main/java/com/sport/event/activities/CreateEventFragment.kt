@@ -41,14 +41,18 @@ class CreateEventFragment : Fragment() {
 
     lateinit var dayAdapter: ArrayAdapter<Int>
     lateinit var monthAdapter: ArrayAdapter<String>
-    lateinit var hourAdapter: ArrayAdapter<String>
-    lateinit var minuteAdapter: ArrayAdapter<String>
+    lateinit var startHourAdapter: ArrayAdapter<String>
+    lateinit var startMinuteAdapter: ArrayAdapter<String>
+    lateinit var endHourAdapter: ArrayAdapter<String>
+    lateinit var endMinuteAdapter: ArrayAdapter<String>
     lateinit var sportAdapter: ArrayAdapter<String>
 
     var selectedDay: Int = day
     var selectedMonth: Int = month
-    var selectedHour:Int = hour
-    var selectedMinute: Int = minute
+    var selectedStartHour:Int = hour
+    var selectedStartMinute: Int = minute
+    var selectedEndHour:Int = hour
+    var selectedEndMinute: Int = minute
     var selectedSport: Int = 1
 
     var sports = ArrayList<String>()
@@ -61,8 +65,10 @@ class CreateEventFragment : Fragment() {
 
         dayAdapter= ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, days)
         monthAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, months)
-        hourAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, hours)
-        minuteAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, minutes)
+        startHourAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, hours)
+        startMinuteAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, minutes)
+        endHourAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, hours)
+        endMinuteAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, minutes)
         sportAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sports)
 
         APIApp.restClient?.service?.getSports()?.enqueue(object:
@@ -94,8 +100,10 @@ class CreateEventFragment : Fragment() {
 
         setDaysSpinner(view)
         setMonthSpinner(view)
-        setHoursSpinner(view)
-        setMinuteSpinner(view)
+        setStartHoursSpinner(view)
+        setStartMinuteSpinner(view)
+        setEndHoursSpinner(view)
+        setEndMinuteSpinner(view)
         setSportSpinner(view)
 
         val createButton: Button = view.findViewById(R.id.btnCreate)
@@ -114,7 +122,6 @@ class CreateEventFragment : Fragment() {
 
     private fun setDaysSpinner(view: View) {
         val daysSpinner: Spinner = view.findViewById(R.id.spinner_day)
-        dayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         daysSpinner.setAdapter(dayAdapter)
 
         val itemSelectedListener: AdapterView.OnItemSelectedListener =
@@ -128,11 +135,11 @@ class CreateEventFragment : Fragment() {
                     selectedDay = parent.getItemAtPosition(position) as Int
                     if (selectedDay == day && selectedMonth == month)
                     {
-                        setTodayMinutes(minutes, minuteAdapter)
-                        setTodayHours(hours, hourAdapter)
+                        setTodayMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
+                        setTodayHours(hours, startHourAdapter, endHourAdapter)
                     } else {
-                        setStartMinutes(minutes, minuteAdapter)
-                        setStartHours(hours, hourAdapter)
+                        setStartMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
+                        setStartHours(hours, startHourAdapter, endHourAdapter)
                     }
                 }
 
@@ -143,7 +150,6 @@ class CreateEventFragment : Fragment() {
 
     private fun setMonthSpinner(view: View) {
         val monthSpinner: Spinner = view.findViewById(R.id.spinner_month)
-        monthAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         monthSpinner.setAdapter(monthAdapter)
 
         val itemSelectedListener: AdapterView.OnItemSelectedListener =
@@ -163,11 +169,11 @@ class CreateEventFragment : Fragment() {
                     }
                     if (selectedDay == day && selectedMonth == month)
                     {
-                        setTodayMinutes(minutes, minuteAdapter)
-                        setTodayHours(hours, hourAdapter)
+                        setTodayMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
+                        setTodayHours(hours, startHourAdapter, endHourAdapter)
                     } else {
-                        setStartMinutes(minutes, minuteAdapter)
-                        setStartHours(hours, hourAdapter)
+                        setStartMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
+                        setStartHours(hours, startHourAdapter, endHourAdapter)
                     }
                 }
 
@@ -176,10 +182,9 @@ class CreateEventFragment : Fragment() {
         monthSpinner.setOnItemSelectedListener(itemSelectedListener)
     }
 
-    private fun setMinuteSpinner(view: View) {
-        val minuteSpinner: Spinner = view.findViewById(R.id.spinner_minutes)
-        minuteAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        minuteSpinner.setAdapter(minuteAdapter)
+    private fun setStartMinuteSpinner(view: View) {
+        val minuteSpinner: Spinner = view.findViewById(R.id.spinner_start_minutes)
+        minuteSpinner.setAdapter(startMinuteAdapter)
 
         val itemSelectedListener: AdapterView.OnItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -189,7 +194,7 @@ class CreateEventFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    selectedMinute = (parent.getItemAtPosition(position) as String).toInt()
+                    selectedStartMinute = (parent.getItemAtPosition(position) as String).toInt()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -197,10 +202,9 @@ class CreateEventFragment : Fragment() {
         minuteSpinner.setOnItemSelectedListener(itemSelectedListener)
     }
 
-    private fun setHoursSpinner(view: View) {
-        val hourSpinner: Spinner = view.findViewById(R.id.spinner_hours)
-        hourAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
-        hourSpinner.setAdapter(hourAdapter)
+    private fun setEndMinuteSpinner(view: View) {
+        val minuteSpinner: Spinner = view.findViewById(R.id.spinner_end_minutes)
+        minuteSpinner.setAdapter(endMinuteAdapter)
 
         val itemSelectedListener: AdapterView.OnItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -210,12 +214,58 @@ class CreateEventFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    selectedHour = (parent.getItemAtPosition(position) as String).toInt()
+                    selectedEndMinute = (parent.getItemAtPosition(position) as String).toInt()
+                }
 
-                    if (selectedHour == hour) {
-                        setTodayMinutes(minutes, minuteAdapter)
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        minuteSpinner.setOnItemSelectedListener(itemSelectedListener)
+    }
+
+    private fun setStartHoursSpinner(view: View) {
+        val hourSpinner: Spinner = view.findViewById(R.id.spinner_start_hours)
+        hourSpinner.setAdapter(startHourAdapter)
+
+        val itemSelectedListener: AdapterView.OnItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedStartHour = (parent.getItemAtPosition(position) as String).toInt()
+
+                    if (selectedStartHour == hour) {
+                        setTodayMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
                     } else {
-                        setStartMinutes(minutes, minuteAdapter)
+                        setStartMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        hourSpinner.setOnItemSelectedListener(itemSelectedListener)
+    }
+
+    private fun setEndHoursSpinner(view: View) {
+        val hourSpinner: Spinner = view.findViewById(R.id.spinner_end_hours)
+        hourSpinner.setAdapter(endHourAdapter)
+
+        val itemSelectedListener: AdapterView.OnItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedEndHour = (parent.getItemAtPosition(position) as String).toInt()
+
+                    if (selectedEndHour == hour) {
+                        setTodayMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
+                    } else {
+                        setStartMinutes(minutes, startMinuteAdapter, endMinuteAdapter)
                     }
                 }
 
@@ -257,32 +307,36 @@ class CreateEventFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun setStartMinutes(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
+    private fun setStartMinutes(data: ArrayList<String>, startAdapter: ArrayAdapter<String>, endAdapter: ArrayAdapter<String>) {
         data.clear()
         data.addAll(ArrayList((0..59 step 15).toList().map{String.format("%02d", it)}))
-        adapter.notifyDataSetChanged()
+        startAdapter.notifyDataSetChanged()
+        endAdapter.notifyDataSetChanged()
     }
 
-    private fun setTodayMinutes(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
+    private fun setTodayMinutes(data: ArrayList<String>, startAdapter: ArrayAdapter<String>, endAdapter: ArrayAdapter<String>) {
         cal = Calendar.getInstance(Locale.ENGLISH)
         minute = (cal[Calendar.MINUTE] / 15 + 1) * 15
         data.clear()
         data.addAll(ArrayList((minute..59 step 15).toList().map{String.format("%02d", it)}))
-        adapter.notifyDataSetChanged()
+        startAdapter.notifyDataSetChanged()
+        endAdapter.notifyDataSetChanged()
     }
 
-    private fun setStartHours(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
+    private fun setStartHours(data: ArrayList<String>, startAdapter: ArrayAdapter<String>, endAdapter: ArrayAdapter<String>) {
         data.clear()
         data.addAll(ArrayList((0..23).toList().map{String.format("%02d", it)}))
-        adapter.notifyDataSetChanged()
+        startAdapter.notifyDataSetChanged()
+        endAdapter.notifyDataSetChanged()
     }
 
-    private fun setTodayHours(data: ArrayList<String>, adapter: ArrayAdapter<String>) {
+    private fun setTodayHours(data: ArrayList<String>, startAdapter: ArrayAdapter<String>, endAdapter: ArrayAdapter<String>) {
         cal = Calendar.getInstance(Locale.ENGLISH)
         hour = cal[Calendar.HOUR_OF_DAY]
         data.clear()
         data.addAll(ArrayList((hour..23).toList().map{String.format("%02d", it)}))
-        adapter.notifyDataSetChanged()
+        startAdapter.notifyDataSetChanged()
+        endAdapter.notifyDataSetChanged()
     }
 
     private fun clickMinus(buttonMinus: Button, buttonPlus: Button, textView: TextView) {
@@ -305,9 +359,13 @@ class CreateEventFragment : Fragment() {
 
 
     private fun CreateEvent() {
+        if (selectedStartHour > selectedEndHour || ((selectedStartHour == selectedEndHour) and (selectedStartMinute > selectedEndMinute))) {
+            Toast.makeText(context, "Время начала должно быть раньше времени окончания!", Toast.LENGTH_LONG).show()
+            return
+        }
         val date = "2022-" + String.format("%02d", selectedMonth + 1) + "-" + String.format("%02d",selectedDay)
-        val startTime = selectedHour.toString() + ":" + selectedMinute
-        val endTime = (selectedHour + 1).toString() + ":" + selectedMinute
+        val startTime = selectedStartHour.toString() + ":" + selectedStartMinute
+        val endTime = selectedEndHour.toString() + ":" + selectedEndMinute
         val freeSeats = personNumber
         val level = 1
         val latitude = 22
@@ -337,15 +395,11 @@ class CreateEventFragment : Fragment() {
         }.start()
     }
 
-    fun CloseFragment() {
+    private fun CloseFragment() {
         val fm: FragmentManager = parentFragmentManager
         val ft: FragmentTransaction = fm.beginTransaction()
         ft.remove(this)
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
         ft.commit()
-    }
-
-    companion object {
-        fun newInstance(param1: String, param2: String) = CreateEventFragment()
     }
 }
