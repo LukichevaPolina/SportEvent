@@ -96,250 +96,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/exit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/exit"
-        android:gravity="center_horizontal"
-        style="@style/Text_Subtitle_18pt"
-        android:textColor="@color/Red_400"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="14dp"
-        />
-
-    <ImageView
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintBottom_toTopOf="@id/exit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="14dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_rectangle_1"/>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/my_grounds"
+        android:id="@+id/status"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/line"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="22dp"
-        android:background="@drawable/text_field">
-
-        <TextView
-            android:id="@+id/my_grounds_text"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Мои площадки"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_700"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/my_grounds_num"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="2"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_400"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/grounds"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/my_grounds"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/text_field">
-
-        <TextView
-            android:id="@+id/grounds_text"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Посещённые площадки"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_700"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/grounds_num"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="26"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_400"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/grounds_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Площадки"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="16dp"
-        style="@style/Text_Body_16pt"
-        android:textColor="@color/Base_600"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/grounds"
-        />
-
-
-    <ImageView
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintBottom_toTopOf="@id/grounds_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_rectangle_1"/>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/my_events"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/line1"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="22dp"
-        android:background="@drawable/text_field">
-
-        <TextView
-            android:id="@+id/my_events_text"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Мои мероприятия"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_700"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/my_events_num"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="4"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_400"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/events"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/my_events"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/text_field">
-
-        <TextView
-            android:id="@+id/events_text"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Посещённые мероприятия"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_700"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/events_num"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="26"
-            android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:padding="10dp"
-            style="@style/Text_Body2_14pt"
-            android:textColor="@color/Base_400"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/events_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Мероприятия"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="16dp"
-        style="@style/Text_Body_16pt"
-        android:textColor="@color/Base_600"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/events"
-        />
-
-    <ImageView
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintBottom_toTopOf="@id/events_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="20dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_rectangle_1"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/user_data"
         app:layout_constraintBottom_toTopOf="@+id/line2">
@@ -348,7 +108,7 @@
             android:id="@+id/chips_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Мой статус"
+            android:text="@string/status"
             android:gravity="center_vertical"
             android:layout_marginStart="16dp"
             style="@style/Text_Body_16pt"
@@ -379,7 +139,7 @@
                 app:chipIcon="@drawable/ic_icon_relax"
                 android:checkable="true"
                 app:chipIconSize="18dp"
-                android:text="Релакс"
+                android:text="@string/relax"
                 style="@style/Text_Body2_14pt"
                 android:textColor="@color/Blue_900"/>
 
@@ -392,7 +152,7 @@
                 app:chipIcon="@drawable/ic_icon_train"
                 android:checkable="true"
                 app:chipIconSize="18dp"
-                android:text="Тренируюсь"
+                android:text="@string/train"
                 style="@style/Text_Body2_14pt"
                 android:textColor="@color/FernGreen_900"/>
 
@@ -405,7 +165,7 @@
                 app:chipIcon="@drawable/ic_icon_busy"
                 android:checkable="true"
                 app:chipIconSize="18dp"
-                android:text="Занят"
+                android:text="@string/busy"
                 style="@style/Text_Body2_14pt"
                 android:textColor="@color/Red_900"/>
 
@@ -418,7 +178,7 @@
                 app:chipIcon="@drawable/ic_icon_find_company"
                 android:checkable="true"
                 app:chipIconSize="18dp"
-                android:text="Ищу компанию"
+                android:text="@string/looking_for_company"
                 style="@style/Text_Body2_14pt"
                 android:textColor="@color/AppleGreen_900"/>
 
@@ -431,7 +191,7 @@
                 app:chipIcon="@drawable/ic_icon_way"
                 android:checkable="true"
                 app:chipIconSize="18dp"
-                android:text="Уже в пути"
+                android:text="@string/in_way"
                 style="@style/Text_Body2_14pt"
                 android:textColor="@color/Orange_900"/>
 
@@ -439,6 +199,270 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="22dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_rectangle_1"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line2"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/events_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/events_title"
+                android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                style="@style/Text_Body_16pt"
+                android:textColor="@color/Base_600"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/events_title"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/text_field">
+
+                <TextView
+                    android:id="@+id/events_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/placed_events"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_700"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/events_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="26"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_400"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/my_events"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/events"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/text_field">
+
+                <TextView
+                    android:id="@+id/my_events_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/my_events"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_700"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/my_events_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="4"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_400"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/my_events"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="26dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_rectangle_1"/>
+
+            <TextView
+                android:id="@+id/grounds_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grounds_title"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="16dp"
+                style="@style/Text_Body_16pt"
+                android:textColor="@color/Base_600"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line1"
+                />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/grounds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grounds_title"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/text_field">
+
+                <TextView
+                    android:id="@+id/grounds_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/grounds"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_700"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/grounds_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="26"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_400"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/my_grounds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grounds"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/text_field">
+
+                <TextView
+                    android:id="@+id/my_grounds_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/my_grounds"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_700"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/my_grounds_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="2"
+                    android:gravity="center_vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:padding="10dp"
+                    style="@style/Text_Body2_14pt"
+                    android:textColor="@color/Base_400"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <ImageView
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintTop_toBottomOf="@id/my_grounds"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="26dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/ic_rectangle_1"/>
+
+
+            <TextView
+                android:id="@+id/exit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exit"
+                android:gravity="center_horizontal"
+                style="@style/Text_Subtitle_18pt"
+                android:textColor="@color/Red_400"
+                app:layout_constraintTop_toBottomOf="@id/line"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
