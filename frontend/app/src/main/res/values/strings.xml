@@ -56,5 +56,6 @@
     <string name="_4_date">4. Укажите дату</string>
     <string name="create">Создать</string>
     <string name="Cancel">Отмена</string>
+    <string name="exit">Выйти</string>
 
 </resources>

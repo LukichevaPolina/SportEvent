@@ -1,15 +1,444 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.eventsFragment.EventsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ImageButton
+        android:id="@+id/icon_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile Fragment"
-        android:layout_centerInParent="true"/>
+        android:background="@null"
+        android:src="@drawable/ic_icon_settings"
+        app:layout_constraintEnd_toStartOf="@id/icon_edit"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:tint="@color/Base_600" />
 
-</RelativeLayout>
+    <ImageButton
+        android:id="@+id/icon_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/ic_icon_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:tint="@color/Base_600" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/user_data"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon_settings"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="30dp"
+
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.2">
+
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.4"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_avatar_profile"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/avatar"
+            android:layout_marginStart="36dp">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Фамилия Имя"
+                style="@style/Text_H1_24pt"
+                android:textColor="@color/Base_700"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                style="@style/Text_Subtitle_18pt"
+                android:textColor="@color/Base_400"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_name"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exit"
+        android:gravity="center_horizontal"
+        style="@style/Text_Subtitle_18pt"
+        android:textColor="@color/Red_400"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="14dp"
+        />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/exit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="14dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_rectangle_1"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/my_grounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/text_field">
+
+        <TextView
+            android:id="@+id/my_grounds_text"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Мои площадки"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/my_grounds_num"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="2"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_400"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/grounds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/my_grounds"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/text_field">
+
+        <TextView
+            android:id="@+id/grounds_text"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Посещённые площадки"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/grounds_num"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="26"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_400"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/grounds_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Площадки"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        style="@style/Text_Body_16pt"
+        android:textColor="@color/Base_600"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/grounds"
+        />
+
+
+    <ImageView
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/grounds_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_rectangle_1"/>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/my_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/line1"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/text_field">
+
+        <TextView
+            android:id="@+id/my_events_text"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Мои мероприятия"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/my_events_num"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="4"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_400"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/my_events"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/text_field">
+
+        <TextView
+            android:id="@+id/events_text"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Посещённые мероприятия"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_700"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/events_num"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="26"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="10dp"
+            style="@style/Text_Body2_14pt"
+            android:textColor="@color/Base_400"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/events_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мероприятия"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        style="@style/Text_Body_16pt"
+        android:textColor="@color/Base_600"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/events"
+        />
+
+    <ImageView
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/events_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_rectangle_1"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/user_data"
+        app:layout_constraintBottom_toTopOf="@+id/line2">
+
+        <TextView
+            android:id="@+id/chips_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Мой статус"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            style="@style/Text_Body_16pt"
+            android:textColor="@color/Base_600"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/chips_title"
+            app:singleSelection="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:chipSpacingHorizontal="32dp"
+            >
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/relax_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/Blue_100"
+                app:chipIcon="@drawable/ic_icon_relax"
+                android:checkable="true"
+                app:chipIconSize="18dp"
+                android:text="Релакс"
+                style="@style/Text_Body2_14pt"
+                android:textColor="@color/Blue_900"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/train_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/FernGreen_100"
+                app:chipIcon="@drawable/ic_icon_train"
+                android:checkable="true"
+                app:chipIconSize="18dp"
+                android:text="Тренируюсь"
+                style="@style/Text_Body2_14pt"
+                android:textColor="@color/FernGreen_900"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/busy_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/Red_100"
+                app:chipIcon="@drawable/ic_icon_busy"
+                android:checkable="true"
+                app:chipIconSize="18dp"
+                android:text="Занят"
+                style="@style/Text_Body2_14pt"
+                android:textColor="@color/Red_900"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/looking_for_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/AppleGreen_100"
+                app:chipIcon="@drawable/ic_icon_find_company"
+                android:checkable="true"
+                app:chipIconSize="18dp"
+                android:text="Ищу компанию"
+                style="@style/Text_Body2_14pt"
+                android:textColor="@color/AppleGreen_900"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/way_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:chipBackgroundColor="@color/Orange_100"
+                app:chipIcon="@drawable/ic_icon_way"
+                android:checkable="true"
+                app:chipIconSize="18dp"
+                android:text="Уже в пути"
+                style="@style/Text_Body2_14pt"
+                android:textColor="@color/Orange_900"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

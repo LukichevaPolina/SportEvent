@@ -6,15 +6,6 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-<<<<<<< HEAD
-            <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Polina\.android\avd\Pixel_API_27.avd" />
-          </Key>
-        </deviceKey>
-      </Target>
-    </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-05-21T10:51:32.872965200Z" />
-=======
             <type value="SERIAL_NUMBER" />
             <value value="42002862ec0f149f" />
           </Key>
@@ -22,6 +13,5 @@
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
     <timeTargetWasSelectedWithDropDown value="2022-05-23T12:26:43.595349500Z" />
->>>>>>> efe144e429546eeaf40f5904fd6b93d9fa82ed1c
   </component>
 </project>
