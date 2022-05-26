@@ -1,6 +1,5 @@
 package com.sport.event.activities.eventsFragment
 
-import android.accounts.Account
 import android.accounts.AccountManager
 import android.accounts.AccountManagerFuture
 import android.annotation.SuppressLint
@@ -22,8 +21,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //set all the items into the recyclerview
-class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
+class EventsAdapter(pb: View): RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
     var events = mutableListOf<Event?>()
+    var progressBar = pb
 
     @SuppressLint("NotifyDataSetChanged")
     fun setEventList(events:ArrayList<Event>) {
@@ -35,6 +35,7 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.adapter_event, parent, false)
+
         return EventsViewHolder(view)
     }
 
@@ -44,7 +45,7 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
         val event = events[position]
         holder.sport.text = event?.sport
 
-        val place = event?.latitude.toString() + ", " + event?.longitude.toString()
+        val place = event?.address
         holder.place.text = place
 
         val time = (event?.start_time) + " - " + (event?.end_time)
@@ -113,6 +114,7 @@ class EventsAdapter: RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
                 }
             }
         }
+        progressBar.visibility = View.GONE
     }
 
     //total item number

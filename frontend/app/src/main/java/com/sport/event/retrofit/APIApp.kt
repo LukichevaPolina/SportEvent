@@ -11,6 +11,4 @@ class APIApp : Application() {
     companion object {
         var restClient: RestClient? = null
     }
-
 }
-
