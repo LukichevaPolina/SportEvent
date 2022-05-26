@@ -75,6 +75,7 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
                 val refreshTokenResponse = refresh(refreshTokenRequest)
                 refreshTokenResponse?.getAccessToken()
             }
+            println(authToken)
         }
         val result = Bundle()
         result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)

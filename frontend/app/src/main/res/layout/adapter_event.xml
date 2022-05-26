@@ -22,6 +22,7 @@
             android:textAppearance="@style/Text_H2_20pt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
             tools:ignore="RtlSymmetry"
             tools:text="@tools:sample/full_names" />
 
@@ -38,9 +39,14 @@
             android:id="@+id/button"
             android:layout_width="186dp"
             android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/Join"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/rectange"
+            />
 
         <TextView
             android:id="@+id/place"
@@ -51,28 +57,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sport"
             app:drawableLeftCompat="@drawable/ic_place"
-            app:tint="@color/Orange_800"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:drawableTint="@color/Orange_800"/>
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/clock"-->
-<!--                    android:layout_width="20dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:background="@drawable/ic_time"-->
-<!--                    android:textColor="@color/Base_800"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/map_marker"-->
-<!--                    app:tint="@color/Base_800"/>-->
+        <ImageView
+            android:id="@+id/rectange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_rectangle_19"
+            android:textColor="@color/Base_800"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/place"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:tint="@color/Base_800"/>
 
-            <TextView
-                android:id="@+id/text_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/Text_Body_16pt"
-                android:textColor="@color/Base_800"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/place"
-                app:drawableLeftCompat="@drawable/ic_time"
-                app:tint="@color/Base_800"/>
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Text_Body_16pt"
+            android:textColor="@color/Base_800"
+            app:drawableLeftCompat="@drawable/ic_time"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rectange"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            app:tint="@color/Base_800" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

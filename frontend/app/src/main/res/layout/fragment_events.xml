@@ -87,11 +87,27 @@
             app:icon="@drawable/ic_plus"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
+<<<<<<< HEAD
             app:iconSize="36dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+            app:iconSize="36dp"/>
+>>>>>>> 1d3d1091e5454cae04f83afa282fd0f5e09fc7b0
 
+        <RelativeLayout
+            style="@style/GenericProgressBackground"
+            android:id="@+id/loadingPanel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <ProgressBar
+                style="@style/GenericProgressIndicator"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"

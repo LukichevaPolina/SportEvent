@@ -54,5 +54,4 @@ class StartScreen : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
 }

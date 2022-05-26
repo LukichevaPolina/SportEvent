@@ -12,7 +12,7 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
+        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members', 'address']
 
     def validate(self, data):
         """
@@ -44,7 +44,7 @@ class EventJoinSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
+        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members', 'address']
     
 
     def update(self, instance, data):
@@ -70,7 +70,7 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Event
-        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members']
+        fields = ['id', 'owner', 'sport', 'date', 'start_time', 'end_time', 'person_number', 'free_seats', 'level', 'latitude', 'longitude', 'members', 'address']
 
     def update(self, instance, data):
         member = data['members'][0]
