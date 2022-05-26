@@ -8,6 +8,7 @@ class EventRequest(
     private val person_number: Int,
     private val free_seats: Int?,
     private val level: Int,
-    private val latitude: Int,
-    private val longitude: Int
+    private val latitude: Double,
+    private val longitude: Double,
+    private val address: String
 )

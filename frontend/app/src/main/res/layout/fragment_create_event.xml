@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sport.event.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
@@ -40,24 +40,35 @@
             android:textColor="@color/Base_800"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Spinner
-            android:id="@+id/sport_spinner"
+
+        <RelativeLayout
+            android:id="@+id/sport_layout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/choose_sport_text"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="4dp"
-            android:textAppearance="@style/Text_Body_16pt"
-            android:textColor="@color/Base_700"/>
+            android:background="@drawable/background_with_shadow"
+            android:orientation="vertical"
+            android:radius="10dp">
+
+            <Spinner
+                android:id="@+id/sport_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:clipToPadding="false"
+                android:textAppearance="@style/Text_Body_16pt"
+                android:textColor="@color/Base_700" />
+        </RelativeLayout>
 
 
         <TextView
             android:id="@+id/person_number_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sport_spinner"
+            android:layout_below="@+id/sport_layout"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="4dp"
@@ -75,7 +86,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="67dp"
             android:layout_marginEnd="67dp"
-            android:background="@color/Base_0"
+            android:background="@drawable/background_with_shadow"
             android:orientation="vertical"
             android:radius="16dp">
 
@@ -83,6 +94,7 @@
                 android:id="@+id/required_quantity_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="@string/required_quantity"
                 android:textAppearance="@style/Text_Body_16pt"
@@ -96,6 +108,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:layout_toStartOf="@+id/quantity"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/small_button"
                 android:backgroundTint="@color/AppleGreen_50"
                 app:cornerRadius="10dp"
@@ -162,13 +175,13 @@
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_below="@+id/place_text"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
             android:gravity="center"
             tools:context=".activities.MainActivity" />
 
@@ -198,22 +211,48 @@
             android:orientation="vertical"
             android:radius="16dp">
 
-            <Spinner
-                android:id="@+id/spinner_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp" />
+            <Space android:id="@+id/dummy"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="invisible"/>
 
-            <Spinner
-                android:id="@+id/spinner_month"
+            <RelativeLayout
+                android:id="@+id/day_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_alignEnd="@id/dummy"
+                android:layout_marginEnd="18dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@+id/spinner_day" />
+                android:background="@drawable/background_with_shadow"
+                android:orientation="vertical"
+                android:radius="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/month_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@+id/day_layout"
+                android:background="@drawable/background_with_shadow"
+                android:orientation="vertical"
+                android:radius="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <TextView
@@ -242,14 +281,22 @@
             android:orientation="vertical"
             android:radius="16dp">
 
-            <Spinner
-                android:id="@+id/spinner_start_hours"
+            <RelativeLayout
+                android:id="@+id/start_hours_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toStartOf="@+id/start_colon" />
+                android:layout_toStartOf="@+id/start_colon"
+                android:background="@drawable/background_with_shadow"
+                android:radius="16dp">
+
+                <Spinner
+                    android:id="@+id/spinner_start_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/start_colon"
@@ -262,15 +309,21 @@
                 android:textAppearance="@style/Text_H1_24pt"
                 android:textColor="@color/Base_800" />
 
-
-            <Spinner
-                android:id="@+id/spinner_start_minutes"
+            <RelativeLayout
+                android:id="@+id/start_minutes_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@+id/start_colon" />
+                android:layout_toEndOf="@+id/start_colon"
+                android:background="@drawable/background_with_shadow"
+                android:radius="16dp">
+            <Spinner
+                android:id="@+id/spinner_start_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            </RelativeLayout>
         </RelativeLayout>
 
         <TextView
@@ -299,14 +352,22 @@
             android:orientation="vertical"
             android:radius="16dp">
 
-            <Spinner
-                android:id="@+id/spinner_end_hours"
+            <RelativeLayout
+                android:id="@+id/end_hours_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toStartOf="@+id/end_colon" />
+                android:layout_toStartOf="@+id/end_colon"
+                android:background="@drawable/background_with_shadow"
+                android:radius="16dp">
+
+                <Spinner
+                    android:id="@+id/spinner_end_hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/end_colon"
@@ -319,15 +380,24 @@
                 android:textAppearance="@style/Text_H1_24pt"
                 android:textColor="@color/Base_800" />
 
-
-            <Spinner
-                android:id="@+id/spinner_end_minutes"
+            <RelativeLayout
+                android:id="@+id/end_minutes_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
-                android:layout_toEndOf="@+id/end_colon" />
+                android:layout_toEndOf="@+id/end_colon"
+                android:background="@drawable/background_with_shadow"
+                android:radius="16dp">
+
+                <Spinner
+                    android:id="@+id/spinner_end_minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <Button
@@ -357,4 +427,4 @@
 
 
     </RelativeLayout>
-</ScrollView>
+</com.sport.event.CustomScrollView>

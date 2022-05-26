@@ -29,6 +29,7 @@ class Event(models.Model):
     level = models.CharField(choices=LEVEL, default='None', max_length=100)
     latitude = models.FloatField(validators=[MinValueValidator(-90), MaxValueValidator(90)])
     longitude = models.FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)])
+    address = models.CharField(max_length=255, default='', unique=False, db_index=True)
     
     members = models.ManyToManyField('accounts.User', related_name='members', blank=True)
 

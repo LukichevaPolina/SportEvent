@@ -59,5 +59,17 @@
     <string name="exit">Выйти</string>
     <string name="_5_start_time">5. Укажите время начала</string>
     <string name="_6_end_time">6. Укажите время окончания</string>
+    <string name="my_grounds">Мои площадки</string>
+    <string name="grounds">Посещённые площадки</string>
+    <string name="grounds_title">Площадки</string>
+    <string name="my_events">Мои мероприятия</string>
+    <string name="placed_events">Посещённые мероприятия</string>
+    <string name="events_title">Мероприятия</string>
+    <string name="status">Мой статус</string>
+    <string name="relax">Релакс</string>
+    <string name="train">Тренируюсь</string>
+    <string name="busy">Занят</string>
+    <string name="looking_for_company">Ищу компанию</string>
+    <string name="in_way">Уже в пути</string>
 
 </resources>

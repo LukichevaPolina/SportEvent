@@ -10,7 +10,8 @@ class Event (
     private val person_number: Int,
     val free_seats: Int,
     private val level: Int,
-    val latitude: Int,
-    val longitude: Int,
+    val latitude: Double,
+    val longitude: Double,
+    val address: String,
     val members: ArrayList<Int>,
 )

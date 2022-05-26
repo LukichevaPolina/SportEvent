@@ -33,6 +33,3 @@ class EventsViewModel : ViewModel() {
         }.start()
     }
 }
-
-
-

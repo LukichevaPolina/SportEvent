@@ -16,8 +16,9 @@ import com.sport.event.R
 import com.sport.event.activities.CreateEventFragment
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.timer
 
-class EventsFragment : Fragment() {
+class EventsFragment : CreateEventFragment.FragmentCommunicator, Fragment(){
 
     private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
@@ -31,10 +32,12 @@ class EventsFragment : Fragment() {
     // ArrayList of all days in one month
     private val dates = ArrayList<Date>()
 
+    private lateinit var date: String
+
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var calendarAdapter: CalendarAdapter
     private lateinit var eventsRecyclerView: RecyclerView
-    val eventsAdapter: EventsAdapter = EventsAdapter()
+    private lateinit var eventsAdapter: EventsAdapter
 
     private lateinit var accountManager: AccountManager
 
@@ -47,7 +50,7 @@ class EventsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val date: String? = sdf.format(cal.time)
+        date = sdf.format(cal.time)
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_events, container, false)
@@ -61,6 +64,8 @@ class EventsFragment : Fragment() {
         setUpCalendar()
 
         eventsRecyclerView = view.findViewById(R.id.events_recycler_view)
+
+        eventsAdapter= EventsAdapter(view.findViewById(R.id.loadingPanel))
         eventsRecyclerView.adapter = eventsAdapter
         viewModel.eventList.observe(viewLifecycleOwner, Observer {
             eventsAdapter.setEventList(it)
@@ -73,8 +78,9 @@ class EventsFragment : Fragment() {
         //plus button -> create new event fragment
         val plusButton: Button = view.findViewById(R.id.button_plus)
         plusButton.setOnClickListener {
-            getChildFragmentManager().beginTransaction().replace(R.id.container, CreateEventFragment()).commit()
+            childFragmentManager.beginTransaction().replace(R.id.container, CreateEventFragment(), "CREATE_EVENT_TAG").commit()
         }
+
         return view
     }
 
@@ -97,8 +103,6 @@ class EventsFragment : Fragment() {
         calendarAdapter = context?.let { CalendarAdapter(it, dates, currentDate, changeMonth) }!!
         calendarRecyclerView.adapter = calendarAdapter
 
-
-
         //update eventsRecyclerView when data in calendar change
         calendarAdapter.setOnItemClickListener(object : CalendarAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
@@ -110,5 +114,9 @@ class EventsFragment : Fragment() {
                 eventsRecyclerView.scrollToPosition(0)
             }
         })
+    }
+
+    override fun fragmentDetached() {
+        viewModel.getEventsDate(date, accountManager)
     }
 }
