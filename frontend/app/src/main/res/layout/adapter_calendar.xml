@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="42dp"
-android:layout_height="56dp"
-android:layout_margin="10dp"
-app:cardCornerRadius="8dp"
-android:id="@+id/calendar_card"
-xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="42dp"
+    android:layout_height="56dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="8dp"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="8dp"
+    android:id="@+id/calendar_card"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,13 +20,21 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:id="@+id/day_of_the_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            style="@style/Text_Secondary_12pt"
+            android:textColor="@color/Base_500"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </LinearLayout>
+            style="@style/Text_Body_16pt"
+            android:textColor="@color/Base_600"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/day_of_the_week"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
