@@ -85,3 +85,14 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
         rep['sport'] = instance.sport.sport
         rep['owner'] = instance.owner.username
         return rep
+
+
+class EventFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['sport', 'date', 'start_time', 'free_seats']
+
+    def to_representation(self, instance):
+        rep = super(EventFilterSerializer, self).to_representation(instance)
+        rep['sport'] = instance.sport.sport
+        return rep

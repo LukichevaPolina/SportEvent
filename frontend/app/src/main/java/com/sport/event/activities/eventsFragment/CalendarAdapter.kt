@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.sport.event.Constants
 import com.sport.event.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -42,16 +43,11 @@ class CalendarAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: CalendarViewHolder, @SuppressLint("RecyclerView") position: Int) {
-        val sdf = SimpleDateFormat("EE", Locale.ENGLISH)
         val cal = Calendar.getInstance()
         cal.time = data[position]
         val displayDay = cal[Calendar.DAY_OF_MONTH]
 
-        try {
-            holder.dayOfWeek.text = sdf.format(cal.time).toString()
-        } catch (ex: ParseException) {
-            Log.v("Exception", ex.localizedMessage!!)
-        }
+        holder.dayOfWeek.text = Constants.daysOfWeek[cal[Calendar.DAY_OF_WEEK] - 1]
         holder.date.text = cal[Calendar.DAY_OF_MONTH].toString()
 
         holder.cardView.setOnClickListener {

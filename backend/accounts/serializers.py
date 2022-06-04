@@ -70,7 +70,8 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields=['id', 'email', 'password', 'username', 'name', 'surname', 'tokens']
+        read_only_fields = ['name', 'surname']
+        fields=['id', 'email', 'password', 'username', 'tokens']
 
     def validate(self, attrs):
         email = attrs.get('email', '')

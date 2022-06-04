@@ -12,6 +12,7 @@ import android.content.Context
 import android.text.TextUtils
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.RefreshTokenRequest
+import com.sport.event.retrofit.models.RefreshTokenResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -67,20 +68,24 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         // the server for an appropriate AuthToken.
         val am = AccountManager.get(mContext)
         var authToken = am.peekAuthToken(account, authTokenType)
+        lateinit var refreshToken: String
         if (TextUtils.isEmpty(authToken)) {
-            val refreshToken: String = am.getUserData(account, Constants.REFRESH_TOKEN)
+            refreshToken = am.getUserData(account, Constants.REFRESH_TOKEN)
             val refreshTokenRequest: RefreshTokenRequest = RefreshTokenRequest(refreshToken)
             //get authtokin with using coroutine
-            authToken = runBlocking {
+            val tokens = runBlocking {
                 val refreshTokenResponse = refresh(refreshTokenRequest)
-                refreshTokenResponse?.getAccessToken()
+                refreshTokenResponse
             }
-            println(authToken)
+
+            authToken = tokens?.access
+            refreshToken = tokens?.refresh.toString()
         }
         val result = Bundle()
         result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
         result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type)
         result.putString(AccountManager.KEY_AUTHTOKEN, authToken)
+        am.setUserData(account, Constants.REFRESH_TOKEN, refreshToken)
         return result
     }
 

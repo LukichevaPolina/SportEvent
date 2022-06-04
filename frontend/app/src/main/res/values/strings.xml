@@ -71,5 +71,11 @@
     <string name="busy">Занят</string>
     <string name="looking_for_company">Ищу компанию</string>
     <string name="in_way">Уже в пути</string>
+    <string name="Filters">Фильтры</string>
+    <string name="_2_free_seats">2. Укажие количество свободных мест</string>
+    <string name="scince">От</string>
+    <string name="from">От</string>
+    <string name="to">До</string>
+    <string name="Apply">Применить</string>
 
 </resources>

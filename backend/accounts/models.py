@@ -2,7 +2,6 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, Permi
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken
-from events.models import SPORT
 
 SEX = ((1, 'None'),
        (2, 'Male'),

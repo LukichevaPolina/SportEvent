@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-lzx=%r!1yq0p+=(i&!#v9thj=jd%9n7_h$2nut-#t%q*x3cl+l
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['10.32.108.92', '127.0.0.1', '172.20.10.2', '192.168.0.13', '192.168.1.6', '192.168.26.57', '192.168.0.102', '172.20.10.4', '192.168.151.57']
+ALLOWED_HOSTS = ['10.32.108.92', '127.0.0.1', '172.20.10.3', '192.168.0.13', '192.168.1.6', '192.168.26.57', '192.168.0.102', '172.20.10.4', '192.168.151.57']
 
 # Override the default user model
 AUTH_USER_MODEL = 'accounts.User'
@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
     'djoser',
     'accounts',
     'events',
+    'grounds',
     'sports',
 ]
 
@@ -142,7 +144,11 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 
-    'TIME_FORMAT': ('%H:%M')
+    'TIME_FORMAT': ('%H:%M'),
+}
+
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS': True
 }
 
 # Email sending settings
