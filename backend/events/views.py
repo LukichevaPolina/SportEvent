@@ -46,7 +46,11 @@ class EventSchedule(generics.ListAPIView):
         This view should return a list of all the events
         for the currently authenticated user.
         """
-        return Event.objects.filter(members=self.request.user, date__gte=datetime.now().date())
+        date = self.request.query_params.get('date')
+        owner_filter = Event.objects.filter(owner=self.request.user, date = self.request.query_params.get('date'))
+        members_filter = Event.objects.filter(members=self.request.user, date = self.request.query_params.get('date'))
+
+        return owner_filter | members_filter
 
 
 class EventJoinAPIView(generics.UpdateAPIView):
