@@ -1,10 +1,9 @@
 package com.sport.event.retrofit.models
 
 class RefreshTokenResponse (
-    private val access: String?
+    val access: String?,
+    val refresh: String?
+
 )
 {
-    fun getAccessToken(): String? {
-        return access
-    }
 }

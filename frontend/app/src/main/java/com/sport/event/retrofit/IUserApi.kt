@@ -51,8 +51,13 @@ interface IUserApi {
     @GET("events/created/")
     fun eventsCreated(@Header("Authorization") token: String): Call<ArrayList<Event>>
 
-//    @GET("events/filters/")
-//    fun eventsFilters(@Header("Authorization") token: String): Call<ArrayList<Event>>
+    @GET("events/filters/")
+    fun eventsFilters(@Header("Authorization") token: String,
+                      @Query("sport") sport: Int?,
+                      @Query("date") date: String?,
+                      @Query("start_time") start_time:String?,
+                      @Query("free_seats_gte") free_seats_gte: Int?,
+                      @Query("free_seats_lte") free_seats_lte: Int?): Call<ArrayList<Event>>
 
     @GET("sports/")
     fun getSports(): Call<ArrayList<Sport>>

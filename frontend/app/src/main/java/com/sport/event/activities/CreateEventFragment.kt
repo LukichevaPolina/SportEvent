@@ -81,6 +81,7 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
     private var selectedAddress: String = "пл. Минина и Пожарского, 1"
 
     private var sports = ArrayList<String>()
+    private var sportsId = ArrayList<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,13 +94,13 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        dayAdapter= ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, days)
-        monthAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, months)
-        startHourAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, startHours)
-        startMinuteAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, startMinutes)
-        endHourAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, endHours)
-        endMinuteAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, endMinutes)
-        sportAdapter = ArrayAdapter(requireContext(), R.layout.support_simple_spinner_dropdown_item, sports)
+        dayAdapter= ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, days)
+        monthAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, months)
+        startHourAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, startHours)
+        startMinuteAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, startMinutes)
+        endHourAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, endHours)
+        endMinuteAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, endMinutes)
+        sportAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, sports)
 
         APIApp.restClient?.service?.getSports()?.enqueue(object:
             Callback<ArrayList<Sport>> {
@@ -108,6 +109,7 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
                 sports.clear()
                 for (sport in sports_response){
                     sports.add(sport.sport)
+                    sportsId.add(sport.id)
                 }
                 sportAdapter.notifyDataSetChanged()
             }
@@ -260,7 +262,6 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
 
     private fun setStartHoursSpinner(view: View) {
         val hourSpinner: Spinner = view.findViewById(R.id.spinner_start_hours)
-        startHourAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         hourSpinner.setAdapter(startHourAdapter)
 
         val itemSelectedListener: AdapterView.OnItemSelectedListener =
@@ -314,7 +315,6 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
 
     private fun setSportSpinner(view: View) {
         val sportSpinner: Spinner = view.findViewById(R.id.sport_spinner)
-        sportAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         sportSpinner.setAdapter(sportAdapter)
 
         val itemSelectedListener: AdapterView.OnItemSelectedListener =
@@ -325,7 +325,7 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
                     position: Int,
                     id: Long
                 ) {
-                        selectedSport = position + 1
+                        selectedSport = sportsId[position]
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -361,6 +361,8 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
         adapter.clear()
         adapter.addAll(ArrayList((0..59 step 15).toList().map{String.format("%02d", it)}))
         view?.findViewById<Spinner>(R.id.spinner_end_minutes)?.setSelection(0)
+
+        selectedEndMinute = 0
     }
 
     private fun setTodayMinutes(adapter: ArrayAdapter<String>) {

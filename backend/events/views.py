@@ -4,7 +4,7 @@ from django.db.models import Q
 from requests import request
 from events.models import Event
 from events.permissions import IsEventMember, IsOwnerOrReadOnly
-from events.serializers import EventSerializer, EventJoinSerializer, EventUnjoinSerializer
+from events.serializers import EventSerializer, EventJoinSerializer, EventUnjoinSerializer, EventFilterSerializer
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from datetime import datetime
@@ -177,27 +177,27 @@ class EventFilters(generics.ListAPIView):
     
     """
     serializer_class = EventSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         query = {}
 
-        if self.request.data['date']:
-            query['date'] = self.request.data['date']
+        if self.request.query_params.get('date'):
+            query['date'] = self.request.query_params.get('date')
         else:
             query['date__gte'] = datetime.now().date()
 
-        if self.request.data['start_time']:
-            query['start_time__gte'] = self.request.data['start_time']
+        if self.request.query_params.get('start_time'):
+            query['start_time__gte'] = self.request.query_params.get('start_time')
 
-        if self.request.data['sport']:
-            query['sport__in'] = self.request.data['sport']
+        if self.request.query_params.get('sport'):
+            query['sport__in'] = self.request.query_params.get('sport')
                 
-        if self.request.data['free_seats_gte']:
-            query['free_seats__gte'] = self.request.data['free_seats_gte']
+        if self.request.query_params.get('free_seats_gte'):
+            query['free_seats__gte'] = self.request.query_params.get('free_seats_gte')
         
-        if self.request.data['free_seats_lte']:
-            query['free_seats__lte'] = self.request.data['free_seats_lte']
+        if self.request.query_params.get('free_seats_lte'):
+            query['free_seats__lte'] = self.request.query_params.get('free_seats_lte')
 
         self.queryset = Event.objects.filter(**query)
         

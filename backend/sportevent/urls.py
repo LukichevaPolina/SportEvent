@@ -22,6 +22,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('auth/', include('accounts.urls')),
     path('', include('events.urls')),
+    path('', include('grounds.urls')),
     path('', include('sports.urls')),
     
 ]
