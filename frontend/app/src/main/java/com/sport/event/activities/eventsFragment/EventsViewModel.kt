@@ -54,4 +54,20 @@ class EventsViewModel : ViewModel() {
 
         }.start()
     }
+
+    fun getScheduleDate(date: String?, accountManager: AccountManager) {
+        val future: AccountManagerFuture<Bundle> = AccountManagerHelper().getFutureUpdateToken(accountManager)
+        Thread {
+            val authToken = future.result.getString(AccountManager.KEY_AUTHTOKEN)
+            APIApp.restClient?.service?.getSchedule("Bearer " + authToken, date)?.enqueue(object: Callback<ArrayList<Event>> {
+                override fun onResponse(call: Call<ArrayList<Event>>, response: Response<ArrayList<Event>>) {
+                    eventList.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<ArrayList<Event>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+        }.start()
+    }
 }

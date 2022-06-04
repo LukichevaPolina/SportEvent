@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.timer
 
-class EventsFragment : CreateEventFragment.FragmentCommunicator, FilterFragment.FragmentCommunicator, Fragment(){
+class EventsFragment : CreateEventFragment.FragmentCommunicator, FilterFragment.FragmentCommunicator, EventsAdapter.Communicator, Fragment(){
 
     private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
@@ -69,7 +69,7 @@ class EventsFragment : CreateEventFragment.FragmentCommunicator, FilterFragment.
 
         eventsRecyclerView = view.findViewById(R.id.events_recycler_view)
 
-        eventsAdapter= EventsAdapter(view.findViewById(R.id.loadingPanel))
+        eventsAdapter= EventsAdapter(view.findViewById(R.id.loadingPanel), this)
         eventsRecyclerView.adapter = eventsAdapter
         viewModel.eventList.observe(viewLifecycleOwner, Observer {
             eventsAdapter.setEventList(it)
@@ -138,5 +138,9 @@ class EventsFragment : CreateEventFragment.FragmentCommunicator, FilterFragment.
                                   free_seats_lte: Int?) {
         if (isFilter)
             viewModel.getFilteredEvents(sport, date, start_time, free_seats_gte, free_seats_lte, accountManager)
+    }
+
+    override fun updateSchedule() {
+        return
     }
 }

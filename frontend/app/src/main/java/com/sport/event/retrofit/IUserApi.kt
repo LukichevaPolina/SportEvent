@@ -31,7 +31,7 @@ interface IUserApi {
     ): Call<ArrayList<Event>>?
 
     @GET("events/schedule/")
-    fun getSchedule(@Header("Authorization") token: String): Call<ArrayList<Event>>?
+    fun getSchedule(@Header("Authorization") token: String, @Query("date") date: String?): Call<ArrayList<Event>>?
 
     @PATCH("events/{id}/join/")
     fun join(@Header("Authorization") token: String, @Path("id") id: Int?) : Call<Event>?

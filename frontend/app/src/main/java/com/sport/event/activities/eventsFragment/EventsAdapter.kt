@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sport.event.Constants
 import com.sport.event.R
 import com.sport.event.accountManager.AccountManagerHelper
+import com.sport.event.activities.CreateEventFragment
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.Event
 import retrofit2.Call
@@ -21,9 +22,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 //set all the items into the recyclerview
-class EventsAdapter(pb: View): RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
+class EventsAdapter(pb: View, com: Communicator): RecyclerView.Adapter<EventsAdapter.EventsViewHolder>() {
+
+    var communicator = com
+
     var events = mutableListOf<Event?>()
     var progressBar = pb
+
 
     @SuppressLint("NotifyDataSetChanged")
     fun setEventList(events:ArrayList<Event>) {
@@ -85,6 +90,7 @@ class EventsAdapter(pb: View): RecyclerView.Adapter<EventsAdapter.EventsViewHold
                             ) {
                                 events[position] = response.body()
                                 notifyItemChanged(position)
+                                communicator.updateSchedule()
                             }
 
                             override fun onFailure(call: Call<Event>, t: Throwable) {
@@ -92,7 +98,6 @@ class EventsAdapter(pb: View): RecyclerView.Adapter<EventsAdapter.EventsViewHold
                             }
                         })
                     }.start()
-
                 } else {
                     //join to event
                     Thread {
@@ -181,5 +186,9 @@ class EventsAdapter(pb: View): RecyclerView.Adapter<EventsAdapter.EventsViewHold
             )
         )
         holder.button.text = "Нет мест"
+    }
+
+    interface Communicator {
+        fun updateSchedule()
     }
 }
