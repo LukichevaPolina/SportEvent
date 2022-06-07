@@ -71,5 +71,19 @@
     <string name="busy">Занят</string>
     <string name="looking_for_company">Ищу компанию</string>
     <string name="in_way">Уже в пути</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="Username">Ник</string>
+    <string name="settings">Настройки</string>
+    <string name="search_settings">Поиск настроек</string>
+    <string name="confid">Конфиденциальность</string>
+    <string name="security_and_login">Безопасность и вход</string>
+    <string name="history">История посещений</string>
+    <string name="sound">Звук</string>
+    <string name="vibrate">Вибрация</string>
+    <string name="push">Push-уведомления</string>
+    <string name="sms_text">SMS-уведомления</string>
+    <string name="dark_mode">Тёмная тема</string>
+    <string name="language">Язык</string>
+    <string name="delete_account">Удалить аккаунт</string>
 
 </resources>

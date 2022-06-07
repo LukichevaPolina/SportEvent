@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/edit_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/icon_back_"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/edit_profile"
+        android:textAppearance="@style/Text_Subtitle_18pt"
+        android:textColor="@color/Base_700"
+        />
+
+    <ImageButton
+        android:id="@+id/icon_back_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_icon_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        app:tint="@color/Base_700" />
+
+    <ImageButton
+        android:id="@+id/icon_tick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_icon_tick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/AppleGreen_800"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="12dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/avatar_field"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+
+
+        app:layout_constraintHeight_default="percent"
+        app:layout_constraintHeight_percent="0.2"
+
+        app:layout_constraintTop_toBottomOf="@id/edit_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_avatar_profile"/>
+
+        <ImageView
+            android:id="@+id/edit_icon"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.65"
+
+            app:srcCompat="@drawable/ic_icon_edit_profile"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_field"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/name_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/name"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <EditText
+                android:id="@+id/name"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_text_field"
+                android:inputType="textPersonName"
+                tools:ignore="LabelFor"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="Name" />
+
+            <TextView
+                android:id="@+id/surname_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/surname"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                />
+
+            <EditText
+                android:id="@+id/surname"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/surname_text_field"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="surname"
+                android:inputType="text"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/username_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/Username"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/surname"
+                />
+
+            <EditText
+                android:id="@+id/username"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_text_field"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="emailAddress"
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/birthday_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/birthday"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username"
+                />
+
+            <EditText
+                android:id="@+id/birthday"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/birthday_text_field"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="date"
+                android:inputType="date"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/email_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/email"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthday"
+                />
+
+            <EditText
+                android:id="@+id/email"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_text_field"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="emailAddress"
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+
+
+            <TextView
+                android:id="@+id/sport_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/favourite_sports"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email"
+                />
+
+            <RelativeLayout
+                android:id="@+id/sport_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/sport_text_field"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_with_shadow"
+                android:orientation="vertical"
+                android:radius="10dp">
+
+                <Spinner
+                    android:id="@+id/sport_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:clipToPadding="false"
+                    android:textAppearance="@style/Text_Body_16pt"
+                    android:textColor="@color/Base_700" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/country_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="Страна"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sport_layout"
+                />
+
+            <EditText
+                android:id="@+id/country"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/country_text_field"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="emailAddress"
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:id="@+id/locality_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/Text_Body2_14pt"
+                android:textColor="@color/Base_800"
+                android:text="@string/locality"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/country"
+                />
+
+            <EditText
+                android:id="@+id/locality"
+                android:background="@drawable/text_field"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="40dp"
+                android:textAppearance="@style/Text_Body_16pt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/locality_text_field"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:autofillHints="emailAddress"
+                android:inputType="textEmailAddress"
+                tools:ignore="LabelFor" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+
+    <!--
+    <RelativeLayout
+        style="@style/GenericProgressBackground"
+        android:id="@+id/loadingPanel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+        <ProgressBar
+            style="@style/GenericProgressIndicator"/>
+    </RelativeLayout>
+    -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

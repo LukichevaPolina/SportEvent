@@ -15,6 +15,7 @@
         android:layout_marginTop="12dp"
         android:text="@string/registration"
         android:textAppearance="@style/Text_Subtitle_18pt"
+        android:textColor="@color/Base_700"
         />
 
     <ImageButton
@@ -25,7 +26,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        app:tint="@color/Base_700"/>
 
     <ImageView
         android:id="@+id/steps2"

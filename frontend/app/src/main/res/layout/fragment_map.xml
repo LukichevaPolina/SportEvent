@@ -22,11 +22,6 @@
         android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
-        tools:ignore="MissingConstraints,RtlSymmetry"
-=======
-        android:id="@+id/address"
->>>>>>> 1d3d1091e5454cae04f83afa282fd0f5e09fc7b0
         android:layout_marginTop="16dp"
         android:layout_marginStart="10dp"
         android:paddingStart="10dp"

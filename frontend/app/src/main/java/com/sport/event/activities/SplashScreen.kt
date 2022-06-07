@@ -18,8 +18,8 @@ class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_SportEvent)
         super.onCreate(savedInstanceState)
-//        val intent = Intent(this, Onbording1::class.java)
-//        startActivity(intent)
+        //val intent = Intent(this, Test::class.java)
+        //startActivity(intent)
         routeToAppropriatePage()
         finish()
     }

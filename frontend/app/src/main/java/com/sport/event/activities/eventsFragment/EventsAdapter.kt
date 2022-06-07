@@ -28,6 +28,7 @@ class EventsAdapter(pb: View): RecyclerView.Adapter<EventsAdapter.EventsViewHold
     @SuppressLint("NotifyDataSetChanged")
     fun setEventList(events:ArrayList<Event>) {
         this.events = events.toMutableList()
+        progressBar.visibility = View.GONE
         notifyDataSetChanged() //Notify any registered observers that the data set has changed.
     }
 
