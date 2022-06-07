@@ -44,7 +44,10 @@
         </service>
 
         <activity
-            android:name=".activities.RegistrationScreenReady"
+            android:name=".activities.NoNetworkConnection"
+            android:exported="true" />
+        <activity
+            android:name=".activities.authActivities.RegistrationScreenReady"
             android:exported="true">
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW" />
@@ -56,31 +59,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CheckEmailScreen"
+            android:name=".activities.authActivities.CheckEmailScreen"
             android:exported="true" />
         <activity
-            android:name=".activities.RegistrationScreen3"
+            android:name=".activities.authActivities.RegistrationScreen3"
             android:exported="true" />
         <activity
-            android:name=".activities.RegistrationScreen2"
+            android:name=".activities.authActivities.RegistrationScreen2"
             android:exported="true" />
         <activity
-            android:name=".activities.RegistrationScreen1"
+            android:name=".activities.authActivities.RegistrationScreen1"
             android:exported="true" />
         <activity
             android:name=".activities.StartScreen"
             android:exported="true" />
         <activity
-            android:name=".accountManager.AuthenticatorActivity"
+            android:name=".activities.authActivities.AuthenticatorActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.Onbording3"
+            android:name=".activities.onboardings.Onbording3"
             android:exported="true" />
         <activity
-            android:name=".activities.Onbording2"
+            android:name=".activities.onboardings.Onbording2"
             android:exported="true" />
         <activity
-            android:name=".activities.Onbording1"
+            android:name=".activities.onboardings.Onbording1"
             android:exported="true" />
         <activity
             android:name=".activities.SplashScreen"

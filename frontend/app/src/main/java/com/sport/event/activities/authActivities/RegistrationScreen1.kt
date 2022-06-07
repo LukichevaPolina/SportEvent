@@ -1,4 +1,4 @@
-package com.sport.event.activities
+package com.sport.event.activities.authActivities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.sport.event.Constants
 import com.sport.event.R
+import com.sport.event.activities.StartScreen
 
 class RegistrationScreen1 : AppCompatActivity() {
 

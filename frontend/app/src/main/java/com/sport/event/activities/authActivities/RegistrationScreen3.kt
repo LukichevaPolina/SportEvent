@@ -1,4 +1,4 @@
-package com.sport.event.activities
+package com.sport.event.activities.authActivities
 
 import android.content.Intent
 import android.os.Bundle

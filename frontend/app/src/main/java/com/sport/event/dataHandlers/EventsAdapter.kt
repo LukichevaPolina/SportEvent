@@ -1,4 +1,4 @@
-package com.sport.event.activities.eventsFragment
+package com.sport.event.dataHandlers
 
 import android.accounts.AccountManager
 import android.accounts.AccountManagerFuture
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sport.event.Constants
 import com.sport.event.R
 import com.sport.event.accountManager.AccountManagerHelper
-import com.sport.event.activities.CreateEventFragment
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.Event
 import retrofit2.Call

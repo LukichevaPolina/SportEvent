@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sport.event.R
-import com.sport.event.activities.eventsFragment.CalendarAdapter
+import com.sport.event.dataHandlers.CalendarAdapter
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
