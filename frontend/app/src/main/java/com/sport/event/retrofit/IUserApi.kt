@@ -12,6 +12,9 @@ interface IUserApi {
     @POST("auth/login/")
     fun loginUser(@Body loginRequest: LoginRequest?): Call<LoginResponse?>?
 
+    @POST("auth/logout/")
+    fun logoutUser(@Header("Authorization") token: String?, @Body loginRequest: LogoutRequest?): Call<ResponseBody>
+
     @POST("auth/token/refresh/")
     suspend fun refresh(@Body refreshTokenRequest: RefreshTokenRequest): RefreshTokenResponse
 

@@ -10,6 +10,7 @@ import android.content.Intent
 import android.accounts.AbstractAccountAuthenticator
 import android.content.Context
 import android.text.TextUtils
+import com.sport.event.activities.authActivities.AuthenticatorActivity
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.RefreshTokenRequest
 import com.sport.event.retrofit.models.RefreshTokenResponse
@@ -74,12 +75,10 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
             val refreshTokenRequest: RefreshTokenRequest = RefreshTokenRequest(refreshToken)
             //get authtokin with using coroutine
             val tokens = runBlocking {
-                val refreshTokenResponse = refresh(refreshTokenRequest)
-                refreshTokenResponse
-            }
-
-            authToken = tokens?.access
-            refreshToken = tokens?.refresh.toString()
+                 refresh(refreshTokenRequest)
+            } as RefreshTokenResponse
+            authToken = tokens.access
+            refreshToken = tokens.refresh.toString()
         }
         val result = Bundle()
         result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
@@ -89,9 +88,10 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         return result
     }
 
-    suspend fun refresh(refreshTokenRequest: RefreshTokenRequest) = withContext(Dispatchers.IO) {
-        APIApp.restClient?.service?.refresh(refreshTokenRequest)
+    private suspend fun refresh(refreshTokenRequest: RefreshTokenRequest) = withContext(Dispatchers.IO) {
+            APIApp.restClient?.service?.refresh(refreshTokenRequest)
     }
+
     //  Ask the authenticator for a localized label for the given authTokenType.
     override fun getAuthTokenLabel(authTokenType: String): String {
         return "$authTokenType (Label)"
@@ -119,5 +119,4 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, false)
         return result
     }
-
 }

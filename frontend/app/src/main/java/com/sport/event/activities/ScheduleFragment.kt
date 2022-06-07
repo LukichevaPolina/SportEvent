@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sport.event.Constants
 import com.sport.event.R
 import androidx.lifecycle.Observer
-import com.sport.event.activities.eventsFragment.CalendarAdapter
-import com.sport.event.activities.eventsFragment.EventsAdapter
-import com.sport.event.activities.eventsFragment.EventsViewModel
+import com.sport.event.dataHandlers.CalendarAdapter
+import com.sport.event.dataHandlers.EventsAdapter
+import com.sport.event.dataHandlers.EventsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

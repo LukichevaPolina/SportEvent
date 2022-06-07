@@ -153,8 +153,9 @@ class EventVisited(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        self.queryset = Event.objects.filter(members=self.request.user, date__lte=datetime.now().date())
-        return self.queryset
+        date = datetime.now().date() 
+        members_filter = Event.objects.filter(members=self.request.user, date__lt = date) 
+        return members_filter
 
 
 class EventCreated(generics.ListCreateAPIView):

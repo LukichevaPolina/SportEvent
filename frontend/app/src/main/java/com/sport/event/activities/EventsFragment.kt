@@ -1,4 +1,4 @@
-package com.sport.event.activities.eventsFragment
+package com.sport.event.activities
 
 import android.accounts.AccountManager
 import android.os.Bundle
@@ -15,12 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sport.event.Constants
 import com.sport.event.R
-import com.sport.event.activities.CreateEventFragment
-import com.sport.event.activities.FilterFragment
-import com.sport.event.retrofit.models.EventFilters
+import com.sport.event.dataHandlers.CalendarAdapter
+import com.sport.event.dataHandlers.EventsAdapter
+import com.sport.event.dataHandlers.EventsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.concurrent.timer
 
 class EventsFragment : CreateEventFragment.FragmentCommunicator, FilterFragment.FragmentCommunicator, EventsAdapter.Communicator, Fragment(){
 

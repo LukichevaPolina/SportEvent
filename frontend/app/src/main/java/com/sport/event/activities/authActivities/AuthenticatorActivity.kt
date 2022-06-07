@@ -1,4 +1,4 @@
-package com.sport.event.accountManager
+package com.sport.event.activities.authActivities
 
 import com.sport.event.Constants
 import android.accounts.Account
@@ -13,6 +13,7 @@ import android.widget.Toast
 import com.sport.event.retrofit.APIApp
 import java.lang.Exception
 import com.sport.event.R
+import com.sport.event.accountManager.AccountAuthenticatorAppCompatActivity
 import com.sport.event.activities.StartScreen
 import com.sport.event.retrofit.models.LoginRequest
 import com.sport.event.retrofit.models.LoginResponse

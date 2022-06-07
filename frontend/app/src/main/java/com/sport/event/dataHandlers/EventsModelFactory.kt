@@ -1,4 +1,4 @@
-package com.sport.event.activities.eventsFragment
+package com.sport.event.dataHandlers
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

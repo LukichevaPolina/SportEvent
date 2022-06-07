@@ -9,15 +9,15 @@ import com.sport.event.Constants
 class AccountManagerHelper {
     fun getFutureUpdateToken(accountManager: AccountManager) : AccountManagerFuture<Bundle> {
         //get account
-        lateinit var account: Account
-        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
-        for (acc in accounts) {
-            //looking for the right type of account
-            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
-                account = acc
-                break
-            }
-        }
+        var account = getAccount(accountManager)
+//        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
+//        for (acc in accounts) {
+//            //looking for the right type of account
+//            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
+//                account = acc
+//                break
+//            }
+//        }
 
         //update authtoken
         val authtoken: String? = accountManager.peekAuthToken(account, Constants.AUTH_TOKEN_TYPE)
@@ -30,9 +30,16 @@ class AccountManagerHelper {
         for (acc in accounts) {
             //looking for the right type of account
             if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
+                println("Account from helper $acc")
                 return acc
             }
         }
         return null
+    }
+
+    fun getRefreshToken(accountManager: AccountManager): String {
+        var account = getAccount(accountManager)
+        println("Account:$account")
+        return accountManager.getUserData(account, Constants.REFRESH_TOKEN)
     }
 }
