@@ -49,6 +49,8 @@ class EventJoinSerializer(serializers.ModelSerializer):
 
     def update(self, instance, data):
         new_member = data['members'][0]
+        if new_member == instance.owner:
+            raise ValidationError({"owner": "Owner cannot be an event member"})
         if not new_member in instance.members.all():
             instance.members.add(new_member)
             instance.free_seats = instance.free_seats - 1
