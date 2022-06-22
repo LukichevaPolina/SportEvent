@@ -6,6 +6,7 @@ from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnico
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode 
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from .models import User
 from sports.models import Sport
 
@@ -58,6 +59,8 @@ class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255, min_length=3)
     password = serializers.CharField(max_length=68, min_length=3, write_only=True)
     username = serializers.CharField(max_length=255, min_length=6, read_only=True)
+    name = serializers.CharField(max_length=68, min_length=3, read_only=True)
+    surname = serializers.CharField(max_length=255, min_length=6, read_only=True)
     tokens = serializers.JSONField(read_only=True)
     
     def get_tokens(self, obj):
@@ -95,6 +98,26 @@ class LoginSerializer(serializers.ModelSerializer):
             'surname': user.surname,
             'tokens': user.tokens,
         }
+
+
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+    default_error_message = {
+        'bad_token': ('Token is expired or invalid')
+    }
+
+    def validate(self, attrs):
+        self.token = attrs['refresh']
+        return attrs
+
+    def save(self, **kwargs):
+
+        try:
+            RefreshToken(self.token).blacklist()
+
+        except TokenError:
+            self.fail('bad_token')
 
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
@@ -144,29 +167,34 @@ class SetNewPasswordSerializer(serializers.Serializer):
         
 
 class ChangeAccountSerializer(serializers.Serializer):
-    name = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    surname = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    birthday = serializers.DateField()
-    country = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    locality = serializers.CharField(min_length=6, max_length=68, write_only=True)
-    favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True)
+    name = serializers.CharField(min_length=6, max_length=68, write_only=True, allow_null=True)
+    surname = serializers.CharField(min_length=6, max_length=68, write_only=True,  allow_null=True)
+    favorite_sports = serializers.CharField(min_length=6, max_length=68, write_only=True, allow_null=True)
+    birthday = serializers.DateField(allow_null=True)
+    country = serializers.CharField(min_length=6, max_length=68, write_only=True, allow_null=True)
+    locality = serializers.CharField(min_length=6, max_length=68, write_only=True,  allow_null=True)
+    favorite_sports = serializers.PrimaryKeyRelatedField(queryset=Sport.objects.all(), many=True,  allow_null=True)
 
     class Meta:
         model = Event
         fields = ['name', 'surname', 'birthday', 'country', 'locality', 'favorite_sports']
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instance.name)
-        instance.surname = validated_data.get('surname', instance.surname)
-        instance.birthday = validated_data.get('birthday', instance.birthday)
-        instance.country = validated_data.get('country', instance.country)
-        instance.locality = validated_data.get('locality', instance.locality)
-
-        instance.favorite_sports.clear()
-        favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
-        for sport in favorite_sports:
-            instance.favorite_sports.add(sport)
+        if validated_data.get('name'):
+            instance.name = validated_data.get('name', instance.name)
+        if validated_data.get('surname', instance.surname):
+            instance.surname = validated_data.get('surname', instance.surname)
+        if validated_data.get('birthday', instance.birthday):
+            instance.birthday = validated_data.get('birthday', instance.birthday)
+        if validated_data.get('country', instance.country):
+            instance.country = validated_data.get('country', instance.country)
+        if validated_data.get('locality', instance.locality):
+            instance.locality = validated_data.get('locality', instance.locality)
+        if 'favorite_sports' in validated_data:
+            instance.favorite_sports.clear()
+            favorite_sports = validated_data.get('favorite_sports', instance.favorite_sports)
+            for sport in favorite_sports:
+                instance.favorite_sports.add(sport)
 
         instance.save()
         return instance
@@ -187,7 +215,6 @@ class UploadPhotoSerializer(serializers.HyperlinkedModelSerializer):
 
 
     def update(self, instance, data, files):
-        print(data.get('photo'))
         instance.photo = data.get('photo', instance.photo)
         instance.save()
 

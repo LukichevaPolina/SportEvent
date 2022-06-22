@@ -14,7 +14,7 @@ class RestClient {
             .create()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.102/")
+            .baseUrl("http://192.168.0.102:8000")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 

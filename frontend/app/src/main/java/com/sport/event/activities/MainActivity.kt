@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.sport.event.R
-import com.sport.event.activities.eventsFragment.EventsFragment
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

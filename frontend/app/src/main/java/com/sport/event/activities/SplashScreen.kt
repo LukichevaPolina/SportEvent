@@ -4,10 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.accounts.AccountManager
-import android.accounts.Account
-import com.sport.event.Constants
 import android.annotation.SuppressLint
 import com.sport.event.R
+import com.sport.event.accountManager.AccountManagerHelper
+import com.sport.event.activities.onboardings.Onbording1
+import com.sport.event.retrofit.APIApp
+import com.sport.event.retrofit.models.Sport
+import retrofit2.Call
+import retrofit2.Response
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
@@ -25,7 +29,8 @@ class SplashScreen : AppCompatActivity() {
     }
 
     private fun routeToAppropriatePage() {
-        val account: Account? = accountAvailable()
+        checkNetworkConnection()
+        val account = AccountManagerHelper().getAccount(AccountManager.get(this))
         if (account == null) {
             //if there is no account on the device -> Onboardings
             val intent = Intent(this, Onbording1::class.java)
@@ -39,17 +44,23 @@ class SplashScreen : AppCompatActivity() {
         }
     }
 
-    private fun accountAvailable():Account? {
-        //get accountManager
-        val accountManager: AccountManager = AccountManager.get(this@SplashScreen)
-        //get array of Accounts from Account manager
-        val accounts: Array<Account> = accountManager.getAccountsByType(Constants.ACCOUNT_TYPE)
-        for (acc in accounts) {
-            //looking for the right type of account
-            if (acc.type.equals(Constants.ACCOUNT_TYPE, ignoreCase = true)) {
-                return acc
+    private fun checkNetworkConnection() {
+        APIApp.restClient?.service?.getSports()?.enqueue(object :
+            retrofit2.Callback<ArrayList<Sport>> {
+            override fun onResponse(
+                call: Call<ArrayList<Sport>>,
+                response: Response<ArrayList<Sport>>
+            ) {
+                return
             }
-        }
-        return null
+
+            override fun onFailure(call: Call<ArrayList<Sport>>, t: Throwable) {
+                stratNoNetworkActivity()
+            }
+        })
+    }
+    private fun stratNoNetworkActivity() {
+        val intent = Intent(this, NoNetworkConnection::class.java)
+        startActivity(intent)
     }
 }

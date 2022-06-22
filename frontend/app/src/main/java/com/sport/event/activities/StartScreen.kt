@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.sport.event.Constants
 import com.sport.event.R
+import com.sport.event.activities.authActivities.RegistrationScreen1
 
 class StartScreen : AppCompatActivity() {
 

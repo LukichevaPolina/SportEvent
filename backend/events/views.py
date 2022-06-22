@@ -4,7 +4,7 @@ from django.db.models import Q
 from requests import request
 from events.models import Event
 from events.permissions import IsEventMember, IsOwnerOrReadOnly
-from events.serializers import EventSerializer, EventJoinSerializer, EventUnjoinSerializer
+from events.serializers import EventSerializer, EventJoinSerializer, EventUnjoinSerializer, EventFilterSerializer
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from datetime import datetime
@@ -46,7 +46,11 @@ class EventSchedule(generics.ListAPIView):
         This view should return a list of all the events
         for the currently authenticated user.
         """
-        return Event.objects.filter(members=self.request.user, date__gte=datetime.now().date())
+        date = self.request.query_params.get('date')
+        owner_filter = Event.objects.filter(owner=self.request.user, date = self.request.query_params.get('date'))
+        members_filter = Event.objects.filter(members=self.request.user, date = self.request.query_params.get('date'))
+
+        return owner_filter | members_filter
 
 
 class EventJoinAPIView(generics.UpdateAPIView):
@@ -149,8 +153,9 @@ class EventVisited(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        self.queryset = Event.objects.filter(members=self.request.user, date__lte=datetime.now().date())
-        return self.queryset
+        date = datetime.now().date() 
+        members_filter = Event.objects.filter(members=self.request.user, date__lt = date) 
+        return members_filter
 
 
 class EventCreated(generics.ListCreateAPIView):
@@ -177,27 +182,27 @@ class EventFilters(generics.ListAPIView):
     
     """
     serializer_class = EventSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         query = {}
 
-        if self.request.data['date']:
-            query['date'] = self.request.data['date']
+        if self.request.query_params.get('date'):
+            query['date'] = self.request.query_params.get('date')
         else:
             query['date__gte'] = datetime.now().date()
 
-        if self.request.data['start_time']:
-            query['start_time__gte'] = self.request.data['start_time']
+        if self.request.query_params.get('start_time'):
+            query['start_time__gte'] = self.request.query_params.get('start_time')
 
-        if self.request.data['sport']:
-            query['sport__in'] = self.request.data['sport']
+        if self.request.query_params.get('sport'):
+            query['sport__in'] = self.request.query_params.get('sport')
                 
-        if self.request.data['free_seats_gte']:
-            query['free_seats__gte'] = self.request.data['free_seats_gte']
+        if self.request.query_params.get('free_seats_gte'):
+            query['free_seats__gte'] = self.request.query_params.get('free_seats_gte')
         
-        if self.request.data['free_seats_lte']:
-            query['free_seats__lte'] = self.request.data['free_seats_lte']
+        if self.request.query_params.get('free_seats_lte'):
+            query['free_seats__lte'] = self.request.query_params.get('free_seats_lte')
 
         self.queryset = Event.objects.filter(**query)
         

@@ -10,8 +10,10 @@ import android.content.Intent
 import android.accounts.AbstractAccountAuthenticator
 import android.content.Context
 import android.text.TextUtils
+import com.sport.event.activities.authActivities.AuthenticatorActivity
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.RefreshTokenRequest
+import com.sport.event.retrofit.models.RefreshTokenResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -67,26 +69,29 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         // the server for an appropriate AuthToken.
         val am = AccountManager.get(mContext)
         var authToken = am.peekAuthToken(account, authTokenType)
+        lateinit var refreshToken: String
         if (TextUtils.isEmpty(authToken)) {
-            val refreshToken: String = am.getUserData(account, Constants.REFRESH_TOKEN)
+            refreshToken = am.getUserData(account, Constants.REFRESH_TOKEN)
             val refreshTokenRequest: RefreshTokenRequest = RefreshTokenRequest(refreshToken)
             //get authtokin with using coroutine
-            authToken = runBlocking {
-                val refreshTokenResponse = refresh(refreshTokenRequest)
-                refreshTokenResponse?.getAccessToken()
-            }
-            println(authToken)
+            val tokens = runBlocking {
+                 refresh(refreshTokenRequest)
+            } as RefreshTokenResponse
+            authToken = tokens.access
+            refreshToken = tokens.refresh.toString()
         }
         val result = Bundle()
         result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name)
         result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type)
         result.putString(AccountManager.KEY_AUTHTOKEN, authToken)
+        am.setUserData(account, Constants.REFRESH_TOKEN, refreshToken)
         return result
     }
 
-    suspend fun refresh(refreshTokenRequest: RefreshTokenRequest) = withContext(Dispatchers.IO) {
-        APIApp.restClient?.service?.refresh(refreshTokenRequest)
+    private suspend fun refresh(refreshTokenRequest: RefreshTokenRequest) = withContext(Dispatchers.IO) {
+            APIApp.restClient?.service?.refresh(refreshTokenRequest)
     }
+
     //  Ask the authenticator for a localized label for the given authTokenType.
     override fun getAuthTokenLabel(authTokenType: String): String {
         return "$authTokenType (Label)"
@@ -114,5 +119,4 @@ class AccountAuthenticator(private val mContext: Context) : AbstractAccountAuthe
         result.putBoolean(AccountManager.KEY_BOOLEAN_RESULT, false)
         return result
     }
-
 }

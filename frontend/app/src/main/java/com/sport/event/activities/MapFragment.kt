@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,28 +18,53 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sport.event.R
+import com.sport.event.dataHandlers.CalendarAdapter
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.FragmentCommunicator {
+    private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+
+    // date you are currently in
+    private val cal = Calendar.getInstance(Locale.ENGLISH)
+    // will use to set the current day, month, and year
+    private val currentDate = Calendar.getInstance(Locale.ENGLISH)
+    private val currentDay = currentDate[Calendar.DAY_OF_MONTH]
+    // will use as the currently selected date
+    private var selectedDay: Int = currentDay
+    // ArrayList of all days in one month
+    private val dates = ArrayList<Date>()
+
+    private lateinit var date: String
+
+    private lateinit var calendarRecyclerView: RecyclerView
+    private lateinit var calendarAdapter: CalendarAdapter
 
     private lateinit var mMap: GoogleMap
 
     private var address : EditText? = null
-    private lateinit var button: Button
+    private lateinit var button: ImageButton
     private var marker: Marker? = null
 
     //creates the view for the fragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        date = sdf.format(cal.time)
+
         val view: View = inflater.inflate(R.layout.fragment_map, container, false)
-        button = view.findViewById(R.id.button)
+        button = view.findViewById(R.id.icon_search)
         address = view.findViewById(R.id.address)
+
+        calendarRecyclerView = view.findViewById(R.id.calendar_recycler_view)
+
+        setUpCalendar()
 
         var latitude: Double
         var longitude: Double
+
 
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -72,6 +97,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 Toast.makeText(context, "Illegal argument", Toast.LENGTH_LONG).show()
             }
         }
+
+        //plus button -> create new event fragment
+        val plusButton: Button = view.findViewById(R.id.button_plus)
+        plusButton.setOnClickListener {
+            childFragmentManager.beginTransaction().replace(R.id.container, CreateEventFragment(), "CREATE_EVENT_TAG").commit()
+        }
+
+        //filter button -> filter fragment
+        val filterButton: ImageButton = view.findViewById(R.id.filters_button)
+        filterButton.setOnClickListener {
+            childFragmentManager.beginTransaction().replace(R.id.container, FilterFragment(), "FILTER_TAG").commit()
+        }
+
         return view
     }
 
@@ -90,5 +128,42 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         fun newInstance(): MapFragment {
             return MapFragment()
         }
+    }
+
+    private fun setUpCalendar(changeMonth: Calendar? = null) {
+
+        val maxDaysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val date = currentDate.clone() as Calendar
+        selectedDay = currentDay
+
+        dates.clear()
+
+        while (dates.size < maxDaysInMonth) {
+            dates.add(date.time)
+            date.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        // Assigning calendar view.
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        calendarRecyclerView.layoutManager = layoutManager
+        calendarAdapter = context?.let { CalendarAdapter(it, dates, currentDate, changeMonth) }!!
+        calendarRecyclerView.adapter = calendarAdapter
+
+        //update eventsRecyclerView when data in calendar change
+        calendarAdapter.setOnItemClickListener(object : CalendarAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val clickCalendar = Calendar.getInstance()
+                clickCalendar.time = dates[position]
+                selectedDay = clickCalendar[Calendar.DAY_OF_MONTH]
+                val selectedDayRequest = sdf.format(dates[position])
+                println(selectedDayRequest)
+//                viewModel.getEventsDate(selectedDayRequest, accountManager)
+//                eventsRecyclerView.scrollToPosition(0)
+            }
+        })
+    }
+
+    override fun fragmentDetached() {
+        println("Close fragment")
     }
 }

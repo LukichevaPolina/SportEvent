@@ -2,7 +2,6 @@ from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager, Permi
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from rest_framework_simplejwt.tokens import RefreshToken
-from events.models import SPORT
 
 SEX = ((1, 'None'),
        (2, 'Male'),
@@ -30,8 +29,9 @@ class UserManager(BaseUserManager):
                           locality=locality)
         user.set_password(password)
         user.save()
-        for sports in favorite_sports:
-            user.favorite_sports.add(sports)
+        if favorite_sports:
+            for sports in favorite_sports:
+                user.favorite_sports.add(sports)
         return user
     
     def create_superuser(self, username, email, password=None):
@@ -59,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255, default='', unique=False, db_index=True)
     surname = models.CharField(max_length=255, default='', unique=False, db_index=True)
     # sex = models.CharField(choices=SEX, default='None', max_length=100)
-    favorite_sports = models.ManyToManyField('sports.Sport', related_name='favorite_sports')
+    favorite_sports = models.ManyToManyField('sports.Sport', related_name='favorite_sports', blank=True)
     birthday = models.DateField(null=True, unique=False)
     country = models.CharField(max_length=255, default='', unique=False)
     locality = models.CharField(max_length=255, default='', unique=False)

@@ -49,6 +49,8 @@ class EventJoinSerializer(serializers.ModelSerializer):
 
     def update(self, instance, data):
         new_member = data['members'][0]
+        if new_member == instance.owner:
+            raise ValidationError({"owner": "Owner cannot be an event member"})
         if not new_member in instance.members.all():
             instance.members.add(new_member)
             instance.free_seats = instance.free_seats - 1
@@ -84,4 +86,15 @@ class EventUnjoinSerializer(serializers.ModelSerializer):
         rep = super(EventUnjoinSerializer, self).to_representation(instance)
         rep['sport'] = instance.sport.sport
         rep['owner'] = instance.owner.username
+        return rep
+
+
+class EventFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['sport', 'date', 'start_time', 'free_seats']
+
+    def to_representation(self, instance):
+        rep = super(EventFilterSerializer, self).to_representation(instance)
+        rep['sport'] = instance.sport.sport
         return rep

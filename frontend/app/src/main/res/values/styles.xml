@@ -105,4 +105,11 @@
         <item name="cornerSize">8dp</item>
     </style>
 
+    <style name="IconButton" parent="@android:style/Widget.Button">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">@color/Base_0</item>
+        <item name="android:tint">@color/Base_500</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

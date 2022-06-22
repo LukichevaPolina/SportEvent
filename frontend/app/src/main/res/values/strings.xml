@@ -85,5 +85,11 @@
     <string name="dark_mode">Тёмная тема</string>
     <string name="language">Язык</string>
     <string name="delete_account">Удалить аккаунт</string>
+    <string name="Filters">Фильтры</string>
+    <string name="_2_free_seats">2. Укажие количество свободных мест</string>
+    <string name="scince">От</string>
+    <string name="from">От</string>
+    <string name="to">До</string>
+    <string name="Apply">Применить</string>
 
 </resources>
