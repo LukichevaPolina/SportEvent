@@ -1,11 +1,17 @@
 package com.sport.event.activities
 
+import android.location.Location
+import android.location.LocationRequest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.sport.event.R
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,11 +22,9 @@ class MainActivity : AppCompatActivity() {
     private var scheduleFragment: ScheduleFragment = ScheduleFragment()
     private var profileFragment: ProfileFragment = ProfileFragment()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         //bottom navigation bar
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setSelectedItemId(R.id.map);

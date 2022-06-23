@@ -13,9 +13,6 @@ import com.sport.event.R
 import com.sport.event.accountManager.AccountManagerHelper
 
 class EditProfileFragment : Fragment() {
-    private lateinit var backBtn: ImageButton
-    private lateinit var tickBtn: ImageButton
-    private var profileFragment: ProfileFragment = ProfileFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +21,6 @@ class EditProfileFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
-        backBtn = view.findViewById(R.id.icon_back_)
-        tickBtn = view.findViewById(R.id.icon_tick)
 
         val accountManager: AccountManager = AccountManager.get(context)
         val account = AccountManagerHelper().getAccount(accountManager)
@@ -56,13 +51,15 @@ class EditProfileFragment : Fragment() {
         countryTextView.text = country
         localityTextView.text = locality
 
-        backBtn.setOnClickListener {
-            fragment_trans?.replace(R.id.container, profileFragment)?.commit()
+        val back: ImageButton = view.findViewById(R.id.icon_back_)
+        back.setOnClickListener {
+            childFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment(), "EDIT_PROFILE_TAG").commit()
         }
 
-        tickBtn.setOnClickListener {
+        val tick: ImageButton = view.findViewById(R.id.icon_tick)
+        back.setOnClickListener {
             // TO DO: Update data in the DB
-            fragment_trans?.replace(R.id.container, profileFragment)?.commit()
+            childFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment(), "EDIT_PROFILE_TAG").commit()
         }
 
         return view

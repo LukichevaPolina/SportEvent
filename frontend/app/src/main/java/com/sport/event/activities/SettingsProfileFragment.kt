@@ -20,12 +20,10 @@ class SettingsProfileFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile_settings, container, false)
-        backBtn = view.findViewById(R.id.icon_back_settings)
 
-        val fragment_trans = getFragmentManager()?.beginTransaction()
-
-        backBtn.setOnClickListener {
-            fragment_trans?.replace(R.id.container, profileFragment)?.commit()
+        val back: ImageButton = view.findViewById(R.id.icon_back_settings)
+        back.setOnClickListener {
+            childFragmentManager.beginTransaction().replace(R.id.container, ProfileFragment(), "EDIT_PROFILE_TAG").commit()
         }
 
         return view

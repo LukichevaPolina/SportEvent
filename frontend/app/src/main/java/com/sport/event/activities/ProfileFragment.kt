@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.sport.event.R
@@ -20,19 +21,21 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProfileFragment : Fragment() {
-
-    private lateinit var editBtn: ImageButton
-    private lateinit var settingsBtn: ImageButton
-    private var editProfileFragment: EditProfileFragment = EditProfileFragment()
-    private var settingsProfileFragment: SettingsProfileFragment = SettingsProfileFragment()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        val settings: ImageButton = view.findViewById(R.id.icon_profile_settings)
+        settings.setOnClickListener {
+            childFragmentManager.beginTransaction().replace(R.id.container, SettingsProfileFragment(), "SETTINGS_TAG").commit()
+
+        }
+        val edit: ImageButton = view.findViewById(R.id.icon_edit_profile)
+        edit.setOnClickListener {
+            childFragmentManager.beginTransaction().replace(R.id.container, EditProfileFragment(), "EDIT_PROFILE_TAG").commit()
+        }
         val exit: TextView = view.findViewById(R.id.exit)
         exit.setOnClickListener {
             logout()
@@ -79,5 +82,4 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
         activity?.finish()
     }
-
 }

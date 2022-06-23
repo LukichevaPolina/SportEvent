@@ -2,6 +2,8 @@ package com.sport.event.activities
 
 import android.location.Address
 import android.location.Geocoder
+import android.location.Location
+import android.location.LocationRequest
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +12,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -47,6 +52,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
     private lateinit var button: ImageButton
     private var marker: Marker? = null
 
+
     //creates the view for the fragment
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +75,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
 
         button.setOnClickListener {
             val geocoder = Geocoder(context, Locale.getDefault())
