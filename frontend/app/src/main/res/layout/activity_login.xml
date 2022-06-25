@@ -67,6 +67,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:autofillHints="Email"
+        android:gravity="center_vertical"
         android:inputType="textEmailAddress"
         tools:ignore="LabelFor" />
 
