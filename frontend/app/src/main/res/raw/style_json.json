@@ -1,0 +1,19 @@
+[
+  {
+    "featureType": "administrative",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+  "elementType": "labels",
+  "stylers": [
+    { "visibility": "off" }
+  ]
+},{
+  "featureType": "transit",
+  "elementType": "geometry",
+  "stylers": [
+    { "visibility": "off" }
+  ]
+}
+]

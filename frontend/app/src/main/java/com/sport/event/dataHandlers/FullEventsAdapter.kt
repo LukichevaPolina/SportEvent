@@ -1,4 +1,4 @@
-package com.sport.event.retrofit
+package com.sport.event.dataHandlers
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
