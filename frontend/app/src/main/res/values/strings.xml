@@ -4,7 +4,6 @@
     <string name="splash">SportEvent</string>
     <string name="address">Enter address</string>
     <string name="welcome">Welcome</string>
-
     <string name="btn">Find</string>
     <string name="onb1_contentDescription">A training girl on green background</string>
     <string name="onb2_contentDescription">Football</string>
@@ -78,5 +77,4 @@
     <string name="to">До</string>
     <string name="Apply">Применить</string>
     <string name="sport">_________________________</string>
-
 </resources>

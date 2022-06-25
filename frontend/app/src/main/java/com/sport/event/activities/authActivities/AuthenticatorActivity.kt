@@ -31,6 +31,7 @@ class AuthenticatorActivity : AccountAuthenticatorAppCompatActivity() {
     private var mAuthTokenType: String? = null
     private lateinit var buttonBack: ImageButton
 
+
     //Called when the activity is first created.
     public override fun onCreate(icicle: Bundle?) {
         super.onCreate(icicle)

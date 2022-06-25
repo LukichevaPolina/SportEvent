@@ -52,6 +52,7 @@
             app:layout_constraintTop_toBottomOf="@id/settings_layout"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/adapter_calendar" />
@@ -120,10 +121,9 @@
     </RelativeLayout>
 
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container"
-        android:layout_centerInParent="true"
-    />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
