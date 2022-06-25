@@ -76,8 +76,8 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
     private var selectedEndHour:Int = hour
     private var selectedEndMinute: Int = minute
     private var selectedSport: Int = 1
-    private var selectedLatitude: Double = .1
-    private var selectedLongitude: Double = .1
+    private var selectedLatitude: Double = 56.326797
+    private var selectedLongitude: Double = 44.006516
     private var selectedAddress: String = "пл. Минина и Пожарского, 1"
 
     private var sports = ArrayList<String>()
@@ -472,7 +472,8 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
                 val position = marker.getPosition()
                 selectedLatitude = position.latitude
                 selectedLongitude = position.longitude
-                val addr = geocoder.getFromLocation(selectedLatitude, selectedLongitude, 1).get(0).getAddressLine(0).split(",")
+                val addres = geocoder.getFromLocation(selectedLatitude, selectedLongitude, 1)
+                val addr = addres.get(0).getAddressLine(0).split(",")
                 selectedAddress = addr[0]+ ", " + addr[1]
             }
 

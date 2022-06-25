@@ -64,4 +64,7 @@ interface IUserApi {
 
     @GET("sports/")
     fun getSports(): Call<ArrayList<Sport>>
+
+    @GET("grounds/")
+    fun getGrounds(@Header("Authorization") token: String): Call<ArrayList<Ground>>
 }
