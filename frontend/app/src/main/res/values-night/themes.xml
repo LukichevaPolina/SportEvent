@@ -3,11 +3,11 @@
     <style name="Theme.SportEvent" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/AppleGreen_600</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/AppleGreen_500</item>
         <item name="colorOnPrimary">@color/Base_900</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/Orange_900</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/Orange_800</item>
         <item name="colorOnSecondary">@color/Base_900</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

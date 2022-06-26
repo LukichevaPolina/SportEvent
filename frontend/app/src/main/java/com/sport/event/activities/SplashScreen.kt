@@ -7,9 +7,8 @@ import android.accounts.AccountManager
 import android.annotation.SuppressLint
 import com.sport.event.R
 import com.sport.event.accountManager.AccountManagerHelper
-import com.sport.event.activities.onboardings.Onbording1
-import com.sport.event.activities.onboardings.OnBoardingActivity
-import com.sport.event.activities.*
+import com.sport.event.activities.onboardings.Onboarding1
+import com.sport.event.activities.onboardings.Onbording1Fragment
 import com.sport.event.retrofit.APIApp
 import com.sport.event.retrofit.models.Sport
 import retrofit2.Call
@@ -34,7 +33,7 @@ class SplashScreen : AppCompatActivity() {
         checkNetworkConnection()
         // launch the onboarding screen if it is the first launch of the app
         if (isFirstLaunch()) {
-            val intent = Intent(this, Onbording1::class.java)
+            val intent = Intent(this, Onboarding1::class.java)
             startActivity(intent)
             finish()
         }
