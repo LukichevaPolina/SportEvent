@@ -23,14 +23,24 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import com.sport.event.R
 import com.sport.event.dataHandlers.CalendarAdapter
+import com.sport.event.dataHandlers.EventsViewModel
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.sport.event.retrofit.models.Event
+import kotlin.collections.ArrayList
+import androidx.lifecycle.Observer
+import com.google.android.gms.maps.model.*
+import android.graphics.*
+import android.graphics.Bitmap
+import android.widget.FrameLayout
+import androidx.core.view.drawToBitmap
+import com.sport.event.dataHandlers.GroundViewModel
+import com.sport.event.dataHandlers.MarkerHelper
+import com.sport.event.retrofit.models.Ground
+
 
 class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.FragmentCommunicator {
     private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
@@ -55,6 +65,25 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
     private var address : EditText? = null
     private lateinit var button: ImageButton
     private var marker: Marker? = null
+    private lateinit var accountManager: AccountManager
+    lateinit var selectedDayRequest: String
+
+    private var eventMarkers: ArrayList<Marker?> = arrayListOf()
+
+    private val eventsViewModel: EventsViewModel by lazy {
+        ViewModelProvider(this).get(EventsViewModel::class.java)
+    }
+
+    private val groundsViewModel: GroundViewModel by lazy {
+        ViewModelProvider(this).get(GroundViewModel::class.java)
+    }
+
+    private lateinit var markerHelper: MarkerHelper
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRetainInstance(false)
+    }
 
 
     //creates the view for the fragment
@@ -62,15 +91,43 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        date = sdf.format(cal.time)
+        selectedDayRequest = sdf.format(cal.time)
 
         val view: View = inflater.inflate(R.layout.fragment_map, container, false)
+        println("VIEW:" + view)
+
         button = view.findViewById(R.id.icon_search)
         address = view.findViewById(R.id.address)
 
         calendarRecyclerView = view.findViewById(R.id.calendar_recycler_view)
-
         setUpCalendar()
+
+        eventsViewModel.eventList.observe(viewLifecycleOwner, {
+            markerHelper.clearEventMarkers()
+            if (it.size != 0) {
+                for (i in 0..it.size - 1) {
+                    markerHelper.createEventMarker(view, it[i].latitude,
+                                                   it[i].longitude,
+                                                   it[i].sport,
+                                                   it[i].start_time,
+                                                   it[i].end_time)
+                }
+            }
+        })
+
+        groundsViewModel.groundsList.observe(viewLifecycleOwner, Observer<ArrayList<Ground>> {
+            if (it.size != 0) {
+                for (i in 0..it.size - 1) {
+                    markerHelper.createGroundMarker(view, it[i].latitude,
+                                                    it[i].longitude,
+                                                    it[i].name)
+                }
+            }
+        })
+
+        accountManager = AccountManager.get(context)
+        eventsViewModel.getEventsDate(selectedDayRequest, accountManager)
+        groundsViewModel.getGrounds(accountManager)
 
         var latitude: Double
         var longitude: Double
@@ -84,7 +141,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
         button.setOnClickListener {
             val geocoder = Geocoder(context, Locale.getDefault())
             val address1: String = address?.text.toString()
-            var addresses: List<Address> = emptyList()
+            val addresses: List<Address>
             try {
                 addresses = geocoder.getFromLocationName(address1, 1)
                 if (!addresses.isEmpty()) {
@@ -127,20 +184,22 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
+        mMap.setMapStyle(context?.let { MapStyleOptions.loadRawResourceStyle(it, R.raw.style_json) })
         val nn = LatLng(56.326797,44.006516)
         marker = mMap.addMarker(MarkerOptions().position(nn))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(nn, 12F))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(nn, 15F))
 
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+
+        markerHelper = MarkerHelper(mMap, context)
     }
 
-    //method for creating new instances of the fragment, a factory method
-    companion object {
-        fun newInstance(): MapFragment {
-            return MapFragment()
-        }
-    }
+//    //method for creating new instances of the fragment, a factory method
+//    companion object {
+//        fun newInstance(): MapFragment {
+//            return MapFragment()
+//        }
+//    }
 
     private fun setUpCalendar(changeMonth: Calendar? = null) {
 
@@ -167,16 +226,15 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
                 val clickCalendar = Calendar.getInstance()
                 clickCalendar.time = dates[position]
                 selectedDay = clickCalendar[Calendar.DAY_OF_MONTH]
-                val selectedDayRequest = sdf.format(dates[position])
-                println(selectedDayRequest)
-//                viewModel.getEventsDate(selectedDayRequest, accountManager)
-//                eventsRecyclerView.scrollToPosition(0)
+                selectedDayRequest = sdf.format(dates[position])
+                eventsViewModel.getEventsDate(selectedDayRequest, accountManager)
             }
         })
     }
 
+
     override fun fragmentDetached() {
-        println("Close fragment")
+        eventsViewModel.getEventsDate(selectedDayRequest, accountManager)
     }
 
     private fun my_location() {

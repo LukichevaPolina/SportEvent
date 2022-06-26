@@ -47,8 +47,8 @@ class EventSchedule(generics.ListAPIView):
         for the currently authenticated user.
         """
         date = self.request.query_params.get('date')
-        owner_filter = Event.objects.filter(owner=self.request.user, date = self.request.query_params.get('date'))
-        members_filter = Event.objects.filter(members=self.request.user, date = self.request.query_params.get('date'))
+        owner_filter = Event.objects.filter(owner=self.request.user, date = date)
+        members_filter = Event.objects.filter(members=self.request.user, date = date)
 
         return owner_filter | members_filter
 
@@ -120,9 +120,15 @@ class EventDate(generics.ListCreateAPIView):
 
     def get_queryset(self):
         date = self.request.query_params.get('date')
+        today = datetime.now()
+
         if date:
-            self.queryset = Event.objects.filter(date=date)
-            return self.queryset
+            if date == today:
+                self.queryset = Event.objects.filter(date=date, start_time__gte = today.time())
+                return self.queryset
+            else:
+                self.queryset = Event.objects.filter(date=date)
+                return self.queryset
         else:
             return self.queryset
 

@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.sport.event.R
 import com.sport.event.dataHandlers.EventsViewModel
-import com.sport.event.retrofit.FullEventsAdapter
+import com.sport.event.dataHandlers.FullEventsAdapter
 
 class VisitedEventsFragment(isVisitedFragment: Boolean) : Fragment() {
     val isVisitedF = isVisitedFragment

@@ -12,8 +12,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('sports', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
             name='Event',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date', models.DateField(validators=[django.core.validators.MinValueValidator(datetime.date(2022, 6, 25)), django.core.validators.MaxValueValidator(datetime.date(2022, 7, 25))])),
+                ('date', models.DateField(validators=[django.core.validators.MinValueValidator(datetime.date(2022, 6, 24)), django.core.validators.MaxValueValidator(datetime.date(2022, 7, 24))])),
                 ('start_time', models.TimeField()),
                 ('end_time', models.TimeField()),
                 ('person_number', models.IntegerField(default=5, validators=[django.core.validators.MinValueValidator(0), django.core.validators.MaxValueValidator(15)])),

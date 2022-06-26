@@ -13,7 +13,7 @@ import android.accounts.AccountManagerFuture
 import com.sport.event.accountManager.AccountManagerHelper
 
 
-class EventsViewModel() : ViewModel(){
+class EventsViewModel : ViewModel(){
     val eventList = MutableLiveData<ArrayList<Event>>()
 
 
