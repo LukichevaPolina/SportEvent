@@ -12,7 +12,6 @@
 
     <uses-permission
         android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
     <!--access to internet-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -79,13 +78,13 @@
             android:name=".activities.authActivities.AuthenticatorActivity"
             android:exported="true" />
         <activity
-            android:name=".activities.onboardings.Onbording3"
+            android:name=".activities.onboardings.Onboarding3"
             android:exported="true" />
         <activity
-            android:name=".activities.onboardings.Onbording2"
+            android:name=".activities.onboardings.Onboarding2"
             android:exported="true" />
         <activity
-            android:name=".activities.onboardings.Onbording1"
+            android:name=".activities.onboardings.Onboarding1"
             android:exported="true" />
         <activity
             android:name=".activities.SplashScreen"
@@ -109,7 +108,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDFQ8HKVNs_Zyc1EbjereRKDxGHcRTYEhY" />
+            android:value="AIzaSyA7gjSXm3Zlr0LBOGXZdwWjuF5YrGNPHnI" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

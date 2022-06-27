@@ -274,7 +274,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/events_num"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -285,7 +285,7 @@
                     android:padding="10dp"
                     style="@style/Text_Body2_14pt"
                     android:textColor="@color/Base_400"
-                    />
+                    /> -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -314,7 +314,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/my_events_num"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -325,7 +325,7 @@
                     android:padding="10dp"
                     style="@style/Text_Body2_14pt"
                     android:textColor="@color/Base_400"
-                    />
+                    />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -382,7 +382,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/grounds_num"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -393,7 +393,7 @@
                     android:padding="10dp"
                     style="@style/Text_Body2_14pt"
                     android:textColor="@color/Base_400"
-                    />
+                    />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -423,7 +423,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     />
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/my_grounds_num"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -434,7 +434,7 @@
                     android:padding="10dp"
                     style="@style/Text_Body2_14pt"
                     android:textColor="@color/Base_400"
-                    />
+                    />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

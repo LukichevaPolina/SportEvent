@@ -70,11 +70,29 @@
     <string name="busy">Занят</string>
     <string name="looking_for_company">Ищу компанию</string>
     <string name="in_way">Уже в пути</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="Username">Ник</string>
+    <string name="settings">Настройки</string>
+    <string name="search_settings">Поиск настроек</string>
+    <string name="confid">Конфиденциальность</string>
+    <string name="security_and_login">Безопасность и вход</string>
+    <string name="history">История посещений</string>
+    <string name="sound">Звук</string>
+    <string name="vibrate">Вибрация</string>
+    <string name="push">Push-уведомления</string>
+    <string name="sms_text">SMS-уведомления</string>
+    <string name="dark_mode">Тёмная тема</string>
+    <string name="language">Язык</string>
+    <string name="delete_account">Удалить аккаунт</string>
     <string name="Filters">Фильтры</string>
     <string name="_2_free_seats">2. Укажие количество свободных мест</string>
     <string name="scince">От</string>
     <string name="from">От</string>
     <string name="to">До</string>
     <string name="Apply">Применить</string>
-    <string name="sport">_________________________</string>
+    <string name="check_email">Подтверждение почты</string>
+    <string name="check_email_text">Проверьте, пожалуйста, свой почтовый ящик. Следуйте инструкции в письме для активации аккаунта. Письмо могло попасть в папку “Спам”.</string>
+    <string name="ok">OK</string>
+
+
 </resources>

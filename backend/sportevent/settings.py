@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-lzx=%r!1yq0p+=(i&!#v9thj=jd%9n7_h$2nut-#t%q*x3cl+l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.32.108.92', '127.0.0.1', '192.168.0.10', '172.20.10.3', '192.168.0.13', '192.168.1.6', '192.168.26.57', '192.168.0.102', '172.20.10.4', '192.168.151.57']
+
+ALLOWED_HOSTS = ['10.32.108.92', '127.0.0.1', '172.20.10.2', '192.168.0.13', '192.168.1.6', '192.168.26.57', '192.168.0.102', '172.20.10.4', '192.168.151.57' , '192.168.1.5', '192.168.0.100']
 
 # Override the default user model
 AUTH_USER_MODEL = 'accounts.User'
@@ -155,7 +156,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'c0ursework@yandex.ru'
-EMAIL_HOST_PASSWORD = 'taojsiadbvjezbax'
+EMAIL_HOST_PASSWORD = 'waybpkcuylggvklk'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

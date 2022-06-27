@@ -6,7 +6,7 @@ from grounds.serializers import GroundSerializer
 class GroundList(generics.ListCreateAPIView):
     queryset = Ground.objects.all()
     serializer_class = GroundSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save()

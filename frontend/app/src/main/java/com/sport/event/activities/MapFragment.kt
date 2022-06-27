@@ -1,8 +1,7 @@
 package com.sport.event.activities
 
-import android.R.attr
-import android.accounts.AccountManager
-import android.content.Context
+import android.Manifest
+import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -13,8 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -173,6 +172,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
             childFragmentManager.beginTransaction().replace(R.id.container, CreateEventFragment(), "CREATE_EVENT_TAG").commit()
         }
 
+
         //filter button -> filter fragment
         val filterButton: ImageButton = view.findViewById(R.id.filters_button)
         filterButton.setOnClickListener {
@@ -237,5 +237,21 @@ class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.Fragment
         eventsViewModel.getEventsDate(selectedDayRequest, accountManager)
     }
 
+    private fun my_location() {
 
+    }
+
+    private fun getLocationPermission() {
+        /*if (this.context?.let {
+                ContextCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+            == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        }*/
+    }
 }

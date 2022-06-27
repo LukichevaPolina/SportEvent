@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sport.event.R
 import com.sport.event.activities.StartScreen
 
-class Onbording1 : AppCompatActivity() {
+class Onboarding1 : AppCompatActivity() {
 
     private lateinit var buttonNext: Button
     private lateinit var buttonSkip: Button
@@ -20,7 +20,7 @@ class Onbording1 : AppCompatActivity() {
         buttonNext = findViewById(R.id.btnNext)
         buttonSkip = findViewById(R.id.btnSkip)
         buttonNext.setOnClickListener {
-            val intent = Intent(this, Onbording2::class.java)
+            val intent = Intent(this, Onboarding2::class.java)
             startActivity(intent)
             finish()
         }
