@@ -28,8 +28,7 @@ SECRET_KEY = 'django-insecure-lzx=%r!1yq0p+=(i&!#v9thj=jd%9n7_h$2nut-#t%q*x3cl+l
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['10.32.108.92', '127.0.0.1', '172.20.10.2', '192.168.0.13', '192.168.1.6', '192.168.26.57', '192.168.0.102', '172.20.10.4', '192.168.151.57' , '192.168.1.5', '192.168.0.100']
-
+ALLOWED_HOSTS = ['192.168.0.13']
 # Override the default user model
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -44,6 +43,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
+
+    'oauth2_provider',
+    'social_django',
+    'drf_social_oauth2',
+
     'djoser',
     'accounts',
     'events',
@@ -74,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -139,9 +145,14 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'error',
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'drf_social_oauth2.authentication.SocialAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 
     'TIME_FORMAT': ('%H:%M'),
@@ -156,7 +167,22 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'c0ursework@yandex.ru'
-EMAIL_HOST_PASSWORD = 'waybpkcuylggvklk'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+AUTHENTICATION_BACKENDS = {
+    # VK OAuth2
+    'social_core.backends.vk.VKOAuth2',
+    # drf-social-oauth2
+    'drf_social_oauth2.backends.DjangoOAuth2',
+    # Django
+    'django.contrib.auth.backends.ModelBackend'
+}
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+
+ACTIVATE_JWT = True
+DRFSO2_URL_NAMESPACE = "drf"

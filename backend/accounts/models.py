@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
     """
     use_in_migrations = True
 
-    def create_user(self, username, email, password=None, name=None, surname=None, birthday=None, country=None, locality=None, favorite_sports=None):
+    def create_user(self, username, email, password=None, name='', surname='', birthday=None, country='', locality='', favorite_sports=None):
         if username is None:
             raise TypeError('User should have a username')
         if email is None:
@@ -22,7 +22,7 @@ class UserManager(BaseUserManager):
         
         user = self.model(username=username,
                           email=self.normalize_email(email),
-                          name=name,
+                          name=username,
                           surname=surname,
                           birthday=birthday,
                           country=country,
