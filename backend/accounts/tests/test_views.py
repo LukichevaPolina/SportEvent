@@ -3,7 +3,7 @@ from ..models import User
 import copy
 
 class TestViews(TestSetUp):
-    def test_uesr_register_correct_data(self):
+    def test_ueser_register_correct_data(self):
         res = self.client.post(
             self.register_url, self.user_data, format="json")
         self.assertEqual(res.json()['email'], self.user_data['email'])
@@ -57,9 +57,8 @@ class TestViews(TestSetUp):
         res = self.client.post(
             self.login_url, self.user_data, format="json")
         access_token = res.json()['tokens']['access']
-        id =  str(res.json()['id'])
+        id = str(res.json()['id'])
         res = self.client.get(self.users+id+"/", format="json", HTTP_AUTHORIZATION='Bearer {}'.format(access_token))
-                
         self.assertEqual(res.json()['email'], self.user_data['email'])
         self.assertEqual(res.json()['username'], self.user_data['username'])
         self.assertEqual(res.json()['name'], self.user_data['name'])
@@ -76,6 +75,7 @@ class TestViews(TestSetUp):
             self.login_url, self.user_data, format="json")
         access_token = res.json()['tokens']['access']
         res = self.client.get(self.users, format="json", HTTP_AUTHORIZATION='Bearer {}'.format(access_token))
+
         user1 = dict(res.data[0])
         user2 = dict(res.data[1])
         
