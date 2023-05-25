@@ -426,7 +426,7 @@ class CreateEventFragment : Fragment(), OnMapReadyCallback {
             Toast.makeText(context, "Время начала должно быть раньше времени окончания!", Toast.LENGTH_LONG).show()
             return
         }
-        val date = "2022-" + String.format("%02d", selectedMonth + 1) + "-" + String.format("%02d",selectedDay)
+        val date = "2023-" + String.format("%02d", selectedMonth + 1) + "-" + String.format("%02d",selectedDay)
         val startTime = selectedStartHour.toString() + ":" + selectedStartMinute
         val endTime = selectedEndHour.toString() + ":" + selectedEndMinute
         val freeSeats = personNumber

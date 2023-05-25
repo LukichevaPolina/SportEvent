@@ -1,0 +1,15 @@
+http://77.91.85.191 {
+  bind {$ADDRESS}
+  proxy / web:8000
+  tls your_email
+}
+
+yourdomain/static/ {
+  root /PROJECT_NAME/staticfiles/
+  tls your_email
+}
+
+yourdomain/media/ {
+  root /PROJECT_NAME/media/
+  tls your_email
+}

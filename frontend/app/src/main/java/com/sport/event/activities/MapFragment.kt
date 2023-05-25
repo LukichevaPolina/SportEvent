@@ -40,6 +40,8 @@ import androidx.core.view.drawToBitmap
 import com.sport.event.dataHandlers.GroundViewModel
 import com.sport.event.dataHandlers.MarkerHelper
 import com.sport.event.retrofit.models.Ground
+import android.accounts.AccountManager
+import androidx.lifecycle.ViewModelProvider
 
 
 class MapFragment : Fragment(), OnMapReadyCallback, CreateEventFragment.FragmentCommunicator {
