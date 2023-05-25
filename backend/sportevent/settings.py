@@ -27,8 +27,8 @@ SECRET_KEY = 'django-insecure-lzx=%r!1yq0p+=(i&!#v9thj=jd%9n7_h$2nut-#t%q*x3cl+l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.13', '172.20.10.3']
+
 # Override the default user model
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -145,6 +145,7 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'error',
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
