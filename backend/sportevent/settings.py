@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-lzx=%r!1yq0p+=(i&!#v9thj=jd%9n7_h$2nut-#t%q*x3cl+l
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['192.168.0.13', '127.0.0.1', '77.91.85.191']
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.0.13', '172.20.10.3']
 # Override the default user model
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -93,13 +93,9 @@ WSGI_APPLICATION = 'sportevent.wsgi.application'
 
 DATABASES={
    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'se',                      
-        'USER': 'database_user',
-        'PASSWORD': 'pshenokek16',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': 'sportevent.db',
+   }
 }
 
 
@@ -149,7 +145,6 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'error',
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
@@ -172,7 +167,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'c0ursework@yandex.ru'
-EMAIL_HOST_PASSWORD = 'waybpkcuylggvklk'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -186,7 +181,8 @@ AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend'
 }
 
-SOCIAL_AUTH_VK_OAUTH2_KEY = 'yy2SA9zCWxD9hYWRzqTL'
-SOCIAL_AUTH_VK_OAUTH2_SECRET = '24130577241305772413057743270147bd224132413057747d5e41a435b3efa7d3a8e9a'
+SOCIAL_AUTH_VK_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_VK_OAUTH2_KEY')
+SOCIAL_AUTH_VK_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_VK_OAUTH2_SECRET')
+
 ACTIVATE_JWT = True
 DRFSO2_URL_NAMESPACE = "drf"

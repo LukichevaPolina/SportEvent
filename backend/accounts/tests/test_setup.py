@@ -21,6 +21,8 @@ class TestSetUp(APITestCase):
             'locality': 'locality'
         }
 
+
+
         self.new_user_data = {
             'name': 'newName',
         }

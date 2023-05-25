@@ -1,0 +1,53 @@
+# docker-compose.yaml
+
+version: '3.9'
+services:
+
+  django:
+      build: ./sportevent
+      command: bash -c "gunicorn --bind 0.0.0.0:8000 sportevent.wsgi"
+      volumes:
+      - ./sportevent:/sportevent
+      - static:/sportevent/staticfiles
+      - media:/sportevent/media
+      environment:
+      - DATABASE_URL=postgresql://django:django
+     
+      expose:
+        - 8000
+      
+
+  postgres:
+      build: ./postgres
+      restart: unless-stopped
+      expose:
+        - "5432"
+      environment:   # will be used by the init script
+        LC_ALL: C.UTF-8
+        POSTGRES_USER: user_name
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: your_database
+      volumes:
+        - pgdata:/var/lib/postgresql/data/  
+
+  caddy:
+    image: abiosoft/caddy
+    depends_on:
+    - "web"
+    restart: always
+    environment:
+      ACME_AGREE: "true"
+    ports:
+    - "80:80"
+    - "443:443"
+    volumes:
+    - ./Caddyfile:/etc/Caddyfile
+    - caddy_certs:/root/.caddy
+    - media:/PROJECT_NAME/media
+    - static:/PROJECT_NAME/staticfiles
+
+volumes:
+  pgdata:
+  media:
+  static:
+  caddy_certs:

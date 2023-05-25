@@ -19,12 +19,10 @@ class UserManager(BaseUserManager):
             raise TypeError('User should have a username')
         if email is None:
             raise TypeError('User should have a email')
-        if not name:
-            name = surname
-
+        
         user = self.model(username=username,
                           email=self.normalize_email(email),
-                          name=name,
+                          name=username,
                           surname=surname,
                           birthday=birthday,
                           country=country,
